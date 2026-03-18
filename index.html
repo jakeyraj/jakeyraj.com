@@ -821,7 +821,9 @@
             </div>
             <div class="contact-form-card">
                 <h3>Send a Message</h3>
-                <form id="contactForm" onsubmit="handleSubmit(event)">
+                <form id="contactForm" action="https://formspree.io/f/xkoqkydz" method="POST" onsubmit="handleSubmit(event)">
+                    <input type="hidden" name="_subject" value="New message from your portfolio website!">
+<input type="hidden" name="_replyto" value="jakeyraj@live.com">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="fname">Your Name</label>
@@ -959,16 +961,15 @@
     document.querySelectorAll('.timeline-item, .skill-category').forEach(el => observer.observe(el));
 
     // CONTACT FORM
-    function handleSubmit(e) {
-        e.preventDefault();
-        const btn = e.target.querySelector('button[type="submit"]');
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right:0.5rem"></i>Sending...';
-        btn.disabled = true;
-        setTimeout(() => {
-            document.getElementById('contactForm').style.display = 'none';
-            document.getElementById('form-success').style.display = 'block';
-        }, 1500);
-    }
+ function handleSubmit(e) {
+    const btn = e.target.querySelector('button[type="submit"]');
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right:0.5rem"></i>Sending...';
+    btn.disabled = true;
+    setTimeout(() => {
+        document.getElementById('contactForm').style.display = 'none';
+        document.getElementById('form-success').style.display = 'block';
+    }, 1500);
+}
 
     // ACTIVE NAV HIGHLIGHT
     const allSections = document.querySelectorAll('section[id], div[id]');
