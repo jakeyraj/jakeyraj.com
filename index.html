@@ -243,7 +243,7 @@
             color: var(--text-muted); font-size: 0.88rem; line-height: 1.6;
             display: flex; gap: 0.75rem;
         }
-        .timeline-bullets li::before { content: '►'; color: var(--primary); flex-shrink: 0; margin-top: 0.1rem; font-size: 0.6rem; margin-top: 0.25rem; }
+        .timeline-bullets li::before { content: '►'; color: var(--primary); flex-shrink: 0; font-size: 0.6rem; margin-top: 0.25rem; }
         .timeline-multi-role {
             background: rgba(0,212,255,0.04); border: 1px solid rgba(0,212,255,0.12);
             border-radius: 10px; padding: 1rem; margin-bottom: 1rem;
@@ -522,6 +522,8 @@
                             <li>Prepare and review cost variance reports to identify key drivers and improvement opportunities.</li>
                             <li>Maintain and reconcile inventory and production cost accounts in SAP for monthly closing.</li>
                             <li>Support budgeting, forecasting, and month-end close processes.</li>
+                            <li>Collaborate with operations and finance teams to improve cost control and efficiency.</li>
+                            <li>Ensure compliance with corporate accounting policies and support audit requirements.</li>
                         </ul>
                     </div>
                     <div class="timeline-multi-role">
@@ -555,6 +557,8 @@
                         <li>Responsible for monthly closing, financial statements preparation, financial analysis, and KPI monitoring.</li>
                         <li>Managed accounts receivable, including invoicing, payment tracking, and account balancing.</li>
                         <li>Performed internal audit assignments across different operations, departments, and processes.</li>
+                        <li>Assisted external audits by providing requested information and clear explanations.</li>
+                        <li>Processed vendor bills and payments in SAP ensuring all bills were checked, categorized, and paid on time.</li>
                         <li>Contributed to the sustainability reporting financial segment at PARCO.</li>
                     </ul>
                 </div>
@@ -595,6 +599,7 @@
                         <li>Conducted forensic auditing using customized tools and client interviews to identify discrepancies.</li>
                         <li>Reviewed client financial statements ensuring compliance with accounting standards.</li>
                         <li>Evaluated internal controls, identified risk areas, and recommended improvements.</li>
+                        <li>Prepared working papers and gathered audit evidence through substantive audit procedures.</li>
                     </ul>
                 </div>
             </div>
@@ -800,9 +805,9 @@
                         <div class="contact-item-icon"><i class="fas fa-envelope"></i></div>
                         <div class="contact-item-text"><h4>Email</h4><p>jakeyraj@live.com</p></div>
                     </a>
-                    <a class="contact-item" href="https://linkedin.com/in/jakeyraj/in/jakeyraj" target="_blank">
+                    <a class="contact-item" href="https://linkedin.com/in/jakeyraj" target="_blank">
                         <div class="contact-item-icon"><i class="fab fa-linkedin-in"></i></div>
-                        <div class="contact-item-text"><h4>LinkedIn</h4><p>Connect with me</p></div>
+                        <div class="contact-item-text"><h4>LinkedIn</h4><p>linkedin.com/in/jakeyraj</p></div>
                     </a>
                     <a class="contact-item" href="https://github.com/jakeyraj" target="_blank">
                         <div class="contact-item-icon"><i class="fab fa-github"></i></div>
@@ -814,7 +819,7 @@
                     </div>
                     <div class="social-links">
                         <a href="https://github.com/jakeyraj" class="social-btn" target="_blank"><i class="fab fa-github"></i></a>
-                        <a href="https://linkedin.com/in/jakeyraj/in/jakeyraj" class="social-btn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://linkedin.com/in/jakeyraj" class="social-btn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                         <a href="mailto:jakeyraj@live.com" class="social-btn"><i class="fas fa-envelope"></i></a>
                     </div>
                 </div>
@@ -823,24 +828,24 @@
                 <h3>Send a Message</h3>
                 <form id="contactForm" action="https://formspree.io/f/xkoqkydz" method="POST" onsubmit="handleSubmit(event)">
                     <input type="hidden" name="_subject" value="New message from your portfolio website!">
-<input type="hidden" name="_replyto" value="jakeyraj@live.com">
+                    <input type="hidden" name="_replyto" value="jakeyraj@live.com">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="fname">Your Name</label>
-                            <input type="text" id="fname" placeholder="John Doe" required>
+                            <input type="text" id="fname" name="name" placeholder="John Doe" required>
                         </div>
                         <div class="form-group">
                             <label for="femail">Your Email</label>
-                            <input type="email" id="femail" placeholder="john@example.com" required>
+                            <input type="email" id="femail" name="email" placeholder="john@example.com" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="fsubject">Subject</label>
-                        <input type="text" id="fsubject" placeholder="Job Opportunity / Collaboration..." required>
+                        <input type="text" id="fsubject" name="subject" placeholder="Job Opportunity / Collaboration..." required>
                     </div>
                     <div class="form-group">
                         <label for="fmessage">Message</label>
-                        <textarea id="fmessage" placeholder="Tell me about the opportunity..." required></textarea>
+                        <textarea id="fmessage" name="message" placeholder="Tell me about the opportunity..." required></textarea>
                     </div>
                     <button type="submit" class="btn-primary" style="width:100%;text-align:center;display:block">
                         <i class="fas fa-paper-plane" style="margin-right:0.5rem"></i>Send Message
@@ -885,9 +890,7 @@
     }
 
     class Particle {
-        constructor() {
-            this.reset();
-        }
+        constructor() { this.reset(); }
         reset() {
             this.x = Math.random() * canvas.width;
             this.y = Math.random() * canvas.height;
@@ -946,7 +949,7 @@
     animate();
     window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
 
-    // INTERSECTION OBSERVER — timeline & skills
+    // INTERSECTION OBSERVER
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -960,16 +963,16 @@
 
     document.querySelectorAll('.timeline-item, .skill-category').forEach(el => observer.observe(el));
 
-    // CONTACT FORM
- function handleSubmit(e) {
-    const btn = e.target.querySelector('button[type="submit"]');
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right:0.5rem"></i>Sending...';
-    btn.disabled = true;
-    setTimeout(() => {
-        document.getElementById('contactForm').style.display = 'none';
-        document.getElementById('form-success').style.display = 'block';
-    }, 1500);
-}
+    // CONTACT FORM — Formspree integrated
+    function handleSubmit(e) {
+        const btn = e.target.querySelector('button[type="submit"]');
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right:0.5rem"></i>Sending...';
+        btn.disabled = true;
+        setTimeout(() => {
+            document.getElementById('contactForm').style.display = 'none';
+            document.getElementById('form-success').style.display = 'block';
+        }, 1500);
+    }
 
     // ACTIVE NAV HIGHLIGHT
     const allSections = document.querySelectorAll('section[id], div[id]');
