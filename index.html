@@ -1,26 +1,1051 @@
-<nav>
-    <ul>
-        <li>Leadership</li>
-        <li>Videos</li>
-        <li>Contact</li>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jakey Raj Rajpal | Accounting, Audit & Finance Professional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #00d4ff;
+            --secondary: #7c3aed;
+            --bg: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-card2: #1a1a2e;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border: #2a2a3e;
+            --gradient: linear-gradient(135deg, #00d4ff, #7c3aed);
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+
+        /* NAV */
+        nav {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            padding: 1rem 2rem; display: flex; justify-content: space-between;
+            align-items: center; transition: all 0.3s ease;
+        }
+        nav.scrolled {
+            background: rgba(10,10,15,0.95); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border); padding: 0.75rem 2rem;
+        }
+        .nav-logo {
+            font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700;
+            background: var(--gradient); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .nav-links { display: flex; list-style: none; gap: 2rem; }
+        .nav-links a {
+            color: var(--text-muted); text-decoration: none; font-size: 0.9rem;
+            font-weight: 500; transition: color 0.3s; position: relative;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 2px; background: var(--gradient); transition: width 0.3s;
+        }
+        .nav-links a:hover { color: var(--primary); }
+        .nav-links a:hover::after { width: 100%; }
+        .hamburger {
+            display: none; flex-direction: column; gap: 5px;
+            cursor: pointer; background: none; border: none;
+        }
+        .hamburger span { width: 25px; height: 2px; background: var(--text); transition: all 0.3s; }
+
+        /* HERO */
+        #hero {
+            min-height: 100vh; display: flex; align-items: center;
+            position: relative; overflow: hidden; padding: 0 2rem;
+        }
+        #hero-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .hero-content {
+            position: relative; z-index: 1; max-width: 1200px;
+            margin: 0 auto; width: 100%; padding: 6rem 0;
+            display: grid; grid-template-columns: 1fr auto; gap: 4rem; align-items: center;
+        }
+        .hero-text { display: flex; flex-direction: column; }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3);
+            border-radius: 50px; padding: 0.5rem 1rem; font-size: 0.85rem;
+            color: var(--primary); margin-bottom: 1.5rem;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        .hero-badge span {
+            width: 8px; height: 8px; background: var(--primary);
+            border-radius: 50%; animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%,100% { opacity:1; transform:scale(1); }
+            50% { opacity:0.5; transform:scale(1.3); }
+        }
+        .hero-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3rem, 8vw, 6rem); font-weight: 900;
+            line-height: 1.05; margin-bottom: 1rem;
+            animation: fadeInUp 0.7s ease 0.1s both;
+        }
+        .hero-name span {
+            background: var(--gradient); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .hero-tagline {
+            font-size: clamp(1rem, 2.5vw, 1.4rem); color: var(--text-muted);
+            margin-bottom: 2rem; animation: fadeInUp 0.7s ease 0.2s both;
+        }
+        .hero-tagline strong { color: var(--text); }
+        .hero-description {
+            font-size: 1rem; color: var(--text-muted); max-width: 600px;
+            line-height: 1.8; margin-bottom: 2.5rem;
+            animation: fadeInUp 0.7s ease 0.3s both;
+        }
+        .hero-ctas {
+            display: flex; gap: 1rem; flex-wrap: wrap;
+            animation: fadeInUp 0.7s ease 0.4s both;
+        }
+        .btn-primary {
+            background: var(--gradient); color: white; padding: 0.9rem 2rem;
+            border-radius: 8px; text-decoration: none; font-weight: 600;
+            font-size: 0.95rem; transition: all 0.3s; border: none; cursor: pointer;
+            box-shadow: 0 0 30px rgba(0,212,255,0.3);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(0,212,255,0.5); }
+        .btn-secondary {
+            background: transparent; color: var(--text); padding: 0.9rem 2rem;
+            border-radius: 8px; text-decoration: none; font-weight: 600;
+            font-size: 0.95rem; transition: all 0.3s; border: 1px solid var(--border);
+        }
+        .btn-secondary:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
+        .hero-stats {
+            display: flex; gap: 3rem; margin-top: 4rem; flex-wrap: wrap;
+            animation: fadeInUp 0.7s ease 0.5s both;
+        }
+        .hero-stat h3 {
+            font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 800;
+            background: var(--gradient); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .hero-stat p { color: var(--text-muted); font-size: 0.85rem; margin-top: 0.25rem; }
+        .scroll-indicator {
+            position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+            display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+            color: var(--text-muted); font-size: 0.75rem; animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%,100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        /* HERO PHOTO */
+        .hero-photo-container {
+            position: relative; z-index: 1;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .hero-photo-ring {
+            width: 320px; height: 320px; border-radius: 50%;
+            padding: 4px; background: var(--gradient);
+            box-shadow: 0 0 60px rgba(0,212,255,0.3);
+            animation: fadeInUp 0.8s ease 0.3s both; flex-shrink: 0;
+        }
+        .hero-photo {
+            width: 100%; height: 100%; border-radius: 50%;
+            object-fit: cover; object-position: center top;
+            border: 4px solid var(--bg);
+        }
+
+        /* SECTIONS */
+        section { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
+        .full-section {
+            background: var(--bg-card); border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .full-section .inner { max-width: 1200px; margin: 0 auto; padding: 6rem 2rem; }
+        .section-tag {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            color: var(--primary); font-size: 0.8rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem;
+        }
+        .section-tag::before { content: ''; width: 2rem; height: 2px; background: var(--gradient); }
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            color: var(--text-muted); font-size: 1.05rem; max-width: 600px;
+            line-height: 1.8; margin-bottom: 4rem;
+        }
+
+        /* ABOUT */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .about-image-container { position: relative; }
+        .about-image-box {
+            width: 100%; aspect-ratio: 1; border-radius: 20px;
+            background: var(--bg-card2); border: 1px solid var(--border);
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; position: relative; overflow: hidden;
+        }
+        .about-image-box::before {
+            content: ''; position: absolute; inset: 0;
+            background: var(--gradient); opacity: 0.05;
+        }
+        .about-image-box .initials {
+            font-family: 'Space Grotesk', sans-serif; font-size: 5rem; font-weight: 800;
+            background: var(--gradient); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; background-clip: text; z-index: 1;
+        }
+        .about-image-box .subtitle-tag { font-size: 0.85rem; color: var(--text-muted); z-index: 1; margin-top: 0.5rem; }
+        .floating-badge {
+            position: absolute; background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 12px; padding: 0.75rem 1rem; display: flex; align-items: center;
+            gap: 0.5rem; font-size: 0.8rem; font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .floating-badge.top-right { top: -1rem; right: -1rem; color: var(--primary); }
+        .floating-badge.bottom-left { bottom: -1rem; left: -1rem; color: #a78bfa; }
+        .about-info h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; color: var(--primary); }
+        .about-info p { color: var(--text-muted); line-height: 1.9; margin-bottom: 1.5rem; }
+        .about-highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+        .highlight-item {
+            display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem;
+            background: var(--bg-card); border-radius: 8px; border: 1px solid var(--border);
+            font-size: 0.85rem; color: var(--text-muted);
+        }
+        .highlight-item i { color: var(--primary); width: 16px; }
+
+        /* TIMELINE */
+        .timeline { position: relative; padding-left: 2rem; }
+        .timeline::before {
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+            width: 2px; background: linear-gradient(to bottom, var(--primary), var(--secondary), transparent);
+        }
+        .timeline-item {
+            position: relative; margin-bottom: 3rem; padding-left: 2rem;
+            opacity: 0; transform: translateX(-20px); transition: all 0.6s ease;
+        }
+        .timeline-item.visible { opacity: 1; transform: translateX(0); }
+        .timeline-dot {
+            position: absolute; left: -2.45rem; top: 0.5rem;
+            width: 14px; height: 14px; border-radius: 50%;
+            background: var(--gradient); border: 3px solid var(--bg-card);
+            box-shadow: 0 0 15px rgba(0,212,255,0.5);
+        }
+        .timeline-card {
+            background: var(--bg); border: 1px solid var(--border);
+            border-radius: 16px; padding: 1.75rem; transition: all 0.3s;
+        }
+        .timeline-card:hover {
+            border-color: rgba(0,212,255,0.3);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3); transform: translateY(-3px);
+        }
+        .timeline-header {
+            display: flex; justify-content: space-between; align-items: flex-start;
+            margin-bottom: 0.5rem; flex-wrap: wrap; gap: 1rem;
+        }
+        .timeline-company { font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; font-weight: 700; }
+        .timeline-period {
+            background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.2);
+            border-radius: 50px; padding: 0.25rem 0.75rem; font-size: 0.75rem;
+            color: var(--primary); white-space: nowrap;
+        }
+        .timeline-role { color: var(--primary); font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .timeline-location {
+            color: var(--text-muted); font-size: 0.8rem; margin-bottom: 1rem;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .timeline-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+        .timeline-bullets li {
+            color: var(--text-muted); font-size: 0.88rem; line-height: 1.6;
+            display: flex; gap: 0.75rem;
+        }
+        .timeline-bullets li::before { content: '►'; color: var(--primary); flex-shrink: 0; font-size: 0.6rem; margin-top: 0.25rem; }
+        .timeline-multi-role {
+            background: rgba(0,212,255,0.04); border: 1px solid rgba(0,212,255,0.12);
+            border-radius: 10px; padding: 1rem; margin-bottom: 1rem;
+        }
+        .timeline-multi-role:last-child { margin-bottom: 0; }
+        .role-header {
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;
+        }
+
+        /* SKILLS */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .skill-category {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 16px; padding: 2rem; transition: all 0.3s;
+            opacity: 0; transform: translateY(20px);
+        }
+        .skill-category.visible { opacity: 1; transform: translateY(0); }
+        .skill-category:hover { border-color: rgba(0,212,255,0.3); }
+        .skill-cat-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; }
+        .skill-cat-icon {
+            width: 42px; height: 42px; border-radius: 10px;
+            background: rgba(0,212,255,0.1); display: flex; align-items: center;
+            justify-content: center; color: var(--primary); font-size: 1.1rem;
+        }
+        .skill-cat-title { font-weight: 700; font-size: 1rem; }
+        .skill-item { margin-bottom: 1.2rem; }
+        .skill-item-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.85rem; }
+        .skill-item-header span:first-child { color: var(--text-muted); }
+        .skill-item-header span:last-child { color: var(--primary); font-weight: 600; }
+        .skill-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+        .skill-fill { height: 100%; background: var(--gradient); border-radius: 3px; width: 0; transition: width 1.2s ease; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .skill-tag {
+            background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.15);
+            border-radius: 6px; padding: 0.35rem 0.75rem; font-size: 0.78rem;
+            color: var(--text-muted); transition: all 0.3s;
+        }
+        .skill-tag:hover { background: rgba(0,212,255,0.15); color: var(--primary); border-color: rgba(0,212,255,0.4); }
+
+        /* EDUCATION */
+        .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .edu-card {
+            background: var(--bg); border: 1px solid var(--border);
+            border-radius: 16px; padding: 2rem; transition: all 0.3s;
+            position: relative; overflow: hidden;
+        }
+        .edu-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0;
+            height: 3px; background: var(--gradient);
+        }
+        .edu-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+        .edu-icon {
+            width: 50px; height: 50px; border-radius: 12px;
+            background: rgba(0,212,255,0.1); display: flex; align-items: center;
+            justify-content: center; color: var(--primary); font-size: 1.3rem; margin-bottom: 1.25rem;
+        }
+        .edu-degree { font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; }
+        .edu-institution { color: var(--primary); font-size: 0.85rem; font-weight: 500; margin-bottom: 0.25rem; }
+        .edu-location-date { color: var(--text-muted); font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
+        .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+        .cert-badge {
+            background: rgba(124,58,237,0.1); border: 1px solid rgba(124,58,237,0.2);
+            border-radius: 10px; padding: 0.75rem 1rem; font-size: 0.82rem;
+            color: #a78bfa; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s;
+        }
+        .cert-badge:hover { background: rgba(124,58,237,0.2); transform: translateY(-2px); }
+
+        /* LEADERSHIP */
+        .leadership-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+        .leadership-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 16px; padding: 1.5rem; transition: all 0.3s;
+        }
+        .leadership-card:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-3px); }
+        .leadership-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+        .leadership-card h4 { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.4rem; }
+        .leadership-card p { color: var(--text-muted); font-size: 0.82rem; line-height: 1.6; }
+
+        /* LANGUAGES */
+        .lang-grid { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
+        .lang-badge {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 50px; padding: 0.6rem 1.25rem; font-size: 0.85rem;
+            display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s;
+        }
+        .lang-badge:hover { border-color: var(--primary); color: var(--primary); }
+        .lang-level {
+            font-size: 0.7rem; background: rgba(0,212,255,0.1);
+            color: var(--primary); padding: 0.15rem 0.5rem; border-radius: 50px;
+        }
+
+        /* CONTACT */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: start; }
+        .contact-info-card {
+            background: var(--bg); border: 1px solid var(--border);
+            border-radius: 16px; padding: 2rem;
+        }
+        .contact-info-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; }
+        .contact-item {
+            display: flex; align-items: center; gap: 1rem; padding: 1rem;
+            border-radius: 10px; transition: background 0.3s; text-decoration: none;
+            color: inherit; margin-bottom: 0.5rem;
+        }
+        .contact-item:hover { background: rgba(0,212,255,0.05); }
+        .contact-item-icon {
+            width: 42px; height: 42px; border-radius: 10px;
+            background: rgba(0,212,255,0.1); display: flex; align-items: center;
+            justify-content: center; color: var(--primary); font-size: 1rem; flex-shrink: 0;
+        }
+        .contact-item-text h4 { font-size: 0.85rem; font-weight: 600; }
+        .contact-item-text p { color: var(--text-muted); font-size: 0.8rem; }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-btn {
+            width: 46px; height: 46px; border-radius: 10px; border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-muted); text-decoration: none; transition: all 0.3s; font-size: 1.1rem;
+        }
+        .social-btn:hover { border-color: var(--primary); color: var(--primary); background: rgba(0,212,255,0.05); transform: translateY(-3px); }
+        .contact-form-card {
+            background: var(--bg); border: 1px solid var(--border);
+            border-radius: 16px; padding: 2rem;
+        }
+        .contact-form-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; }
+        .form-group { margin-bottom: 1.25rem; }
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); margin-bottom: 0.5rem; }
+        .form-group input, .form-group textarea {
+            width: 100%; background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 8px; padding: 0.9rem 1rem; color: var(--text);
+            font-size: 0.9rem; font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s; outline: none;
+        }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); }
+        .form-group textarea { resize: vertical; min-height: 120px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+        /* FOOTER */
+        footer {
+            text-align: center; padding: 2rem; color: var(--text-muted);
+            font-size: 0.85rem; border-top: 1px solid var(--border);
+        }
+        footer span { color: var(--primary); }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .hero-content { grid-template-columns: 1fr !important; text-align: center; }
+            .hero-photo-container { order: -1; }
+            .hero-photo-ring { width: 200px; height: 200px; }
+            .hero-ctas { justify-content: center; }
+            .hero-stats { justify-content: center; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-links.open {
+                display: flex; flex-direction: column; position: fixed;
+                top: 0; left: 0; right: 0; bottom: 0; background: var(--bg);
+                justify-content: center; align-items: center; gap: 2rem;
+                font-size: 1.2rem; z-index: 999;
+            }
+            .hamburger { display: flex; z-index: 1001; }
+            .about-grid { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .hero-stats { gap: 2rem; }
+            .about-highlights { grid-template-columns: 1fr; }
+            .floating-badge { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+    <div class="nav-logo">JRR</div>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#hero" onclick="closeNav()">Home</a></li>
+        <li><a href="#about" onclick="closeNav()">About</a></li>
+        <li><a href="#experience" onclick="closeNav()">Experience</a></li>
+        <li><a href="#skills" onclick="closeNav()">Skills</a></li>
+        <li><a href="#education" onclick="closeNav()">Education</a></li>
+        <li><a href="#leadership" onclick="closeNav()">Leadership</a></li>
+        <li><a href="#contact" onclick="closeNav()">Contact</a></li>
     </ul>
+    <button class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
 </nav>
 
-<section id="videos">
-    <h2>Videos</h2>
-    <div class="video-card">
-        <a href="https://www.linkedin.com/posts/jakeyraj_esg-sustainability-accounting-activity-7399296702622601216-cTas?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAA4PD8wBqc4lhc0wVTQLhQULeZ1Z_eR2knQ">
-            <img src="thumbnail.jpg" alt="ESG: The New Language of Business" />
-            <p>ESG: The New Language of Business (and Why Accountants Should Care)</p>
-        </a>
+<!-- HERO -->
+<section id="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-content">
+        <div class="hero-text">
+            <div class="hero-badge">
+                <span> </span> Knowledge is Power
+            </div>
+            <h1 class="hero-name">Jakey Raj<br><span>Rajpal</span></h1>
+            <p class="hero-tagline">
+                <strong>Certified Accountant</strong> Data Enthusiast <strong>Problem Solver</strong>
+            </p>
+            <p class="hero-description">
+                ACCA Certified (CPA Equivalent) | MS Accounting (STEM), University of Washington | 12+ Years in Finance, Audit & Data Analytics. Transforming complex financial data into clear, actionable insights.
+            </p>
+            <div class="hero-ctas">
+                <a href="#contact" class="btn-primary"><i class="fas fa-envelope" style="margin-right:0.5rem"></i>Get In Touch</a>
+                <a href="#experience" class="btn-secondary"><i class="fas fa-briefcase" style="margin-right:0.5rem"></i>View Experience</a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat"><h3>12+</h3><p>Years of Experience</p></div>
+                <div class="hero-stat"><h3>5+</h3><p>Certifications</p></div>
+                <div class="hero-stat"><h3>6</h3><p>Languages Spoken</p></div>
+                <div class="hero-stat"><h3>2+</h3><p>Countries Worked In</p></div>
+            </div>
+        </div>
+        <div class="hero-photo-container">
+            <div class="hero-photo-ring">
+                <img src="profile.jpg" alt="Jakey Raj Rajpal" class="hero-photo">
+            </div>
+        </div>
+    </div>
+    <div class="scroll-indicator">
+        <span>Scroll</span>
+        <i class="fas fa-chevron-down"></i>
     </div>
 </section>
 
-<style>
-#videos {
-    /* Your existing section styles */
-}
-.video-card {
-    /* Styles for video cards */
-}
-</style>
+<!-- ABOUT -->
+<section id="about">
+    <div class="section-tag">About Me</div>
+    <h2 class="section-title">Finance Professional<br>with a Data Edge</h2>
+    <p class="section-subtitle">Over a decade of experience spanning public accounting, oil & gas, and manufacturing — combining financial precision with analytical power.</p>
+    <div class="about-grid">
+        <div class="about-image-container">
+            <div class="about-image-box">
+                <div class="initials">JRR</div>
+                <div class="subtitle-tag">Tacoma, WA</div>
+            </div>
+            <div class="floating-badge top-right">
+                <i class="fas fa-certificate"></i><span>ACCA Certified</span>
+            </div>
+            <div class="floating-badge bottom-left">
+                <i class="fas fa-graduation-cap"></i><span>MS Accounting, UW</span>
+            </div>
+        </div>
+        <div class="about-info">
+            <h3>Who I Am</h3>
+            <p>I am a finance, audit and accounting professional with an ACCA certification (CPA equivalent) and a Master of Science in Accounting (STEM) from the University of Washington. My career spans audit supervision, senior accounting analysis, and cost accounting roles across the US and internationally.</p>
+            <p>Passionate about leveraging data analytics tools like Power BI, Tableau, and Alteryx to turn raw financial data into strategic insights. Currently preparing for the CPA exam, having fulfilled the 150-credit requirement.</p>
+            <div class="about-highlights">
+                <div class="highlight-item"><i class="fas fa-map-marker-alt"></i> Tacoma, WA 98402</div>
+                <div class="highlight-item"><i class="fas fa-check-circle"></i> Authorised to Work in the US</div>
+                <div class="highlight-item"><i class="fas fa-building"></i> SAP S/4HANA Expert</div>
+                <div class="highlight-item"><i class="fas fa-chart-bar"></i> Power BI & Excel</div>
+                <div class="highlight-item"><i class="fas fa-file-invoice-dollar"></i> GAAP & IFRS Standards</div>
+                <div class="highlight-item"><i class="fas fa-user-tie"></i> CPA Exam Candidate</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- EXPERIENCE -->
+<div class="full-section" id="experience">
+    <div class="inner">
+        <div class="section-tag">Career Journey</div>
+        <h2 class="section-title">Work Experience</h2>
+        <p class="section-subtitle">10+ years of progressive roles across manufacturing, oil & gas, and public accounting firms.</p>
+        <div class="timeline">
+
+            <!-- Stella-Jones -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <div class="timeline-header">
+                        <div class="timeline-company">Stella-Jones Corporation</div>
+                    </div>
+                    <div class="timeline-location"><i class="fas fa-industry"></i> Timber, Wood & Lumber Manufacturers &bull; WA, US</div>
+                    <div class="timeline-multi-role">
+                        <div class="role-header">
+                            <div class="timeline-role"><i class="fas fa-chart-line" style="margin-right:0.4rem"></i>Cost Accountant</div>
+                            <div class="timeline-period">Oct 2025 – Present</div>
+                        </div>
+                        <ul class="timeline-bullets">
+                            <li>Perform actual costing and cost analysis in SAP to ensure accurate product and inventory valuation.</li>
+                            <li>Analyze manufacturing, material, and overhead costs to support profitability and decision-making.</li>
+                            <li>Prepare and review cost variance reports to identify key drivers and improvement opportunities.</li>
+                            <li>Maintain and reconcile inventory and production cost accounts in SAP for monthly closing.</li>
+                            <li>Support budgeting, forecasting, and month-end close processes.</li>
+                            <li>Collaborate with operations and finance teams to improve cost control and efficiency.</li>
+                            <li>Ensure compliance with corporate accounting policies and support audit requirements.</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-multi-role">
+                        <div class="role-header">
+                            <div class="timeline-role"><i class="fas fa-balance-scale" style="margin-right:0.4rem"></i>GL Accountant</div>
+                            <div class="timeline-period">Aug 2024 – Sep 2025</div>
+                        </div>
+                        <ul class="timeline-bullets">
+                            <li>Reviewed financial statements and analyzed the trial balance using SAP S/4 HANA and Power BI dashboards.</li>
+                            <li>Managed monthly general ledger reconciliations, ensuring accuracy and compliance.</li>
+                            <li>Posted journal entries for accruals, deferrals, reclassifications, and period-closing corrections.</li>
+                            <li>Monitored open POs and GRIR accounts to validate payments and clearing documents.</li>
+                            <li>Assisted with internal and external audits, preparing documentation and responding to inquiries.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PARCO -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <div class="timeline-header">
+                        <div class="timeline-company">PARCO</div>
+                        <div class="timeline-period">Apr 2018 – Feb 2024</div>
+                    </div>
+                    <div class="timeline-location"><i class="fas fa-oil-can"></i> Oil & Gas Sector &bull; Karachi, Pakistan</div>
+                    <div class="timeline-role"><i class="fas fa-user-tie" style="margin-right:0.4rem"></i>Senior Accounting Analyst</div>
+                    <ul class="timeline-bullets">
+                        <li>Managed day-to-day financial transactions in SAP and maintained accurate financial records.</li>
+                        <li>Responsible for monthly closing, financial statements preparation, financial analysis, and KPI monitoring.</li>
+                        <li>Managed accounts receivable, including invoicing, payment tracking, and account balancing.</li>
+                        <li>Performed internal audit assignments across different operations, departments, and processes.</li>
+                        <li>Assisted external audits by providing requested information and clear explanations.</li>
+                        <li>Processed vendor bills and payments in SAP ensuring all bills were checked, categorized, and paid on time.</li>
+                        <li>Contributed to the sustainability reporting financial segment at PARCO.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- BDO -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <div class="timeline-header">
+                        <div class="timeline-company">BDO</div>
+                        <div class="timeline-period">Aug 2016 – Mar 2018</div>
+                    </div>
+                    <div class="timeline-location"><i class="fas fa-landmark"></i> Public Accounting Firm &bull; Karachi, Pakistan</div>
+                    <div class="timeline-role"><i class="fas fa-search-dollar" style="margin-right:0.4rem"></i>Audit Supervisor</div>
+                    <ul class="timeline-bullets">
+                        <li>Performed analytical procedures and test of details on balance sheet and income statement accounts.</li>
+                        <li>Conducted internal control walkthroughs to assess design and operational effectiveness.</li>
+                        <li>Executed risk assessments for significant accounts as per audit plans.</li>
+                        <li>Reviewed financial statements for compliance with IFRS and GAAP standards.</li>
+                        <li>Prepared audit reports and documented findings for audit conclusions.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Abbas -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <div class="timeline-header">
+                        <div class="timeline-company">Abbas Karjatwala & Co. (CPA Firm)</div>
+                        <div class="timeline-period">Mar 2014 – Feb 2016</div>
+                    </div>
+                    <div class="timeline-location"><i class="fas fa-landmark"></i> Public Accounting Firm &bull; Karachi, Pakistan</div>
+                    <div class="timeline-role"><i class="fas fa-user-check" style="margin-right:0.4rem"></i>Audit Senior</div>
+                    <ul class="timeline-bullets">
+                        <li>Supervised audit teams and acted as job in-charge for multiple audit assignments.</li>
+                        <li>Conducted forensic auditing using customized tools and client interviews to identify discrepancies.</li>
+                        <li>Reviewed client financial statements ensuring compliance with accounting standards.</li>
+                        <li>Evaluated internal controls, identified risk areas, and recommended improvements.</li>
+                        <li>Prepared working papers and gathered audit evidence through substantive audit procedures.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+    <div class="section-tag">Expertise</div>
+    <h2 class="section-title">Skills & Technologies</h2>
+    <p class="section-subtitle">A comprehensive toolkit spanning financial reporting, ERP systems, data analytics, and business intelligence.</p>
+    <div class="skills-grid">
+        <div class="skill-category">
+            <div class="skill-cat-header">
+                <div class="skill-cat-icon"><i class="fas fa-database"></i></div>
+                <div class="skill-cat-title">ERP & Accounting Software</div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-item-header"><span>SAP S/4 HANA</span><span>95%</span></div>
+                <div class="skill-bar"><div class="skill-fill" data-width="95"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-item-header"><span>QuickBooks</span><span>90%</span></div>
+                <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-item-header"><span>Tally ERP</span><span>85%</span></div>
+                <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+            </div>
+        </div>
+        <div class="skill-category">
+            <div class="skill-cat-header">
+                <div class="skill-cat-icon"><i class="fas fa-chart-bar"></i></div>
+                <div class="skill-cat-title">Data Analytics & BI</div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-item-header"><span>Power BI</span><span>90%</span></div>
+                <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-item-header"><span>MS Excel (Advanced)</span><span>95%</span></div>
+                <div class="skill-bar"><div class="skill-fill" data-width="95"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-item-header"><span>Tableau</span><span>85%</span></div>
+                <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-item-header"><span>Alteryx</span><span>80%</span></div>
+                <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+            </div>
+        </div>
+        <div class="skill-category">
+            <div class="skill-cat-header">
+                <div class="skill-cat-icon"><i class="fas fa-file-contract"></i></div>
+                <div class="skill-cat-title">Financial Reporting</div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-item-header"><span>GAAP</span><span>95%</span></div>
+                <div class="skill-bar"><div class="skill-fill" data-width="95"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-item-header"><span>IFRS</span><span>92%</span></div>
+                <div class="skill-bar"><div class="skill-fill" data-width="92"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-item-header"><span>Financial Analysis & KPIs</span><span>90%</span></div>
+                <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
+            </div>
+        </div>
+        <div class="skill-category">
+            <div class="skill-cat-header">
+                <div class="skill-cat-icon"><i class="fas fa-tools"></i></div>
+                <div class="skill-cat-title">Core Competencies</div>
+            </div>
+            <div class="skill-tags">
+                <span class="skill-tag">Auditing</span>
+                <span class="skill-tag">Cost Analysis</span>
+                <span class="skill-tag">Budgeting</span>
+                <span class="skill-tag">Forecasting</span>
+                <span class="skill-tag">Internal Controls</span>
+                <span class="skill-tag">Forensic Audit</span>
+                <span class="skill-tag">GL Reconciliation</span>
+                <span class="skill-tag">Month-End Close</span>
+                <span class="skill-tag">KPI Monitoring</span>
+                <span class="skill-tag">Accounts Receivable</span>
+                <span class="skill-tag">Journal Entries</span>
+                <span class="skill-tag">Variance Analysis</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- EDUCATION -->
+<div class="full-section" id="education">
+    <div class="inner">
+        <div class="section-tag">Academic Background</div>
+        <h2 class="section-title">Education</h2>
+        <p class="section-subtitle">Strong academic foundation combined with prestigious professional certifications.</p>
+        <div class="edu-grid">
+            <div class="edu-card">
+                <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
+                <div class="edu-degree">Master of Science in Accounting (STEM)</div>
+                <div class="edu-institution">University of Washington, Tacoma</div>
+                <div class="edu-location-date"><i class="fas fa-map-marker-alt"></i> Tacoma, WA &bull; March 2025</div>
+            </div>
+            <div class="edu-card">
+                <div class="edu-icon"><i class="fas fa-certificate"></i></div>
+                <div class="edu-degree">ACCA — CPA Equivalent</div>
+                <div class="edu-institution">Association of Chartered Certified Accountants (UK)</div>
+                <div class="edu-location-date"><i class="fas fa-map-marker-alt"></i> London, England &bull; March 2016</div>
+            </div>
+            <div class="edu-card">
+                <div class="edu-icon"><i class="fas fa-university"></i></div>
+                <div class="edu-degree">Bachelor of Commerce</div>
+                <div class="edu-institution">Shah Abdul Latif University Khairpur</div>
+                <div class="edu-location-date"><i class="fas fa-map-marker-alt"></i> Pakistan &bull; December 2010</div>
+            </div>
+        </div>
+        <div style="margin-top:3rem">
+            <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.3rem;margin-bottom:1rem;">Other Certifications</h3>
+            <div class="cert-grid">
+                <div class="cert-badge"><i class="fas fa-check"></i> QuickBooks Certified</div>
+                <div class="cert-badge"><i class="fas fa-check"></i> Alteryx Certified</div>
+                <div class="cert-badge"><i class="fas fa-check"></i> SAP FICO</div>
+                <div class="cert-badge"><i class="fas fa-check"></i> Six Sigma</div>
+                <div class="cert-badge"><i class="fas fa-check"></i> Excel Essentials</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- LEADERSHIP -->
+<section id="leadership">
+    <div class="section-tag">Beyond Work</div>
+    <h2 class="section-title">Leadership & Activities</h2>
+    <p class="section-subtitle">Active contributor beyond the workplace — from academic leadership to community volunteering and sports.</p>
+    <div class="leadership-grid">
+        <div class="leadership-card">
+            <div class="leadership-icon">🎓</div>
+            <h4>Accounting Tutor</h4>
+            <p>Accounting Hub Specialist at University of Washington Tacoma, supporting fellow students.</p>
+        </div>
+        <div class="leadership-card">
+            <div class="leadership-icon">📣</div>
+            <h4>Marketing Director</h4>
+            <p>Association of Indian Students, UW Tacoma Chapter — led marketing and outreach initiatives.</p>
+        </div>
+        <div class="leadership-card">
+            <div class="leadership-icon">🏛️</div>
+            <h4>Executive Board Member</h4>
+            <p>National Society of Leadership and Success (NSLS), UW Tacoma Chapter.</p>
+        </div>
+        <div class="leadership-card">
+            <div class="leadership-icon">⚖️</div>
+            <h4>Senator, Accounting Association</h4>
+            <p>Accounting Student Association (ASA), UW Tacoma — represented student interests.</p>
+        </div>
+        <div class="leadership-card">
+            <div class="leadership-icon">🌿</div>
+            <h4>Volunteer & Sustainability</h4>
+            <p>Beach cleanups, support for special needs children, and sustainability reporting contributions at PARCO.</p>
+        </div>
+        <div class="leadership-card">
+            <div class="leadership-icon">🚴</div>
+            <h4>Sports & Competitions</h4>
+            <p>Actively participates in cycling, marathons, and table tennis tournaments.</p>
+        </div>
+    </div>
+    <div style="margin-top:4rem">
+        <div class="section-tag">Communication</div>
+        <h2 class="section-title" style="font-size:1.8rem;margin-bottom:0.5rem">Languages</h2>
+        <p style="color:var(--text-muted);font-size:0.95rem">Multilingual professional able to connect across cultures.</p>
+        <div class="lang-grid">
+            <div class="lang-badge"><i class="fas fa-globe" style="color:var(--primary)"></i> English <span class="lang-level">Fluent</span></div>
+            <div class="lang-badge"><i class="fas fa-globe" style="color:var(--primary)"></i> Urdu <span class="lang-level">Fluent</span></div>
+            <div class="lang-badge"><i class="fas fa-globe" style="color:var(--primary)"></i> Sindhi <span class="lang-level">Native</span></div>
+            <div class="lang-badge"><i class="fas fa-globe" style="color:var(--primary)"></i> Hindi <span class="lang-level">Fluent</span></div>
+            <div class="lang-badge"><i class="fas fa-globe" style="color:var(--primary)"></i> Punjabi <span class="lang-level">Fluent</span></div>
+            <div class="lang-badge"><i class="fas fa-globe" style="color:var(--primary)"></i> Pashto <span class="lang-level">Beginner</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<div class="full-section" id="contact" style="border-bottom:none">
+    <div class="inner">
+        <div class="section-tag">Get In Touch</div>
+        <h2 class="section-title">Let's Connect</h2>
+        <p class="section-subtitle">Looking for a finance professional who combines accounting expertise with data analytics? Let's talk!</p>
+        <div class="contact-grid">
+            <div>
+                <div class="contact-info-card">
+                    <h3>Contact Information</h3>
+                    <a class="contact-item" href="tel:2533663356">
+                        <div class="contact-item-icon"><i class="fas fa-phone"></i></div>
+                        <div class="contact-item-text"><h4>Phone</h4><p>253-366-3356</p></div>
+                    </a>
+                    <a class="contact-item" href="mailto:jakeyraj@live.com">
+                        <div class="contact-item-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="contact-item-text"><h4>Email</h4><p>jakeyraj@live.com</p></div>
+                    </a>
+                    <a class="contact-item" href="https://linkedin.com/in/jakeyraj" target="_blank">
+                        <div class="contact-item-icon"><i class="fab fa-linkedin-in"></i></div>
+                        <div class="contact-item-text"><h4>LinkedIn</h4><p>linkedin.com/in/jakeyraj</p></div>
+                    </a>
+                    <a class="contact-item" href="https://github.com/jakeyraj" target="_blank">
+                        <div class="contact-item-icon"><i class="fab fa-github"></i></div>
+                        <div class="contact-item-text"><h4>GitHub</h4><p>github.com/jakeyraj</p></div>
+                    </a>
+                    <div class="contact-item">
+                        <div class="contact-item-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="contact-item-text"><h4>Location</h4><p>Tacoma, WA 98402</p></div>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://github.com/jakeyraj" class="social-btn" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com/in/jakeyraj" class="social-btn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="mailto:jakeyraj@live.com" class="social-btn"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form-card">
+                <h3>Send a Message</h3>
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fname">Your Name</label>
+                            <input type="text" id="fname" name="name" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="femail">Your Email</label>
+                            <input type="email" id="femail" name="_replyto" placeholder="john@example.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="fsubject">Subject</label>
+                        <input type="text" id="fsubject" name="_subject" placeholder="Job Opportunity / Collaboration..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fmessage">Message</label>
+                        <textarea id="fmessage" name="message" placeholder="Tell me about the opportunity..." required></textarea>
+                    </div>
+                    <button type="submit" id="submitBtn" class="btn-primary" style="width:100%;text-align:center;display:block">
+                        <i class="fas fa-paper-plane" style="margin-right:0.5rem"></i>Send Message
+                    </button>
+                </form>
+                <div id="form-success" style="display:none;margin-top:1rem;padding:1rem;background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);border-radius:8px;color:var(--primary);text-align:center">
+                    <i class="fas fa-check-circle" style="margin-right:0.5rem"></i> Message sent! I will get back to you soon.
+                </div>
+                <div id="form-error" style="display:none;margin-top:1rem;padding:1rem;background:rgba(255,50,50,0.1);border:1px solid rgba(255,50,50,0.3);border-radius:8px;color:#ff6b6b;text-align:center">
+                    <i class="fas fa-exclamation-circle" style="margin-right:0.5rem"></i> Something went wrong. Please email me directly at jakeyraj@live.com
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <p>Designed & Built by <span>Jakey Raj Rajpal</span> &bull; Tacoma, WA &bull; <span>jakeyraj.github.io</span></p>
+    <p style="margin-top:0.5rem;font-size:0.75rem">© 2025 All rights reserved.</p>
+</footer>
+
+<script>
+    // NAV SCROLL EFFECT
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    function toggleNav() {
+        document.getElementById('navLinks').classList.toggle('open');
+    }
+    function closeNav() {
+        document.getElementById('navLinks').classList.remove('open');
+    }
+
+    // PARTICLE CANVAS
+    const canvas = document.getElementById('hero-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+    }
+
+    class Particle {
+        constructor() { this.reset(); }
+        reset() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 0.5;
+            this.speedX = (Math.random() - 0.5) * 0.5;
+            this.speedY = (Math.random() - 0.5) * 0.5;
+            this.opacity = Math.random() * 0.5 + 0.1;
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+        }
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(0,212,255,' + this.opacity + ')';
+            ctx.fill();
+        }
+    }
+
+    function initParticles() {
+        particles = [];
+        const count = Math.min(Math.floor((canvas.width * canvas.height) / 15000), 80);
+        for (let i = 0; i < count; i++) particles.push(new Particle());
+    }
+
+    function drawConnections() {
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 120) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = 'rgba(0,212,255,' + (0.1 * (1 - dist / 120)) + ')';
+                    ctx.lineWidth = 0.5;
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        drawConnections();
+        requestAnimationFrame(animate);
+    }
+
+    resizeCanvas();
+    initParticles();
+    animate();
+    window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
+
+    // INTERSECTION OBSERVER
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                entry.target.querySelectorAll('.skill-fill').forEach(fill => {
+                    fill.style.width = fill.dataset.width + '%';
+                });
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.timeline-item, .skill-category').forEach(el => observer.observe(el));
+
+    // CONTACT FORM — Formspree AJAX (no redirect, no thank you page)
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const form = e.target;
+        const btn = document.getElementById('submitBtn');
+        const successMsg = document.getElementById('form-success');
+        const errorMsg = document.getElementById('form-error');
+
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right:0.5rem"></i>Sending...';
+        btn.disabled = true;
+        successMsg.style.display = 'none';
+        errorMsg.style.display = 'none';
+
+        try {
+            const response = await fetch('https://formspree.io/f/xkoqkydz', {
+                method: 'POST',
+                body: new FormData(form),
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (response.ok) {
+                form.reset();
+                successMsg.style.display = 'block';
+                btn.innerHTML = '<i class="fas fa-paper-plane" style="margin-right:0.5rem"></i>Send Message';
+                btn.disabled = false;
+            } else {
+                errorMsg.style.display = 'block';
+                btn.innerHTML = '<i class="fas fa-paper-plane" style="margin-right:0.5rem"></i>Send Message';
+                btn.disabled = false;
+            }
+        } catch (error) {
+            errorMsg.style.display = 'block';
+            btn.innerHTML = '<i class="fas fa-paper-plane" style="margin-right:0.5rem"></i>Send Message';
+            btn.disabled = false;
+        }
+    });
+
+    // ACTIVE NAV HIGHLIGHT
+    const allSections = document.querySelectorAll('section[id], div[id]');
+    const navAnchors = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+        let current = '';
+        allSections.forEach(s => {
+            if (window.scrollY >= s.offsetTop - 200) current = s.getAttribute('id');
+        });
+        navAnchors.forEach(a => {
+            a.style.color = '';
+            if (a.getAttribute('href') === '#' + current) a.style.color = 'var(--primary)';
+        });
+    });
+</script>
+</body>
+</html>
