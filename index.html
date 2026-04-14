@@ -396,7 +396,7 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            cursor: pointer;
+            /* cursor handled by the <a> tag inside */
         }
         .video-thumb-esg {
             background: linear-gradient(135deg, #0a2a1a, #1a4a2e, #0d3320);
@@ -404,6 +404,18 @@
         .video-thumb-sixsigma {
             background: linear-gradient(135deg, #1a0a2e, #2e1a4a, #200d3a);
         }
+
+        /* ── Play-button anchor: fills the entire thumbnail area ── */
+        .video-thumb-link {
+            position: absolute;
+            inset: 0;                   /* top/right/bottom/left: 0 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            z-index: 2;                 /* sits above the decorative content */
+        }
+
         .video-thumb-overlay {
             position: absolute;
             inset: 0;
@@ -412,6 +424,8 @@
             align-items: center;
             justify-content: center;
             transition: background 0.3s;
+            /* pointer-events: none so the <a> tag receives the click */
+            pointer-events: none;
         }
         .video-card:hover .video-thumb-overlay {
             background: rgba(0,0,0,0.5);
@@ -429,6 +443,8 @@
             box-shadow: 0 0 30px rgba(0,212,255,0.5);
             transition: all 0.3s;
             padding-left: 5px;
+            /* pointer-events: none — the <a> parent handles clicks */
+            pointer-events: none;
         }
         .video-card:hover .video-play-btn {
             transform: scale(1.12);
@@ -441,6 +457,8 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            z-index: 1;
+            pointer-events: none;       /* decorative only */
         }
         .video-thumb-icon { font-size: 1.5rem; }
         .video-thumb-label {
@@ -465,6 +483,8 @@
             align-items: center;
             gap: 0.35rem;
             backdrop-filter: blur(5px);
+            z-index: 1;
+            pointer-events: none;       /* decorative only */
         }
         .video-card-body { padding: 1.5rem; }
         .video-tags {
@@ -605,7 +625,6 @@
     </style>
 </head>
 <body>
-
 <!-- NAVBAR -->
 <nav id="navbar">
     <div class="nav-logo">JRR</div>
@@ -623,7 +642,6 @@
         <span></span><span></span><span></span>
     </button>
 </nav>
-
 <!-- HERO -->
 <section id="hero">
     <canvas id="hero-canvas"></canvas>
@@ -661,7 +679,6 @@
         <i class="fas fa-chevron-down"></i>
     </div>
 </section>
-
 <!-- ABOUT -->
 <section id="about">
     <div class="section-tag">About Me</div>
@@ -695,7 +712,6 @@
         </div>
     </div>
 </section>
-
 <!-- EXPERIENCE -->
 <div class="full-section" id="experience">
     <div class="inner">
@@ -803,7 +819,6 @@
         </div>
     </div>
 </div>
-
 <!-- SKILLS -->
 <section id="skills">
     <div class="section-tag">Expertise</div>
@@ -890,7 +905,6 @@
         </div>
     </div>
 </section>
-
 <!-- EDUCATION -->
 <div class="full-section" id="education">
     <div class="inner">
@@ -929,7 +943,6 @@
         </div>
     </div>
 </div>
-
 <!-- LEADERSHIP -->
 <section id="leadership">
     <div class="section-tag">Beyond Work</div>
@@ -981,7 +994,6 @@
         </div>
     </div>
 </section>
-
 <!-- VIDEOS -->
 <div class="full-section" id="videos">
     <div class="inner">
@@ -989,22 +1001,41 @@
         <h2 class="section-title">Featured Videos</h2>
         <p class="section-subtitle">Sharing knowledge on finance, ESG, and process improvement — one insight at a time.</p>
         <div class="videos-grid">
-            <!-- Video 1: ESG -->
+
+            <!-- ═══════════════════════════════════════════════
+                 Video 1: ESG
+                 Play button (<a class="video-thumb-link">) wraps
+                 the entire overlay so clicking anywhere on the
+                 thumbnail navigates directly to the LinkedIn post.
+            ════════════════════════════════════════════════ -->
             <div class="video-card">
                 <div class="video-thumbnail video-thumb-esg">
-                    <div class="video-thumb-overlay">
-                        <div class="video-play-btn">
-                            <i class="fas fa-play"></i>
+
+                    <!-- ★ CLICKABLE PLAY BUTTON LINK ★ -->
+                    <a  class="video-thumb-link"
+                        href="https://www.linkedin.com/posts/jakeyraj_esg-sustainability-accounting-activity-7399296702622601216-cTas"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Watch ESG video on LinkedIn">
+                        <div class="video-thumb-overlay">
+                            <div class="video-play-btn">
+                                <i class="fas fa-play"></i>
+                            </div>
                         </div>
-                    </div>
+                    </a>
+
+                    <!-- Decorative bottom-left label (not clickable) -->
                     <div class="video-thumb-content">
                         <div class="video-thumb-icon">🌱</div>
                         <div class="video-thumb-label">ESG & Sustainability</div>
                     </div>
+
+                    <!-- Decorative LinkedIn badge (not clickable) -->
                     <div class="video-linkedin-badge">
                         <i class="fab fa-linkedin"></i> LinkedIn
                     </div>
                 </div>
+
                 <div class="video-card-body">
                     <div class="video-tags">
                         <span class="video-tag">ESG</span>
@@ -1014,27 +1045,44 @@
                     </div>
                     <h3 class="video-title">ESG: The New Language of Business (and Why Accountants Should Care)</h3>
                     <p class="video-desc">Breaking down what ESG really means, why investors, regulators, and customers are driving its momentum — and how it's transforming the role of accounting and finance professionals. From IFRS sustainability standards to the shift toward purpose-driven profitability.</p>
-                    <a href="https://www.linkedin.com/posts/jakeyraj_esg-sustainability-accounting-activity-7399296702622601216-cTas" target="_blank" rel="noopener noreferrer" class="video-watch-btn">
+                    <a href="https://www.linkedin.com/posts/jakeyraj_esg-sustainability-accounting-activity-7399296702622601216-cTas"
+                       target="_blank" rel="noopener noreferrer" class="video-watch-btn">
                         <i class="fab fa-linkedin"></i> Watch on LinkedIn
                     </a>
                 </div>
             </div>
-            <!-- Video 2: Six Sigma -->
+
+            <!-- ═══════════════════════════════════════════════
+                 Video 2: Six Sigma
+            ════════════════════════════════════════════════ -->
             <div class="video-card">
                 <div class="video-thumbnail video-thumb-sixsigma">
-                    <div class="video-thumb-overlay">
-                        <div class="video-play-btn">
-                            <i class="fas fa-play"></i>
+
+                    <!-- ★ CLICKABLE PLAY BUTTON LINK ★ -->
+                    <a  class="video-thumb-link"
+                        href="https://www.linkedin.com/posts/jakeyraj_sixsigma-processimprovement-leanthinking-activity-7354352889626079232-dDFI"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Watch Six Sigma video on LinkedIn">
+                        <div class="video-thumb-overlay">
+                            <div class="video-play-btn">
+                                <i class="fas fa-play"></i>
+                            </div>
                         </div>
-                    </div>
+                    </a>
+
+                    <!-- Decorative bottom-left label (not clickable) -->
                     <div class="video-thumb-content">
                         <div class="video-thumb-icon">⚙️</div>
                         <div class="video-thumb-label">Process Improvement</div>
                     </div>
+
+                    <!-- Decorative LinkedIn badge (not clickable) -->
                     <div class="video-linkedin-badge">
                         <i class="fab fa-linkedin"></i> LinkedIn
                     </div>
                 </div>
+
                 <div class="video-card-body">
                     <div class="video-tags">
                         <span class="video-tag">Six Sigma</span>
@@ -1044,12 +1092,15 @@
                     </div>
                     <h3 class="video-title">Six Sigma in Finance: Eliminating Non-Value-Added Work</h3>
                     <p class="video-desc">After completing my Six Sigma certification, I applied the DMAIC framework in our finance department — discovering we were sending reports nobody needed. By stopping them, we saved valuable hours monthly, now redirected toward strategic analysis and decision-making.</p>
-                    <a href="https://www.linkedin.com/posts/jakeyraj_sixsigma-processimprovement-leanthinking-activity-7354352889626079232-dDFI" target="_blank" rel="noopener noreferrer" class="video-watch-btn">
+                    <a href="https://www.linkedin.com/posts/jakeyraj_sixsigma-processimprovement-leanthinking-activity-7354352889626079232-dDFI"
+                       target="_blank" rel="noopener noreferrer" class="video-watch-btn">
                         <i class="fab fa-linkedin"></i> Watch on LinkedIn
                     </a>
                 </div>
             </div>
-        </div>
+
+        </div><!-- /.videos-grid -->
+
         <div class="videos-more">
             <p>Want to see more content? Follow me on LinkedIn for regular insights on finance, analytics & process improvement.</p>
             <a href="https://linkedin.com/in/jakeyraj" target="_blank" rel="noopener noreferrer" class="btn-secondary">
@@ -1058,7 +1109,6 @@
         </div>
     </div>
 </div>
-
 <!-- CONTACT -->
 <div class="full-section" id="contact" style="border-bottom:none">
     <div class="inner">
@@ -1127,13 +1177,11 @@
         </div>
     </div>
 </div>
-
 <!-- FOOTER -->
 <footer>
     <p>Designed & Built by <span>Jakey Raj Rajpal</span> &bull; Tacoma, WA &bull; <span>jakeyraj.github.io</span></p>
     <p style="margin-top:0.5rem;font-size:0.75rem">© 2025 All rights reserved.</p>
 </footer>
-
 <script>
     // NAV SCROLL EFFECT
     const navbar = document.getElementById('navbar');
@@ -1146,7 +1194,6 @@
     function closeNav() {
         document.getElementById('navLinks').classList.remove('open');
     }
-
     // PARTICLE CANVAS
     const canvas = document.getElementById('hero-canvas');
     const ctx = canvas.getContext('2d');
@@ -1210,7 +1257,6 @@
     initParticles();
     animate();
     window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
-
     // INTERSECTION OBSERVER
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -1223,7 +1269,6 @@
         });
     }, { threshold: 0.1 });
     document.querySelectorAll('.timeline-item, .skill-category, .video-card').forEach(el => observer.observe(el));
-
     // TYPING ANIMATION
     const typingPhrases = [
         'Certified Accountant',
@@ -1236,7 +1281,6 @@
     let charIndex = 0;
     let isDeleting = false;
     const typedEl = document.getElementById('typed-text');
-
     function typeEffect() {
         const phrase = typingPhrases[typingIndex];
         if (isDeleting) {
@@ -1258,7 +1302,6 @@
         setTimeout(typeEffect, speed);
     }
     typeEffect();
-
     // CONTACT FORM
     document.getElementById('contactForm').addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -1292,7 +1335,6 @@
             btn.disabled = false;
         }
     });
-
     // ACTIVE NAV HIGHLIGHT
     const allSections = document.querySelectorAll('section[id], div[id]');
     const navAnchors = document.querySelectorAll('.nav-links a');
