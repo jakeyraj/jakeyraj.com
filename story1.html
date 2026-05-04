@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Story 1 | Jakey Raj Rajpal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --primary: #00d4ff;
+      --secondary: #7c3aed;
+      --bg: #0a0a0f;
+      --bg-card: #12121a;
+      --bg-card2: #1a1a2e;
+      --text: #e2e8f0;
+      --text-muted: #94a3b8;
+      --border: #2a2a3e;
+      --gradient: linear-gradient(135deg, #00d4ff, #7c3aed);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 1000;
+      padding: 1rem 2rem; display: flex; justify-content: space-between;
+      align-items: center; transition: all 0.3s ease;
+      background: rgba(10,10,15,0.95); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700;
+      background: var(--gradient); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none;
+    }
+    .nav-links { display: flex; list-style: none; gap: 2rem; }
+    .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--primary); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+    .hamburger span { width: 25px; height: 2px; background: var(--text); transition: all 0.3s; }
+
+    /* ── Hero ── */
+    .story-hero {
+      margin-top: 70px; width: 100%; height: 55vh;
+      min-height: 320px; max-height: 600px; position: relative; overflow: hidden;
+    }
+    .story-hero img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block; }
+    .story-hero-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #0d1b2a, #1a1a2e 50%, #0a0a0f);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;
+    }
+    .story-hero-placeholder i { font-size: 4rem; color: rgba(0,212,255,0.25); }
+    .story-hero-placeholder p { color: var(--text-muted); font-size: 0.9rem; }
+    .story-hero-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 60%;
+      background: linear-gradient(to top, var(--bg) 0%, transparent 100%); pointer-events: none;
+    }
+
+    /* ── Breadcrumb ── */
+    .story-breadcrumb {
+      max-width: 860px; margin: 2rem auto 0; padding: 0 2rem;
+      display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; color: var(--text-muted);
+    }
+    .story-breadcrumb a { color: var(--primary); text-decoration: none; transition: opacity 0.2s; }
+    .story-breadcrumb a:hover { opacity: 0.75; }
+    .story-breadcrumb i { font-size: 0.6rem; }
+
+    /* ── Article ── */
+    .story-article { max-width: 860px; margin: 0 auto; padding: 2.5rem 2rem 6rem; }
+    .story-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+    .story-meta-badge {
+      background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.2);
+      border-radius: 50px; padding: 0.3rem 0.85rem; font-size: 0.75rem; color: var(--primary);
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .story-heading {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.8rem, 5vw, 2.8rem); font-weight: 800; line-height: 1.2; margin-bottom: 1rem;
+      background: var(--gradient); -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .story-tagline {
+      font-size: 1.05rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 2.5rem;
+      border-left: 3px solid var(--primary); padding-left: 1rem;
+    }
+    .story-divider { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+
+    /* ── Body ── */
+    .story-body { font-size: 1.05rem; line-height: 1.95; color: var(--text-muted); }
+    .story-body p { margin-bottom: 1.5rem; }
+    .story-body p:last-child { margin-bottom: 0; }
+    .story-body h2 {
+      font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; font-weight: 700;
+      color: var(--text); margin: 2.5rem 0 1rem;
+    }
+    .story-body h3 {
+      font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; font-weight: 600;
+      color: var(--primary); margin: 2rem 0 0.75rem;
+    }
+    .story-body strong { color: var(--text); font-weight: 600; }
+    .story-body em { color: var(--primary); font-style: italic; }
+    .story-body blockquote {
+      border-left: 3px solid var(--primary); padding: 0.75rem 1.25rem; margin: 2rem 0;
+      background: rgba(0,212,255,0.04); border-radius: 0 8px 8px 0;
+      font-style: italic; color: var(--text);
+    }
+    .story-body img { width: 100%; border-radius: 12px; margin: 2rem 0; border: 1px solid var(--border); display: block; }
+
+    /* Speech CTA box */
+    .speech-cta {
+      background: linear-gradient(135deg, rgba(0,212,255,0.08), rgba(124,58,237,0.08));
+      border: 1px solid rgba(0,212,255,0.2); border-radius: 16px;
+      padding: 2rem; margin: 2.5rem 0; text-align: center;
+    }
+    .speech-cta h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem; color: var(--text); margin-bottom: 0.75rem; }
+    .speech-cta p { font-size: 0.95rem; margin-bottom: 1.25rem; }
+    .speech-cta .cta-btn {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: var(--gradient); color: #fff; text-decoration: none;
+      padding: 0.75rem 1.5rem; border-radius: 50px; font-weight: 700; font-size: 0.9rem;
+      transition: all 0.3s; box-shadow: 0 0 20px rgba(0,212,255,0.25);
+    }
+    .speech-cta .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 0 35px rgba(0,212,255,0.45); }
+    .speech-cta .ghost-link {
+      display: block; margin-top: 0.75rem; font-size: 0.82rem;
+      color: var(--text-muted); text-decoration: underline;
+    }
+    .speech-cta .ghost-link:hover { color: var(--primary); }
+
+    /* ── Story Nav ── */
+    .story-nav {
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 1rem; margin-top: 4rem; padding-top: 2rem;
+      border-top: 1px solid var(--border); flex-wrap: wrap;
+    }
+    .story-nav-btn {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px;
+      padding: 0.75rem 1.25rem; color: var(--text-muted); text-decoration: none;
+      font-size: 0.85rem; font-weight: 600; transition: all 0.3s;
+    }
+    .story-nav-btn:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
+    .story-nav-home {
+      background: var(--gradient); color: #fff; border: none; border-radius: 10px;
+      padding: 0.75rem 1.5rem; font-size: 0.85rem; font-weight: 600;
+      text-decoration: none; transition: all 0.3s; box-shadow: 0 0 20px rgba(0,212,255,0.2);
+    }
+    .story-nav-home:hover { transform: translateY(-2px); box-shadow: 0 0 35px rgba(0,212,255,0.4); }
+
+    /* ── Footer ── */
+    footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border); }
+    footer span { color: var(--primary); }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex; flex-direction: column; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+        background: var(--bg); justify-content: center; align-items: center; gap: 2rem; font-size: 1.2rem; z-index: 999;
+      }
+      .hamburger { display: flex; z-index: 1001; }
+      .story-hero { height: 40vh; }
+      .story-nav { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <a href="index.html" class="nav-logo">JRR</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#hero" onclick="closeNav()">Home</a></li>
+      <li><a href="index.html#about" onclick="closeNav()">About</a></li>
+      <li><a href="index.html#experience" onclick="closeNav()">Experience</a></li>
+      <li><a href="index.html#skills" onclick="closeNav()">Skills</a></li>
+      <li><a href="index.html#education" onclick="closeNav()">Education</a></li>
+      <li><a href="index.html#leadership" onclick="closeNav()">Leadership</a></li>
+      <li><a href="index.html#stories" onclick="closeNav()">Stories</a></li>
+      <li><a href="index.html#videos" onclick="closeNav()">Videos</a></li>
+      <li><a href="index.html#contact" onclick="closeNav()">Contact</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO IMAGE -->
+  <div class="story-hero">
+    <img src="story1.jpg" alt="Jakey Raj Rajpal delivering the commencement speech at UWT Hooding Ceremony"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+    <div class="story-hero-placeholder" style="display:none;">
+      <i class="fas fa-image"></i>
+      <p>story1.jpg — hero image</p>
+    </div>
+    <div class="story-hero-overlay"></div>
+  </div>
+
+  <!-- BREADCRUMB -->
+  <div class="story-breadcrumb">
+    <a href="index.html">Home</a>
+    <i class="fas fa-chevron-right"></i>
+    <a href="index.html#stories">Stories</a>
+    <i class="fas fa-chevron-right"></i>
+    <span>The Leap That Changed Everything</span>
+  </div>
+
+  <!-- STORY ARTICLE -->
+  <article class="story-article">
+
+    <!-- Meta badges -->
+    <div class="story-meta">
+      <span class="story-meta-badge"><i class="fas fa-calendar-alt"></i> May 2025</span>
+      <span class="story-meta-badge"><i class="fas fa-tag"></i> Career &amp; Life</span>
+      <span class="story-meta-badge"><i class="fas fa-clock"></i> 6 min read</span>
+    </div>
+
+    <h1 class="story-heading">The Leap That Changed Everything</h1>
+
+    <p class="story-tagline">
+      From auditor to BDO Senior Supervisor — then a bold resignation, a transatlantic move, a Master's degree, and a moment at the podium that made it all worthwhile.
+    </p>
+
+    <hr class="story-divider">
+
+    <!-- STORY BODY -->
+    <div class="story-body">
+
+      <p>
+        There's a moment in every person's life when the comfortable path and the right path split in two directions — and you have to decide, with everything you've worked for on the line, which one you're going to take.
+      </p>
+      <p>
+        For me, that moment came after years of building a career I was proud of, when I chose to walk away from it all and start over on the other side of the world.
+      </p>
+
+      <h2>Building a Career, One Step at a Time</h2>
+
+      <p>
+        I didn't start at the top. I started as an <strong>auditor</strong> — learning the craft from the ground up, developing an eye for detail, building the discipline that the profession demands. It was the kind of work that teaches you to trust the numbers and question everything else.
+      </p>
+      <p>
+        From there, I joined <strong>BDO</strong>, one of the world's leading professional services firms. What began as an audit role grew into something more. Through hard work and consistency, I earned a promotion to <strong>Senior Supervisor of Audit</strong> — a role that put me in charge of engagements, teams, and client relationships that genuinely mattered. I was good at it, and I knew it.
+      </p>
+      <p>
+        Then came a move into industry — taking my audit expertise from the firm environment into a large corporate setting. A different pace, a different kind of challenge. And it confirmed something I had been quietly sensing for a while.
+      </p>
+
+      <blockquote>
+        "The question wasn't whether I could keep climbing the ladder I was on. I could. The question was whether that ladder was leaning against the right wall."
+      </blockquote>
+
+      <h2>The Decision</h2>
+
+      <p>
+        I had been thinking about graduate school for a long time — not as an escape, but as an investment. A Master's degree. A chance to deepen my knowledge, expand my perspective, and position myself for a different kind of career. And if I was going to do it, I was going to do it properly: <strong>University of Washington Tacoma</strong>, in the United States.
+      </p>
+      <p>
+        So I resigned. Packed up the life I had built. And flew toward the unknown.
+      </p>
+
+      <h2>Arriving</h2>
+
+      <p>
+        Nothing quite prepares you for the particular loneliness of arriving somewhere new with big dreams and no map. Tacoma in the fall is beautiful in a grey, atmospheric way — the kind of sky that seems to ask you what you're doing here.
+      </p>
+      <p>
+        UWT was everything I had hoped for and harder than I'd imagined. The coursework was rigorous. The expectations were high. And I was doing it in a second language, in a new academic culture, while working to support myself. There were nights I doubted everything — the decision, the move, myself.
+      </p>
+      <p>
+        <em>But I kept going.</em>
+      </p>
+
+      <h2>The Grind</h2>
+
+      <p>
+        Graduate school doesn't break you all at once. It chips away — the paper due the same week as the exam, the group project falling apart at midnight, the homesickness that hits hardest when you're too tired to fight it off.
+      </p>
+      <p>
+        What got me through was <strong>purpose</strong>. Every hard night had a reason. Every sacrifice had a shape. I leaned into every opportunity. I asked questions. I stayed after class. Slowly, Tacoma stopped feeling like a foreign city and started feeling like mine.
+      </p>
+      <p>Semester by semester, paper by paper, I made it through.</p>
+
+      <h2>The Phone Call</h2>
+
+      <p>
+        I was in the middle of a regular week when I got the news that I had been selected to speak at commencement — not just to walk across the stage with my classmates, but to stand at the podium and speak <em>on behalf of all of them.</em>
+      </p>
+      <p>
+        I had to read the message twice. Then I sat down. This was the entire arc of the last several years — the auditor who had worked his way up through the ranks, crossed an ocean on a bet, and come out the other side — now being asked to represent everyone who had walked their own hard road to get here.
+      </p>
+      <p>I started writing my speech.</p>
+
+      <h2>Standing at the Podium</h2>
+
+      <p>
+        Commencement day was everything you'd imagine and nothing like you'd expect. When they called my name, I walked to the microphone.
+      </p>
+      <p>
+        I looked out at the audience — at all the faces that represented every sacrifice, every late night, every moment of doubt that had somehow transformed into this — and I felt something I can only describe as <em>complete.</em>
+      </p>
+      <p>
+        I spoke about the leap. I spoke about what it means to leave the familiar in pursuit of the possible. When I finished, the room applauded, and I walked back to my seat.
+      </p>
+
+      <h2>What Came Next</h2>
+
+      <p>
+        After graduating, I put my skills to work at <strong>Stella Jones Corporation</strong> as an <strong>Accountant</strong> — applying everything I had studied while continuing to grow in a fast-moving corporate environment.
+      </p>
+      <p>
+        And then, the next leap: I relocated to <strong>New Mexico</strong>, where I now serve as a <strong>Senior Auditor at SJT Group LLC</strong> — a role that brings together everything I've built over a career that started as a junior auditor and has grown, step by step, into something I could never have fully planned.
+      </p>
+      <p>Every promotion. Every firm. Every city. Every late night in grad school. It all connected.</p>
+
+      <blockquote>
+        "The leap doesn't feel safe. It isn't supposed to. But on the other side of it is a version of you that you can't yet imagine: stronger, clearer, more capable than you know."
+      </blockquote>
+
+      <!-- SPEECH CTA -->
+      <div class="speech-cta">
+        <h3>🎤 Watch My Commencement Speech</h3>
+        <p>I had the honor of delivering the student address at UWT's hooding ceremony on behalf of my graduating class.</p>
+        <a class="cta-btn" href="https://www.youtube.com/watch?v=YVr2saMQAsA&t=4647s" target="_blank" rel="noopener">
+          <i class="fab fa-youtube"></i> Watch Full Ceremony
+        </a>
+        <span style="color:var(--text-muted);font-size:0.8rem;display:block;margin-top:0.5rem;">(speech starts around the 50-min mark)</span>
+        <a class="ghost-link" href="https://youtu.be/pxyIxIE1sPQ" target="_blank" rel="noopener">🎬 Quick glimpse clip</a>
+      </div>
+
+    </div>
+    <!-- END STORY BODY -->
+
+    <!-- Story navigation -->
+    <nav class="story-nav" aria-label="Story navigation">
+      <a href="index.html#stories" class="story-nav-btn">
+        <i class="fas fa-arrow-left"></i> All Stories
+      </a>
+      <a href="index.html" class="story-nav-home">
+        <i class="fas fa-home"></i> Back to Home
+      </a>
+      <a href="story2.html" class="story-nav-btn">
+        Next Story <i class="fas fa-arrow-right"></i>
+      </a>
+    </nav>
+
+  </article>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Designed &amp; Built by <span>Jakey Raj Rajpal</span> &bull; <span>jakeyraj.github.io</span></p>
+    <p style="margin-top:0.5rem;font-size:0.75rem">© 2025 All rights reserved.</p>
+  </footer>
+
+  <script>
+    function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
+    function closeNav() { document.getElementById('navLinks').classList.remove('open'); }
+  </script>
+
+</body>
+</html>
