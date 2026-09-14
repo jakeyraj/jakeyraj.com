@@ -47,7 +47,7 @@
         .nav-logo {
             font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700;
             background: var(--gradient); -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent; background-clip: text;
+            -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none;
         }
         .nav-links { display: flex; list-style: none; gap: 2rem; }
         .nav-links a {
@@ -500,7 +500,7 @@
 <body>
 <!-- NAVBAR -->
 <nav id="navbar">
-    <div class="nav-logo">JRR</div>
+    <a href="index.html" class="nav-logo" aria-label="JRR, Jakey Raj Rajpal - home">JRR</a>
     <ul class="nav-links" id="navLinks">
         <li><a href="index.html#hero" onclick="closeNav()">Home</a></li>
         <li><a href="index.html#about" onclick="closeNav()">About</a></li>
