@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Audit &amp; Consulting Supervisor in Albuquerque, NM. ACCA certified with an MS in Accounting from the University of Washington and 12+ years in audit and finance.">
+    <meta name="description" content="Audit &amp; Consulting Supervisor in Albuquerque, NM. FCCA with an MS in Accounting from the University of Washington and 12+ years in audit and finance.">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XLZWK2V4Z0"></script>
     <script>
@@ -13,7 +13,7 @@
 
       gtag('config', 'G-XLZWK2V4Z0');
     </script>
-    <title>Jakey Raj Rajpal | Accounting, Audit & Finance Professional</title>
+    <title>Jakey Raj Rajpal, FCCA | Accounting, Audit &amp; Finance Professional</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
@@ -91,6 +91,12 @@
         @keyframes pulse {
             0%,100% { opacity:1; transform:scale(1); }
             50% { opacity:0.5; transform:scale(1.3); }
+        }
+        .hero-credentials {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(0.95rem, 1.6vw, 1.15rem); font-weight: 600;
+            letter-spacing: 0.12em; color: var(--primary); margin-bottom: 1rem;
+            animation: fadeInUp 0.7s ease 0.15s both;
         }
         .hero-name {
             font-family: 'Space Grotesk', sans-serif;
@@ -514,8 +520,9 @@
         <div class="hero-text">
             <div class="hero-badge"><span> </span> Knowledge is Power</div>
             <h1 class="hero-name">Jakey Raj<br><span>Rajpal</span></h1>
+            <p class="hero-credentials">FCCA &bull; MSAcc</p>
             <p class="hero-tagline"><span id="typed-text"></span><span class="typing-cursor">|</span></p>
-            <p class="hero-description">ACCA Certified (CPA Equivalent) | MS Accounting (STEM), University of Washington | 12+ Years in Finance, Audit & Data Analytics. Transforming complex financial data into clear, actionable insights.</p>
+            <p class="hero-description">FCCA, Fellow Chartered Certified Accountant | MS Accounting (STEM), University of Washington | 12+ Years in Finance, Audit & Data Analytics. Transforming complex financial data into clear, actionable insights.</p>
             <div class="hero-ctas">
                 <a href="#contact" class="btn-primary"><i class="fas fa-envelope" style="margin-right:0.5rem"></i>Get In Touch</a>
                 <a href="experience.html" class="btn-secondary"><i class="fas fa-briefcase" style="margin-right:0.5rem"></i>View Experience</a>
@@ -546,12 +553,12 @@
                 <div class="initials">JRR</div>
                 <div class="subtitle-tag">Albuquerque, NM</div>
             </div>
-            <div class="floating-badge top-right"><i class="fas fa-certificate"></i><span>ACCA Certified</span></div>
+            <div class="floating-badge top-right"><i class="fas fa-certificate"></i><span>FCCA</span></div>
             <div class="floating-badge bottom-left"><i class="fas fa-graduation-cap"></i><span>MS Accounting, UW</span></div>
         </div>
         <div class="about-info">
             <h3>Who I Am</h3>
-            <p>I am a finance, audit and accounting professional with an ACCA certification (CPA equivalent) and a Master of Science in Accounting (STEM) from the University of Washington. My career spans audit supervision, senior accounting analysis, and cost accounting roles across the US and internationally.</p>
+            <p>I am a finance, audit and accounting professional and a Fellow of the Association of Chartered Certified Accountants (FCCA) with a Master of Science in Accounting (STEM) from the University of Washington. My career spans audit supervision, senior accounting analysis, and cost accounting roles across the US and internationally.</p>
             <p>Passionate about leveraging data analytics tools like Power BI, Tableau, and Alteryx to turn raw financial data into strategic insights. Currently preparing for the CPA exam, having fulfilled the 150-credit requirement.</p>
             <div class="about-highlights">
                 <div class="highlight-item"><i class="fas fa-map-marker-alt"></i> Albuquerque, NM, 87109</div>
@@ -701,7 +708,7 @@
             </div>
             <div class="edu-card">
                 <div class="edu-icon"><i class="fas fa-certificate"></i></div>
-                <div class="edu-degree">ACCA — CPA Equivalent</div>
+                <div class="edu-degree">FCCA — Fellow Chartered Certified Accountant</div>
                 <div class="edu-institution">Association of Chartered Certified Accountants (UK)</div>
                 <div class="edu-location-date"><i class="fas fa-map-marker-alt"></i> London, England &bull; March 2016</div>
             </div>
@@ -859,7 +866,7 @@
         card.style.transitionDelay = (i * 0.1) + 's';
     });
     // TYPING ANIMATION
-    const typingPhrases = ['Certified Accountant','Data Enthusiast','Problem Solver','Finance Professional','ACCA Certified'];
+    const typingPhrases = ['Chartered Certified Accountant','Data Enthusiast','Problem Solver','Finance Professional','FCCA'];
     let typingIndex=0, charIndex=0, isDeleting=false;
     const typedEl = document.getElementById('typed-text');
     function typeEffect() {
