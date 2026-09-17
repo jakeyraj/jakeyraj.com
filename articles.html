@@ -12,8 +12,8 @@
 
       gtag('config', 'G-XLZWK2V4Z0');
     </script>
-    <title>Work Experience | Jakey Raj Rajpal</title>
-    <meta name="description" content="Career history of Jakey Raj Rajpal - audit, accounting and finance roles across public accounting, manufacturing, and oil &amp; gas.">
+    <title>Articles | Jakey Raj Rajpal, FCCA</title>
+    <meta name="description" content="Articles by Jakey Raj Rajpal, FCCA on audit practice, federal award compliance, and bringing data analytics into accounting.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
@@ -496,6 +496,56 @@
     <noscript><style>
         .timeline-item { opacity: 1; transform: none; }
     </style></noscript>
+    <style>
+        /* ── Articles ── */
+        .articles-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.75rem; margin-top: 1rem;
+        }
+        .articles-grid > .article-card-link:only-child { max-width: 560px; }
+        .article-card-link { text-decoration: none; color: inherit; display: block; }
+        .article-card {
+            background: var(--bg); border: 1px solid var(--border); border-radius: 16px;
+            padding: 1.75rem; height: 100%; display: flex; flex-direction: column;
+            transition: all 0.3s ease;
+        }
+        .article-card-link:hover .article-card {
+            border-color: rgba(0,212,255,0.35); transform: translateY(-4px);
+            box-shadow: 0 18px 45px rgba(0,0,0,0.35);
+        }
+        .article-card-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-bottom: 1rem; }
+        .article-tag {
+            background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.25);
+            border-radius: 50px; padding: 0.2rem 0.7rem; font-size: 0.72rem;
+            color: var(--primary); font-weight: 600; letter-spacing: 0.03em;
+        }
+        .article-date { color: var(--text-muted); font-size: 0.75rem; }
+        .article-title {
+            font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; font-weight: 700;
+            line-height: 1.4; margin-bottom: 0.75rem; color: var(--text);
+        }
+        .article-excerpt { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.25rem; }
+        .article-read-more {
+            margin-top: auto; color: var(--primary); font-size: 0.85rem; font-weight: 600;
+            display: inline-flex; align-items: center; gap: 0.45rem; transition: gap 0.3s;
+        }
+        .article-card-link:hover .article-read-more { gap: 0.75rem; }
+
+        /* shown until the first article is published */
+        .articles-empty {
+            border: 1px dashed var(--border); border-radius: 16px;
+            padding: 3.5rem 2rem; text-align: center; background: var(--bg);
+        }
+        .articles-empty i { font-size: 2.2rem; color: rgba(0,212,255,0.35); margin-bottom: 1.25rem; display: block; }
+        .articles-empty h3 {
+            font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem;
+            color: var(--text); margin-bottom: 0.75rem;
+        }
+        .articles-empty p {
+            color: var(--text-muted); font-size: 0.92rem; line-height: 1.8;
+            max-width: 620px; margin: 0 auto;
+        }
+    </style>
 </head>
 <body>
 <!-- NAVBAR -->
@@ -507,10 +557,10 @@
         <li><a href="index.html#videos" onclick="closeNav()">Videos</a></li>
         <li><a href="index.html#leadership" onclick="closeNav()">Leadership</a></li>
         <li><a href="index.html#skills" onclick="closeNav()">Skills</a></li>
-        <li><a href="experience.html" class="active" onclick="closeNav()">Experience</a></li>
+        <li><a href="experience.html" onclick="closeNav()">Experience</a></li>
         <li><a href="index.html#education" onclick="closeNav()">Education</a></li>
         <li><a href="index.html#stories" onclick="closeNav()">Stories</a></li>
-        <li><a href="articles.html" onclick="closeNav()">Articles</a></li>
+        <li><a href="articles.html" class="active" onclick="closeNav()">Articles</a></li>
         <li><a href="index.html#contact" onclick="closeNav()">Contact</a></li>
     </ul>
     <button class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Menu">
@@ -518,145 +568,24 @@
     </button>
 </nav>
 <!-- EXPERIENCE -->
-<div class="full-section page-top" id="experience">
+<div class="full-section page-top" id="articles">
     <div class="inner">
-        <div class="section-tag">Career Journey</div>
-        <h2 class="section-title">Work Experience</h2>
-        <p class="section-subtitle">10+ years of progressive roles across manufacturing, oil & gas, and public accounting firms.</p>
-        <div class="timeline">
+        <div class="section-tag">Writing</div>
+        <h2 class="section-title">Articles</h2>
+        <p class="section-subtitle">Notes on audit practice, compliance over federal awards, and what happens
+        when you bring real analytics into an accounting function.</p>
 
-            <!-- ══════════════════════════════════════
-                 SJT GROUP LLC — Audit & Consulting Supervisor (Current)
-            ══════════════════════════════════════ -->
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-card">
-                    <div class="timeline-header">
-                        <div class="timeline-company">SJT Group LLC</div>
-                        <div class="timeline-period">May 2026 – Present</div>
-                    </div>
-                    <div class="timeline-location"><i class="fas fa-search-dollar"></i> Public Accounting &amp; Audit &bull; NM, US</div>
-                    <div class="timeline-role"><i class="fas fa-user-tie" style="margin-right:0.4rem"></i>Audit &amp; Consulting Supervisor</div>
-                    <ul class="timeline-bullets">
-                        <li>Conduct and oversee Single Audits for organizations receiving federal awards under the Uniform Guidance (2 CFR Part 200).</li>
-                        <li>Perform specialized audits for tribal governments and Native American organizations with expertise in tribal compliance requirements.</li>
-                        <li>Execute comprehensive audits of non-profit organizations, foundations, and charitable entities.</li>
-                        <li>Review financial statements, identify discrepancies, and prepare detailed audit findings and recommendations.</li>
-                        <li>Supervise and mentor Audit Staff while ensuring compliance with GAAS and Government Auditing Standards (GAGAS).</li>
-                        <li>Develop audit plans, assess organizational risks, and design appropriate audit testing procedures.</li>
-                        <li>Lead engagements end-to-end in CaseWare Working Papers and CCH Axcess, from planning and workpaper preparation through review and report issuance.</li>
-                        <li>Prepare audit reports, communicate findings to stakeholders, and assist with regulatory compliance and remediation efforts.</li>
-                    </ul>
-                </div>
-            </div>
+        <div class="articles-grid">
+            <!-- ARTICLE CARDS GO HERE -->
+        </div>
 
-            <!-- ══════════════════════════════════════
-                 STELLA-JONES CORPORATION
-            ══════════════════════════════════════ -->
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-card">
-                    <div class="timeline-header"><div class="timeline-company">Stella-Jones Corporation</div></div>
-                    <div class="timeline-location"><i class="fas fa-industry"></i> Timber, Wood & Lumber Manufacturers &bull; WA, US</div>
-                    <div class="timeline-multi-role">
-                        <div class="role-header">
-                            <div class="timeline-role"><i class="fas fa-chart-line" style="margin-right:0.4rem"></i>Cost Accountant</div>
-                            <div class="timeline-period">Oct 2025 – Apr 2026</div>
-                        </div>
-                        <ul class="timeline-bullets">
-                            <li>Perform actual costing and cost analysis in SAP to ensure accurate product and inventory valuation.</li>
-                            <li>Analyze manufacturing, material, and overhead costs to support profitability and decision-making.</li>
-                            <li>Prepare and review cost variance reports to identify key drivers and improvement opportunities.</li>
-                            <li>Maintain and reconcile inventory and production cost accounts in SAP for monthly closing.</li>
-                            <li>Support budgeting, forecasting, and month-end close processes.</li>
-                            <li>Collaborate with operations and finance teams to improve cost control and efficiency.</li>
-                            <li>Ensure compliance with corporate accounting policies and support audit requirements.</li>
-                        </ul>
-                    </div>
-                    <div class="timeline-multi-role">
-                        <div class="role-header">
-                            <div class="timeline-role"><i class="fas fa-balance-scale" style="margin-right:0.4rem"></i>GL Accountant</div>
-                            <div class="timeline-period">Aug 2024 – Sep 2025</div>
-                        </div>
-                        <ul class="timeline-bullets">
-                            <li>Reviewed financial statements and analyzed the trial balance using SAP S/4 HANA and Power BI dashboards.</li>
-                            <li>Managed monthly general ledger reconciliations, ensuring accuracy and compliance.</li>
-                            <li>Posted journal entries for accruals, deferrals, reclassifications, and period-closing corrections.</li>
-                            <li>Monitored open POs and GRIR accounts to validate payments and clearing documents.</li>
-                            <li>Assisted with internal and external audits, preparing documentation and responding to inquiries.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ══════════════════════════════════════
-                 PARCO
-            ══════════════════════════════════════ -->
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-card">
-                    <div class="timeline-header">
-                        <div class="timeline-company">PARCO</div>
-                        <div class="timeline-period">Apr 2018 – Feb 2024</div>
-                    </div>
-                    <div class="timeline-location"><i class="fas fa-oil-can"></i> Oil & Gas Sector &bull; Karachi, Pakistan</div>
-                    <div class="timeline-role"><i class="fas fa-user-tie" style="margin-right:0.4rem"></i>Senior Accounting Analyst</div>
-                    <ul class="timeline-bullets">
-                        <li>Managed day-to-day financial transactions in SAP and maintained accurate financial records.</li>
-                        <li>Responsible for monthly closing, financial statements preparation, financial analysis, and KPI monitoring.</li>
-                        <li>Managed accounts receivable, including invoicing, payment tracking, and account balancing.</li>
-                        <li>Performed internal audit assignments across different operations, departments, and processes.</li>
-                        <li>Assisted external audits by providing requested information and clear explanations.</li>
-                        <li>Processed vendor bills and payments in SAP ensuring all bills were checked, categorized, and paid on time.</li>
-                        <li>Contributed to the sustainability reporting financial segment at PARCO.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- ══════════════════════════════════════
-                 BDO
-            ══════════════════════════════════════ -->
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-card">
-                    <div class="timeline-header">
-                        <div class="timeline-company">BDO</div>
-                        <div class="timeline-period">Aug 2016 – Mar 2018</div>
-                    </div>
-                    <div class="timeline-location"><i class="fas fa-landmark"></i> Public Accounting Firm &bull; Karachi, Pakistan</div>
-                    <div class="timeline-role"><i class="fas fa-search-dollar" style="margin-right:0.4rem"></i>Audit Supervisor</div>
-                    <ul class="timeline-bullets">
-                        <li>Performed analytical procedures and test of details on balance sheet and income statement accounts.</li>
-                        <li>Conducted internal control walkthroughs to assess design and operational effectiveness.</li>
-                        <li>Executed risk assessments for significant accounts as per audit plans.</li>
-                        <li>Reviewed financial statements for compliance with IFRS and GAAP standards.</li>
-                        <li>Prepared audit reports and documented findings for audit conclusions.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- ══════════════════════════════════════
-                 ABBAS KARJATWALA & CO.
-            ══════════════════════════════════════ -->
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-card">
-                    <div class="timeline-header">
-                        <div class="timeline-company">Abbas Karjatwala & Co.</div>
-                        <div class="timeline-period">Mar 2014 – Feb 2016</div>
-                    </div>
-                    <div class="timeline-location"><i class="fas fa-landmark"></i> Public Accounting Firm &bull; Karachi, Pakistan</div>
-                    <div class="timeline-role"><i class="fas fa-user-check" style="margin-right:0.4rem"></i>Audit Senior</div>
-                    <ul class="timeline-bullets">
-                        <li>Supervised audit teams and acted as job in-charge for multiple audit assignments.</li>
-                        <li>Conducted forensic auditing using customized tools and client interviews to identify discrepancies.</li>
-                        <li>Reviewed client financial statements ensuring compliance with accounting standards.</li>
-                        <li>Evaluated internal controls, identified risk areas, and recommended improvements.</li>
-                        <li>Prepared working papers and gathered audit evidence through substantive audit procedures.</li>
-                    </ul>
-                </div>
-            </div>
-
+        <!-- Remove this block once the first article card is added above -->
+        <div class="articles-empty">
+            <i class="fas fa-feather"></i>
+            <h3>First pieces publishing shortly</h3>
+            <p>I write about Single Audits and Uniform Guidance compliance, auditing tribal governments and
+            non-profit organisations, and using tools like Power BI and SAP to make audit and cost work
+            sharper. New articles will appear here as they are published.</p>
         </div>
     </div>
 </div>
