@@ -15,8 +15,8 @@
 
       gtag('config', 'G-XLZWK2V4Z0');
     </script>
-    <title>Articles | Jakey Raj Rajpal, FCCA</title>
-    <meta name="description" content="Articles by Jakey Raj Rajpal, FCCA on audit practice, federal award compliance, and bringing data analytics into accounting.">
+    <title>About | Jakey Raj Rajpal, FCCA</title>
+    <meta name="description" content="Jakey Raj Rajpal, FCCA: background, work experience, skills, education and activities. Audit and Consulting Supervisor in Albuquerque, New Mexico.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
@@ -500,54 +500,23 @@
         .timeline-item { opacity: 1; transform: none; }
     </style></noscript>
     <style>
-        /* ── Articles ── */
-        .articles-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.75rem; margin-top: 1rem;
+        /* ── About page ── */
+        .page-jump {
+            margin-top: 70px; border-bottom: 1px solid var(--border);
+            background: rgba(18,18,26,0.6);
         }
-        .articles-grid > .article-card-link:only-child { max-width: 560px; }
-        .article-card-link { text-decoration: none; color: inherit; display: block; }
-        .article-card {
-            background: var(--bg); border: 1px solid var(--border); border-radius: 16px;
-            padding: 1.75rem; height: 100%; display: flex; flex-direction: column;
-            transition: all 0.3s ease;
+        .page-jump .inner {
+            max-width: 1200px; margin: 0 auto; padding: 1rem 2rem;
+            display: flex; flex-wrap: wrap; gap: 0.5rem;
         }
-        .article-card-link:hover .article-card {
-            border-color: rgba(0,212,255,0.35); transform: translateY(-4px);
-            box-shadow: 0 18px 45px rgba(0,0,0,0.35);
+        .page-jump a {
+            color: var(--text-muted); text-decoration: none; font-size: 0.82rem; font-weight: 500;
+            padding: 0.4rem 0.9rem; border: 1px solid var(--border); border-radius: 50px;
+            transition: all 0.3s;
         }
-        .article-card-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-bottom: 1rem; }
-        .article-tag {
-            background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.25);
-            border-radius: 50px; padding: 0.2rem 0.7rem; font-size: 0.72rem;
-            color: var(--primary); font-weight: 600; letter-spacing: 0.03em;
-        }
-        .article-date { color: var(--text-muted); font-size: 0.75rem; }
-        .article-title {
-            font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; font-weight: 700;
-            line-height: 1.4; margin-bottom: 0.75rem; color: var(--text);
-        }
-        .article-excerpt { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.25rem; }
-        .article-read-more {
-            margin-top: auto; color: var(--primary); font-size: 0.85rem; font-weight: 600;
-            display: inline-flex; align-items: center; gap: 0.45rem; transition: gap 0.3s;
-        }
-        .article-card-link:hover .article-read-more { gap: 0.75rem; }
-
-        /* shown until the first article is published */
-        .articles-empty {
-            border: 1px dashed var(--border); border-radius: 16px;
-            padding: 3.5rem 2rem; text-align: center; background: var(--bg);
-        }
-        .articles-empty i { font-size: 2.2rem; color: rgba(0,212,255,0.35); margin-bottom: 1.25rem; display: block; }
-        .articles-empty h3 {
-            font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem;
-            color: var(--text); margin-bottom: 0.75rem;
-        }
-        .articles-empty p {
-            color: var(--text-muted); font-size: 0.92rem; line-height: 1.8;
-            max-width: 620px; margin: 0 auto;
-        }
+        .page-jump a:hover { color: var(--primary); border-color: rgba(0,212,255,0.4); }
+        /* keep headings clear of the fixed navbar when jumped to */
+        #about, #experience, #skills, #education, #leadership { scroll-margin-top: 80px; }
     </style>
 </head>
 <body>
@@ -556,8 +525,8 @@
     <a href="index.html" class="nav-logo" aria-label="JRR, Jakey Raj Rajpal - home">JRR</a>
     <ul class="nav-links" id="navLinks">
         <li><a href="index.html#hero" onclick="closeNav()">Home</a></li>
-        <li><a href="about.html" onclick="closeNav()">About</a></li>
-        <li><a href="articles.html" class="active" onclick="closeNav()">Articles</a></li>
+        <li><a href="about.html" class="active" onclick="closeNav()">About</a></li>
+        <li><a href="articles.html" onclick="closeNav()">Articles</a></li>
         <li><a href="index.html#videos" onclick="closeNav()">Videos</a></li>
         <li><a href="index.html#stories" onclick="closeNav()">Stories</a></li>
         <li><a href="index.html#contact" onclick="closeNav()">Contact</a></li>
@@ -567,24 +536,297 @@
     </button>
 </nav>
 <!-- EXPERIENCE -->
-<div class="full-section page-top" id="articles">
+<div class="page-jump">
     <div class="inner">
-        <div class="section-tag">Writing</div>
-        <h2 class="section-title">Articles</h2>
-        <p class="section-subtitle">Making accounting and auditing make sense to people outside the
-        profession, and thinking about where this field could go next.</p>
-
-        <div class="articles-grid">
-            <!-- ARTICLE CARDS GO HERE -->
+        <a href="#about">Overview</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#education">Education</a>
+        <a href="#leadership">Leadership</a>
+    </div>
+</div>
+<!-- ABOUT -->
+<section id="about">
+    <div class="section-tag">About Me</div>
+    <h2 class="section-title">Finance Professional<br>with a Data Edge</h2>
+    <p class="section-subtitle">Over a decade of experience spanning public accounting, oil & gas, and manufacturing — combining financial precision with analytical power.</p>
+    <div class="about-grid">
+        <div class="about-image-container">
+            <div class="about-image-box">
+                <div class="initials">JRR</div>
+                <div class="subtitle-tag">Albuquerque, NM</div>
+            </div>
+            <div class="floating-badge top-right"><i class="fas fa-certificate"></i><span>FCCA</span></div>
+            <div class="floating-badge bottom-left"><i class="fas fa-graduation-cap"></i><span>MS Accounting, UW</span></div>
         </div>
+        <div class="about-info">
+            <h3>Who I Am</h3>
+            <p>I am a finance, audit and accounting professional and a Fellow of the Association of Chartered Certified Accountants (FCCA) with a Master of Science in Accounting (STEM) from the University of Washington. My career spans audit supervision, senior accounting analysis, and cost accounting roles across the US and internationally.</p>
+            <p>Passionate about leveraging data analytics tools like Power BI, Tableau, and Alteryx to turn raw financial data into strategic insights. Currently preparing for the CPA exam, having fulfilled the 150-credit requirement.</p>
+            <div class="about-highlights">
+                <div class="highlight-item"><i class="fas fa-map-marker-alt"></i> Albuquerque, NM, 87109</div>
+                <div class="highlight-item"><i class="fas fa-check-circle"></i> Authorised to Work in the US</div>
+                <div class="highlight-item"><i class="fas fa-building"></i> SAP S/4HANA Expert</div>
+                <div class="highlight-item"><i class="fas fa-clipboard-check"></i> CaseWare &amp; CCH Axcess</div>
+                <div class="highlight-item"><i class="fas fa-chart-bar"></i> Power BI & Excel</div>
+                <div class="highlight-item"><i class="fas fa-file-invoice-dollar"></i> GAAP & IFRS Standards</div>
+                <div class="highlight-item"><i class="fas fa-user-tie"></i> CPA Exam Candidate</div>
+                <div class="highlight-item"><i class="fas fa-video"></i> Content Creator</div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- EXPERIENCE -->
+<div class="full-section" id="experience">
+    <div class="inner">
+        <div class="section-tag">Career Journey</div>
+        <h2 class="section-title">Work Experience</h2>
+        <p class="section-subtitle">10+ years of progressive roles across manufacturing, oil & gas, and public accounting firms.</p>
+        <div class="timeline">
 
-        <!-- Remove this block once the first article card is added above -->
-        <div class="articles-empty">
-            <i class="fas fa-feather"></i>
-            <h3>First articles publishing soon</h3>
+            <!-- ══════════════════════════════════════
+                 SJT GROUP LLC — Audit & Consulting Supervisor (Current)
+            ══════════════════════════════════════ -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <div class="timeline-header">
+                        <div class="timeline-company">SJT Group LLC</div>
+                        <div class="timeline-period">May 2026 – Present</div>
+                    </div>
+                    <div class="timeline-location"><i class="fas fa-search-dollar"></i> Public Accounting &amp; Audit &bull; NM, US</div>
+                    <div class="timeline-role"><i class="fas fa-user-tie" style="margin-right:0.4rem"></i>Audit &amp; Consulting Supervisor</div>
+                    <ul class="timeline-bullets">
+                        <li>Conduct and oversee Single Audits for organizations receiving federal awards under the Uniform Guidance (2 CFR Part 200).</li>
+                        <li>Perform specialized audits for tribal governments and Native American organizations with expertise in tribal compliance requirements.</li>
+                        <li>Execute comprehensive audits of non-profit organizations, foundations, and charitable entities.</li>
+                        <li>Review financial statements, identify discrepancies, and prepare detailed audit findings and recommendations.</li>
+                        <li>Supervise and mentor Audit Staff while ensuring compliance with GAAS and Government Auditing Standards (GAGAS).</li>
+                        <li>Develop audit plans, assess organizational risks, and design appropriate audit testing procedures.</li>
+                        <li>Lead engagements end-to-end in CaseWare Working Papers and CCH Axcess, from planning and workpaper preparation through review and report issuance.</li>
+                        <li>Prepare audit reports, communicate findings to stakeholders, and assist with regulatory compliance and remediation efforts.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════════════
+                 STELLA-JONES CORPORATION
+            ══════════════════════════════════════ -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <div class="timeline-header"><div class="timeline-company">Stella-Jones Corporation</div></div>
+                    <div class="timeline-location"><i class="fas fa-industry"></i> Timber, Wood & Lumber Manufacturers &bull; WA, US</div>
+                    <div class="timeline-multi-role">
+                        <div class="role-header">
+                            <div class="timeline-role"><i class="fas fa-chart-line" style="margin-right:0.4rem"></i>Cost Accountant</div>
+                            <div class="timeline-period">Oct 2025 – Apr 2026</div>
+                        </div>
+                        <ul class="timeline-bullets">
+                            <li>Perform actual costing and cost analysis in SAP to ensure accurate product and inventory valuation.</li>
+                            <li>Analyze manufacturing, material, and overhead costs to support profitability and decision-making.</li>
+                            <li>Prepare and review cost variance reports to identify key drivers and improvement opportunities.</li>
+                            <li>Maintain and reconcile inventory and production cost accounts in SAP for monthly closing.</li>
+                            <li>Support budgeting, forecasting, and month-end close processes.</li>
+                            <li>Collaborate with operations and finance teams to improve cost control and efficiency.</li>
+                            <li>Ensure compliance with corporate accounting policies and support audit requirements.</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-multi-role">
+                        <div class="role-header">
+                            <div class="timeline-role"><i class="fas fa-balance-scale" style="margin-right:0.4rem"></i>GL Accountant</div>
+                            <div class="timeline-period">Aug 2024 – Sep 2025</div>
+                        </div>
+                        <ul class="timeline-bullets">
+                            <li>Reviewed financial statements and analyzed the trial balance using SAP S/4 HANA and Power BI dashboards.</li>
+                            <li>Managed monthly general ledger reconciliations, ensuring accuracy and compliance.</li>
+                            <li>Posted journal entries for accruals, deferrals, reclassifications, and period-closing corrections.</li>
+                            <li>Monitored open POs and GRIR accounts to validate payments and clearing documents.</li>
+                            <li>Assisted with internal and external audits, preparing documentation and responding to inquiries.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════════════
+                 PARCO
+            ══════════════════════════════════════ -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <div class="timeline-header">
+                        <div class="timeline-company">PARCO</div>
+                        <div class="timeline-period">Apr 2018 – Feb 2024</div>
+                    </div>
+                    <div class="timeline-location"><i class="fas fa-oil-can"></i> Oil & Gas Sector &bull; Karachi, Pakistan</div>
+                    <div class="timeline-role"><i class="fas fa-user-tie" style="margin-right:0.4rem"></i>Senior Accounting Analyst</div>
+                    <ul class="timeline-bullets">
+                        <li>Managed day-to-day financial transactions in SAP and maintained accurate financial records.</li>
+                        <li>Responsible for monthly closing, financial statements preparation, financial analysis, and KPI monitoring.</li>
+                        <li>Managed accounts receivable, including invoicing, payment tracking, and account balancing.</li>
+                        <li>Performed internal audit assignments across different operations, departments, and processes.</li>
+                        <li>Assisted external audits by providing requested information and clear explanations.</li>
+                        <li>Processed vendor bills and payments in SAP ensuring all bills were checked, categorized, and paid on time.</li>
+                        <li>Contributed to the sustainability reporting financial segment at PARCO.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════════════
+                 BDO
+            ══════════════════════════════════════ -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <div class="timeline-header">
+                        <div class="timeline-company">BDO</div>
+                        <div class="timeline-period">Aug 2016 – Mar 2018</div>
+                    </div>
+                    <div class="timeline-location"><i class="fas fa-landmark"></i> Public Accounting Firm &bull; Karachi, Pakistan</div>
+                    <div class="timeline-role"><i class="fas fa-search-dollar" style="margin-right:0.4rem"></i>Audit Supervisor</div>
+                    <ul class="timeline-bullets">
+                        <li>Performed analytical procedures and test of details on balance sheet and income statement accounts.</li>
+                        <li>Conducted internal control walkthroughs to assess design and operational effectiveness.</li>
+                        <li>Executed risk assessments for significant accounts as per audit plans.</li>
+                        <li>Reviewed financial statements for compliance with IFRS and GAAP standards.</li>
+                        <li>Prepared audit reports and documented findings for audit conclusions.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ══════════════════════════════════════
+                 ABBAS KARJATWALA & CO.
+            ══════════════════════════════════════ -->
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-card">
+                    <div class="timeline-header">
+                        <div class="timeline-company">Abbas Karjatwala & Co.</div>
+                        <div class="timeline-period">Mar 2014 – Feb 2016</div>
+                    </div>
+                    <div class="timeline-location"><i class="fas fa-landmark"></i> Public Accounting Firm &bull; Karachi, Pakistan</div>
+                    <div class="timeline-role"><i class="fas fa-user-check" style="margin-right:0.4rem"></i>Audit Senior</div>
+                    <ul class="timeline-bullets">
+                        <li>Supervised audit teams and acted as job in-charge for multiple audit assignments.</li>
+                        <li>Conducted forensic auditing using customized tools and client interviews to identify discrepancies.</li>
+                        <li>Reviewed client financial statements ensuring compliance with accounting standards.</li>
+                        <li>Evaluated internal controls, identified risk areas, and recommended improvements.</li>
+                        <li>Prepared working papers and gathered audit evidence through substantive audit procedures.</li>
+                    </ul>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
+<div class="page-back">
+    <a href="index.html" class="btn-secondary"><i class="fas fa-arrow-left" style="margin-right:0.5rem"></i>Back to Home</a>
+</div>
+<!-- SKILLS -->
+<section id="skills">
+    <div class="section-tag">Expertise</div>
+    <h2 class="section-title">Skills & Technologies</h2>
+    <p class="section-subtitle">A comprehensive toolkit spanning financial reporting, ERP systems, data analytics, and business intelligence.</p>
+    <div class="skills-grid">
+        <div class="skill-category">
+            <div class="skill-cat-header"><div class="skill-cat-icon"><i class="fas fa-database"></i></div><div class="skill-cat-title">ERP, Accounting &amp; Audit Software</div></div>
+            <div class="skill-item"><div class="skill-item-header"><span>SAP S/4 HANA</span><span>95%</span></div><div class="skill-bar"><div class="skill-fill" data-width="95"></div></div></div>
+            <div class="skill-item"><div class="skill-item-header"><span>CaseWare Working Papers</span><span>90%</span></div><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
+            <div class="skill-item"><div class="skill-item-header"><span>CCH Axcess</span><span>88%</span></div><div class="skill-bar"><div class="skill-fill" data-width="88"></div></div></div>
+            <div class="skill-item"><div class="skill-item-header"><span>QuickBooks</span><span>90%</span></div><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
+            <div class="skill-item"><div class="skill-item-header"><span>Tally ERP</span><span>85%</span></div><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div>
+        </div>
+        <div class="skill-category">
+            <div class="skill-cat-header"><div class="skill-cat-icon"><i class="fas fa-chart-bar"></i></div><div class="skill-cat-title">Data Analytics & BI</div></div>
+            <div class="skill-item"><div class="skill-item-header"><span>Power BI</span><span>90%</span></div><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
+            <div class="skill-item"><div class="skill-item-header"><span>MS Excel (Advanced)</span><span>95%</span></div><div class="skill-bar"><div class="skill-fill" data-width="95"></div></div></div>
+            <div class="skill-item"><div class="skill-item-header"><span>Tableau</span><span>85%</span></div><div class="skill-bar"><div class="skill-fill" data-width="85"></div></div></div>
+            <div class="skill-item"><div class="skill-item-header"><span>Alteryx</span><span>80%</span></div><div class="skill-bar"><div class="skill-fill" data-width="80"></div></div></div>
+        </div>
+        <div class="skill-category">
+            <div class="skill-cat-header"><div class="skill-cat-icon"><i class="fas fa-file-contract"></i></div><div class="skill-cat-title">Financial Reporting</div></div>
+            <div class="skill-item"><div class="skill-item-header"><span>GAAP</span><span>95%</span></div><div class="skill-bar"><div class="skill-fill" data-width="95"></div></div></div>
+            <div class="skill-item"><div class="skill-item-header"><span>IFRS</span><span>92%</span></div><div class="skill-bar"><div class="skill-fill" data-width="92"></div></div></div>
+            <div class="skill-item"><div class="skill-item-header"><span>Financial Analysis & KPIs</span><span>90%</span></div><div class="skill-bar"><div class="skill-fill" data-width="90"></div></div></div>
+        </div>
+        <div class="skill-category">
+            <div class="skill-cat-header"><div class="skill-cat-icon"><i class="fas fa-tools"></i></div><div class="skill-cat-title">Core Competencies</div></div>
+            <div class="skill-tags">
+                <span class="skill-tag">Auditing</span><span class="skill-tag">Cost Analysis</span><span class="skill-tag">Budgeting</span>
+                <span class="skill-tag">Forecasting</span><span class="skill-tag">Internal Controls</span><span class="skill-tag">Forensic Audit</span>
+                <span class="skill-tag">GL Reconciliation</span><span class="skill-tag">Month-End Close</span><span class="skill-tag">KPI Monitoring</span>
+                <span class="skill-tag">Accounts Receivable</span><span class="skill-tag">Journal Entries</span><span class="skill-tag">Variance Analysis</span>
+                <span class="skill-tag">Single Audit (2 CFR 200)</span><span class="skill-tag">GAGAS</span><span class="skill-tag">Federal Awards Audit</span>
+                <span class="skill-tag">CaseWare</span><span class="skill-tag">CCH Axcess</span>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- EDUCATION -->
+<div class="full-section" id="education">
+    <div class="inner">
+        <div class="section-tag">Academic Background</div>
+        <h2 class="section-title">Education</h2>
+        <p class="section-subtitle">Strong academic foundation combined with prestigious professional certifications.</p>
+        <div class="edu-grid">
+            <div class="edu-card">
+                <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
+                <div class="edu-degree">Master of Science in Accounting (STEM)</div>
+                <div class="edu-institution">University of Washington, Tacoma</div>
+                <div class="edu-location-date"><i class="fas fa-map-marker-alt"></i> Tacoma, WA &bull; March 2025</div>
+            </div>
+            <div class="edu-card">
+                <div class="edu-icon"><i class="fas fa-certificate"></i></div>
+                <div class="edu-degree">FCCA — Fellow Chartered Certified Accountant</div>
+                <div class="edu-institution">Association of Chartered Certified Accountants (UK)</div>
+                <div class="edu-location-date"><i class="fas fa-map-marker-alt"></i> London, England &bull; March 2016</div>
+            </div>
+            <div class="edu-card">
+                <div class="edu-icon"><i class="fas fa-university"></i></div>
+                <div class="edu-degree">Bachelor of Commerce</div>
+                <div class="edu-institution">Shah Abdul Latif University Khairpur</div>
+                <div class="edu-location-date"><i class="fas fa-map-marker-alt"></i> Pakistan &bull; December 2010</div>
+            </div>
+        </div>
+        <div style="margin-top:3rem">
+            <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.3rem;margin-bottom:1rem;">Other Certifications</h3>
+            <div class="cert-grid">
+                <div class="cert-badge"><i class="fas fa-check"></i> QuickBooks Certified</div>
+                <div class="cert-badge"><i class="fas fa-check"></i> Alteryx Certified</div>
+                <div class="cert-badge"><i class="fas fa-check"></i> SAP FICO</div>
+                <div class="cert-badge"><i class="fas fa-check"></i> Six Sigma</div>
+                <div class="cert-badge"><i class="fas fa-check"></i> Excel Essentials</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- LEADERSHIP -->
+<section id="leadership">
+    <div class="section-tag">Beyond Work</div>
+    <h2 class="section-title">Leadership & Activities</h2>
+    <p class="section-subtitle">Active contributor beyond the workplace — from academic leadership to community volunteering and sports.</p>
+    <div class="leadership-grid">
+        <div class="leadership-card"><div class="leadership-icon">🎓</div><h4>Accounting Tutor</h4><p>Accounting Hub Specialist at University of Washington Tacoma, supporting fellow students.</p></div>
+        <div class="leadership-card"><div class="leadership-icon">📣</div><h4>Marketing Director</h4><p>Association of Indian Students, UW Tacoma Chapter — led marketing and outreach initiatives.</p></div>
+        <div class="leadership-card"><div class="leadership-icon">🏛️</div><h4>Executive Board Member</h4><p>National Society of Leadership and Success (NSLS), UW Tacoma Chapter.</p></div>
+        <div class="leadership-card"><div class="leadership-icon">⚖️</div><h4>Senator, Accounting Association</h4><p>Accounting Student Association (ASA), UW Tacoma — represented student interests.</p></div>
+        <div class="leadership-card"><div class="leadership-icon">🌿</div><h4>Volunteer & Sustainability</h4><p>Beach cleanups, support for special needs children, and sustainability reporting contributions at PARCO.</p></div>
+        <div class="leadership-card"><div class="leadership-icon">🚴</div><h4>Sports & Competitions</h4><p>Actively participates in cycling, marathons, and table tennis tournaments.</p></div>
+    </div>
+    <div style="margin-top:4rem">
+        <div class="section-tag">Communication</div>
+        <h2 class="section-title" style="font-size:1.8rem;margin-bottom:0.5rem">Languages</h2>
+        <p style="color:var(--text-muted);font-size:0.95rem">Multilingual professional able to connect across cultures.</p>
+        <div class="lang-grid">
+            <div class="lang-badge"><i class="fas fa-globe" style="color:var(--primary)"></i> English <span class="lang-level">Fluent</span></div>
+            <div class="lang-badge"><i class="fas fa-globe" style="color:var(--primary)"></i> Urdu <span class="lang-level">Fluent</span></div>
+            <div class="lang-badge"><i class="fas fa-globe" style="color:var(--primary)"></i> Sindhi <span class="lang-level">Native</span></div>
+            <div class="lang-badge"><i class="fas fa-globe" style="color:var(--primary)"></i> Hindi <span class="lang-level">Fluent</span></div>
+            <div class="lang-badge"><i class="fas fa-globe" style="color:var(--primary)"></i> Punjabi <span class="lang-level">Fluent</span></div>
+            <div class="lang-badge"><i class="fas fa-globe" style="color:var(--primary)"></i> Pashto <span class="lang-level">Beginner</span></div>
+        </div>
+    </div>
+</section>
 <div class="page-back">
     <a href="index.html" class="btn-secondary"><i class="fas fa-arrow-left" style="margin-right:0.5rem"></i>Back to Home</a>
 </div>
@@ -597,15 +839,22 @@
     window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
     function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
     function closeNav() { document.getElementById('navLinks').classList.remove('open'); }
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+
+    const reveal = el => {
+        el.classList.add('visible');
+        el.querySelectorAll('.skill-fill').forEach(f => { f.style.width = f.dataset.width + '%'; });
+    };
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) reveal(e.target); });
     }, { threshold: 0.1 });
-    document.querySelectorAll('.timeline-item').forEach(el => observer.observe(el));
-    // the page is nothing but this timeline, so never leave it blank
+    const animated = document.querySelectorAll('.timeline-item, .skill-category');
+    animated.forEach(el => observer.observe(el));
+
+    // this page is mostly these blocks, so never leave them invisible
     setTimeout(() => {
-        if (!document.querySelector('.timeline-item.visible'))
-            document.querySelectorAll('.timeline-item').forEach(el => el.classList.add('visible'));
+        if (!document.querySelector('.timeline-item.visible, .skill-category.visible')) animated.forEach(reveal);
     }, 1500);
 </script>
+
 </body>
 </html>
