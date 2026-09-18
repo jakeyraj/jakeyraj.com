@@ -425,6 +425,32 @@
         .video-thumb-esg { background: linear-gradient(135deg, #0a2a1a, #1a4a2e, #0d3320); }
         .video-thumb-sixsigma { background: linear-gradient(135deg, #1a0a2e, #2e1a4a, #200d3a); }
         .video-thumb-link { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-decoration: none; z-index: 2; }
+        /* in-page LinkedIn player, loaded only when someone presses play */
+        .video-modal {
+            position: fixed; inset: 0; z-index: 2000; display: none;
+            align-items: center; justify-content: center; padding: 1.5rem;
+            background: rgba(6,6,12,0.92); backdrop-filter: blur(6px);
+        }
+        .video-modal.open { display: flex; }
+        .video-modal-inner { position: relative; width: 100%; max-width: 550px; }
+        .video-modal iframe {
+            width: 100%; height: min(78vh, 680px); border: 0;
+            border-radius: 12px; background: #fff; display: block;
+        }
+        .video-modal-close {
+            position: absolute; top: -3rem; right: 0; width: 38px; height: 38px;
+            border-radius: 50%; cursor: pointer; font-size: 1rem;
+            background: rgba(255,255,255,0.08); border: 1px solid var(--border);
+            color: var(--text); display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s;
+        }
+        .video-modal-close:hover { background: rgba(255,255,255,0.18); color: var(--primary); }
+        .video-modal-note { text-align: center; color: var(--text-muted); font-size: 0.78rem; margin-top: 0.85rem; }
+        .video-modal-note a { color: var(--primary); }
+        @media (max-width: 480px) {
+            .video-modal { padding: 1rem; }
+            .video-modal-close { top: auto; bottom: -3rem; right: 50%; transform: translateX(50%); }
+        }
         .video-thumb-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; transition: background 0.3s; pointer-events: none; }
         .video-card:hover .video-thumb-overlay { background: rgba(0,0,0,0.5); }
         .video-play-btn { width: 68px; height: 68px; border-radius: 50%; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.4rem; box-shadow: 0 0 30px rgba(0,212,255,0.5); transition: all 0.3s; padding-left: 5px; pointer-events: none; }
@@ -586,7 +612,8 @@
                 <div class="video-thumbnail video-thumb-esg">
                     <img class="video-thumb-img" src="video-esg.jpg" alt="Title slide: ESG - Environment, Social and Governance" loading="lazy"
                          onerror="this.style.display='none'">
-                    <a class="video-thumb-link" href="https://www.linkedin.com/posts/jakeyraj_esg-sustainability-accounting-activity-7399296702622601216-cTas" target="_blank" rel="noopener noreferrer" aria-label="Watch ESG video on LinkedIn">
+                    <a class="video-thumb-link" href="https://www.linkedin.com/posts/jakeyraj_esg-sustainability-accounting-activity-7399296702622601216-cTas" target="_blank" rel="noopener noreferrer" aria-label="Play ESG video"
+                       data-embed="https://www.linkedin.com/embed/feed/update/urn:li:activity:7399296702622601216">
                         <div class="video-thumb-overlay">
                             <div class="video-play-btn"><i class="fas fa-play"></i></div>
                         </div>
@@ -606,7 +633,8 @@
                 <div class="video-thumbnail video-thumb-sixsigma">
                     <img class="video-thumb-img" src="video-sixsigma.jpg" alt="Title slide: Six Sigma Basics, by Jakey Raj Rajpal" loading="lazy"
                          onerror="this.style.display='none'">
-                    <a class="video-thumb-link" href="https://www.linkedin.com/posts/jakeyraj_sixsigma-processimprovement-leanthinking-activity-7354352889626079232-dDFI" target="_blank" rel="noopener noreferrer" aria-label="Watch Six Sigma video on LinkedIn">
+                    <a class="video-thumb-link" href="https://www.linkedin.com/posts/jakeyraj_sixsigma-processimprovement-leanthinking-activity-7354352889626079232-dDFI" target="_blank" rel="noopener noreferrer" aria-label="Play Six Sigma video"
+                       data-embed="https://www.linkedin.com/embed/feed/update/urn:li:activity:7354352889626079232">
                         <div class="video-thumb-overlay">
                             <div class="video-play-btn"><i class="fas fa-play"></i></div>
                         </div>
@@ -826,6 +854,15 @@
     <p>Designed & Built by <span>Jakey Raj Rajpal</span> &bull; Albuquerque, NM &bull; <span>jakeyraj.com</span></p>
     <p style="margin-top:0.5rem;font-size:0.75rem">© 2026 All rights reserved.</p>
 </footer>
+<!-- LinkedIn player, opened from the video cards -->
+<div class="video-modal" id="videoModal" role="dialog" aria-modal="true" aria-label="Video player">
+    <div class="video-modal-inner">
+        <button class="video-modal-close" id="videoModalClose" aria-label="Close video"><i class="fas fa-times"></i></button>
+        <iframe id="videoModalFrame" src="about:blank" title="LinkedIn video"
+                allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+        <p class="video-modal-note">Hosted on LinkedIn. <a id="videoModalLink" href="https://linkedin.com/in/jakeyraj" target="_blank" rel="noopener noreferrer">Open the original post</a></p>
+    </div>
+</div>
 <script>
     // NAV SCROLL EFFECT
     const navbar = document.getElementById('navbar');
@@ -867,6 +904,35 @@
     document.querySelectorAll('.story-card-link').forEach((card, i) => {
         card.style.transitionDelay = (i * 0.1) + 's';
     });
+    // VIDEO PLAYER
+    // The LinkedIn iframe is only created on click, so no third-party frame
+    // loads for visitors who never press play.
+    const videoModal = document.getElementById('videoModal');
+    const videoFrame = document.getElementById('videoModalFrame');
+    const videoLink  = document.getElementById('videoModalLink');
+    function openVideo(embedUrl, postUrl) {
+        videoFrame.src = embedUrl;
+        if (postUrl) videoLink.href = postUrl;
+        videoModal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeVideo() {
+        videoModal.classList.remove('open');
+        videoFrame.src = 'about:blank';   // stops playback
+        document.body.style.overflow = '';
+    }
+    document.querySelectorAll('.video-thumb-link[data-embed]').forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            openVideo(link.dataset.embed, link.getAttribute('href'));
+        });
+    });
+    document.getElementById('videoModalClose').addEventListener('click', closeVideo);
+    videoModal.addEventListener('click', e => { if (e.target === videoModal) closeVideo(); });
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && videoModal.classList.contains('open')) closeVideo();
+    });
+
     // TYPING ANIMATION
     const typingPhrases = ['Chartered Certified Accountant','Data Enthusiast','Content Creator','Problem Solver','Finance Professional','FCCA'];
     let typingIndex=0, charIndex=0, isDeleting=false;
