@@ -622,6 +622,57 @@
         .kh-launch { text-align: center; margin-top: 1.5rem; }
         .kh-note { color: var(--text-muted); font-size: 0.82rem; margin-top: 0.9rem; }
 
+        /* ── live ask widget (talks to the Cloudflare worker) ── */
+        .kh-ask {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 14px; padding: 1.75rem; margin-top: 1rem;
+        }
+        .kh-ask .btn-primary { font-family: 'Inter', sans-serif; }
+        .kh-field { margin-bottom: 1rem; }
+        .kh-field label {
+            display: block; font-size: 0.72rem; text-transform: uppercase;
+            letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 0.5rem;
+        }
+        .kh-ask select, .kh-ask textarea {
+            width: 100%; background: var(--bg-card2); color: var(--text);
+            border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem 0.9rem;
+            font-family: 'Inter', sans-serif; font-size: 0.95rem;
+        }
+        .kh-ask select { max-width: 320px; cursor: pointer; }
+        .kh-ask textarea { resize: vertical; min-height: 110px; line-height: 1.7; }
+        .kh-ask select:focus, .kh-ask textarea:focus {
+            outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,212,255,0.12);
+        }
+        .kh-examples { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.25rem; }
+        .kh-chip {
+            background: var(--bg-card2); border: 1px solid var(--border); color: var(--text-muted);
+            border-radius: 999px; padding: 0.42rem 0.9rem; font-size: 0.78rem;
+            font-family: 'Inter', sans-serif; cursor: pointer; transition: all 0.25s;
+        }
+        .kh-chip:hover { border-color: var(--primary); color: var(--text); }
+        .kh-bar {
+            display: flex; flex-wrap: wrap; gap: 1rem;
+            align-items: center; justify-content: space-between;
+        }
+        .kh-count { color: var(--text-muted); font-size: 0.78rem; }
+        .kh-answer { margin-top: 1.5rem; border-top: 1px solid var(--border); padding-top: 1.5rem; display: none; }
+        .kh-answer.show { display: block; }
+        .kh-answer p { color: var(--text); font-size: 0.98rem; line-height: 1.85; margin-bottom: 0.9rem; }
+        .kh-answer p:last-child { margin-bottom: 0; }
+        .kh-answer .kh-ref {
+            color: var(--primary); font-size: 0.9rem; line-height: 1.75;
+            border-left: 2px solid var(--primary); padding-left: 0.9rem;
+        }
+        .kh-err { color: #f87171; font-size: 0.92rem; line-height: 1.8; }
+        .kh-spin {
+            display: inline-block; width: 0.85rem; height: 0.85rem;
+            border: 2px solid rgba(255,255,255,0.35); border-top-color: #fff;
+            border-radius: 50%; animation: khspin 0.7s linear infinite;
+            margin-right: 0.55rem; vertical-align: -1px;
+        }
+        @keyframes khspin { to { transform: rotate(360deg); } }
+        .kh-ask button[disabled] { opacity: 0.6; cursor: not-allowed; transform: none !important; }
+
         .kh-feedback {
             background: linear-gradient(135deg, rgba(0,212,255,0.07), rgba(124,58,237,0.07));
             border: 1px solid rgba(0,212,255,0.2); border-radius: 16px;
@@ -671,8 +722,8 @@
             <p class="kh-lede">Ask a US accounting or auditing question. Get a two-line answer with the
             governing standard cited, then expand only if you need more.</p>
         </div>
-            <a class="kh-hero-cta" href="https://audit-salahkaar.base44.app" target="_blank" rel="noopener noreferrer">
-                <i class="fas fa-arrow-up-right-from-square"></i>Open the app
+            <a class="kh-hero-cta" href="#try">
+                <i class="fas fa-paper-plane"></i>Ask a question
             </a>
         </div>
 
@@ -715,18 +766,42 @@
         </ol>
 
         <!-- 4. The app -->
-        <h2 class="section-title" style="font-size:1.8rem;margin-top:4rem;margin-bottom:0.5rem">Try Audit-Salahkaar</h2>
-        <div class="kh-app">
-            <a class="kh-shot" href="https://audit-salahkaar.base44.app" target="_blank" rel="noopener noreferrer" aria-label="Open Audit-Salahkaar">
-                <img src="audit-salahkaar-preview.jpg" alt="The Audit-Salahkaar app: example questions, framework selector and question box"
-                     loading="lazy" onerror="this.style.display='none'">
-            </a>
-            <div class="kh-launch">
-                <a href="https://audit-salahkaar.base44.app" target="_blank" rel="noopener noreferrer" class="btn-primary">
-                    <i class="fas fa-arrow-up-right-from-square" style="margin-right:0.5rem"></i>Open Audit-Salahkaar in a new tab
-                </a>
-                <p class="kh-note">Audit-Salahkaar runs as its own app and opens in a new tab.</p>
+        <h2 class="section-title" id="try" style="font-size:1.8rem;margin-top:4rem;margin-bottom:0.5rem">Try Audit-Salahkaar</h2>
+        <p class="kh-note" style="margin:0 0 1.25rem">Ask right here. Nothing to install, no sign-up.</p>
+        <div class="kh-ask">
+            <div class="kh-examples">
+                <button type="button" class="kh-chip" onclick="khFill(this.textContent)">What is the Single Audit threshold?</button>
+                <button type="button" class="kh-chip" onclick="khFill(this.textContent)">When is a going concern paragraph required?</button>
+                <button type="button" class="kh-chip" onclick="khFill(this.textContent)">How do I classify a Type A program?</button>
+                <button type="button" class="kh-chip" onclick="khFill(this.textContent)">What counts as a questioned cost?</button>
             </div>
+
+            <div class="kh-field">
+                <label for="khFramework">Framework</label>
+                <select id="khFramework">
+                    <option value="Auto">Auto-detect</option>
+                    <option value="Private company">Private company</option>
+                    <option value="Issuer">Issuer (PCAOB)</option>
+                    <option value="Governmental">Governmental</option>
+                    <option value="Nonprofit">Nonprofit</option>
+                    <option value="Employee benefit plan">Employee benefit plan</option>
+                    <option value="Single audit">Single audit</option>
+                </select>
+            </div>
+
+            <div class="kh-field">
+                <label for="khQuestion">Your question</label>
+                <textarea id="khQuestion" maxlength="1000" placeholder="Ask a US accounting, auditing or attestation question in plain English."></textarea>
+            </div>
+
+            <div class="kh-bar">
+                <button type="button" class="btn-primary" id="khAsk" onclick="khSubmit()">
+                    <i class="fas fa-paper-plane" style="margin-right:0.5rem"></i>Ask Audit-Salahkaar
+                </button>
+                <span class="kh-count" id="khCount">0 / 1000 &bull; Ctrl + Enter to send</span>
+            </div>
+
+            <div class="kh-answer" id="khAnswer"></div>
         </div>
 
         <!-- 5. Feedback -->
@@ -764,6 +839,76 @@
     <p style="margin-top:0.5rem;font-size:0.75rem">© 2026 All rights reserved.</p>
 </footer>
 <script>
+    // ── Audit-Salahkaar ask widget ──
+    // The API key lives in a Cloudflare worker, so it never reaches this page.
+    const KH_API = "https://audit-salahkaar.jakeyraj.workers.dev";
+    const khQ = document.getElementById('khQuestion');
+    const khBtn = document.getElementById('khAsk');
+    const khOut = document.getElementById('khAnswer');
+    const khCountEl = document.getElementById('khCount');
+    const KH_IDLE = '<i class="fas fa-paper-plane" style="margin-right:0.5rem"></i>Ask Audit-Salahkaar';
+
+    function khTick() { khCountEl.innerHTML = khQ.value.length + ' / 1000 &bull; Ctrl + Enter to send'; }
+    khQ.addEventListener('input', khTick);
+    khQ.addEventListener('keydown', function (e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); khSubmit(); }
+    });
+
+    function khFill(text) { khQ.value = text; khTick(); khQ.focus(); }
+
+    // The answer comes from a model, so escape it before it ever touches innerHTML.
+    function khEsc(str) {
+        return str.replace(/[&<>"]/g, function (c) {
+            return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+        });
+    }
+
+    // Escape first, then re-allow only **bold**. Nothing else gets through.
+    function khRender(text) {
+        return text.split('\n').filter(function (l) { return l.trim(); }).map(function (line) {
+            var html = khEsc(line).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+            var ref = /^\s*Reference\s*:/i.test(line);
+            return '<p' + (ref ? ' class="kh-ref"' : '') + '>' + html + '</p>';
+        }).join('');
+    }
+
+    function khShow(html) { khOut.innerHTML = html; khOut.classList.add('show'); }
+
+    async function khSubmit() {
+        const question = khQ.value.trim();
+        if (!question) { khShow('<p class="kh-err">Please type a question first.</p>'); return; }
+
+        khBtn.disabled = true;
+        khBtn.innerHTML = '<span class="kh-spin"></span>Thinking\u2026';
+        khShow('<p style="color:var(--text-muted)">Looking up the governing standard\u2026</p>');
+
+        try {
+            const res = await fetch(KH_API, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question: question, framework: document.getElementById('khFramework').value })
+            });
+            const data = await res.json().catch(function () { return {}; });
+
+            if (data.answer) {
+                var html = khRender(data.answer);
+                if (typeof data.remaining === 'number') {
+                    html += '<p class="kh-count" style="margin-top:1.25rem">' + data.remaining +
+                            ' question' + (data.remaining === 1 ? '' : 's') + ' left today.</p>';
+                }
+                khShow(html);
+            } else {
+                khShow('<p class="kh-err">' +
+                       khEsc(data.message || 'Something went wrong. Please try again.') + '</p>');
+            }
+        } catch (err) {
+            khShow('<p class="kh-err">Could not reach Audit-Salahkaar. Check your connection and try again.</p>');
+        } finally {
+            khBtn.disabled = false;
+            khBtn.innerHTML = KH_IDLE;
+        }
+    }
+
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
     function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
