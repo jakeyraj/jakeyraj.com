@@ -19,6 +19,12 @@
     <meta name="description" content="Ask a US accounting or auditing question. Get a straight answer with the governing standard cited, right on the page.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Audit-Salahkaar &ndash; AI Audit Guide by Jakey">
+    <meta property="og:description" content="Ask a US accounting or auditing question. Get a straight answer with the governing standard cited, right on the page.">
+    <meta property="og:url" content="https://www.jakeyraj.com/audit-salahkaar.html">
+    <meta property="og:image" content="https://www.jakeyraj.com/audit-salahkaar-preview.jpg">
+    <meta name="twitter:card" content="summary_large_image">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
@@ -32,686 +38,229 @@
             --border: #2a2a3e;
             --gradient: linear-gradient(135deg, #00d4ff, #7c3aed);
         }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
-        /* NAV */
-        nav#navbar {
-            position: fixed; top: 0; width: 100%; z-index: 1000;
-            padding: 1rem 2rem; display: flex; justify-content: space-between;
-            align-items: center; transition: all 0.3s ease;
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3a3a52; }
+
+        /* The whole page is one screen. The thread scrolls inside itself,
+           the page never does, so the composer is always in reach. */
+        html { height: 100%; }
+        body {
+            height: 100dvh; display: flex; flex-direction: column; overflow: hidden;
+            background: var(--bg); color: var(--text);
+            font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased;
         }
-        nav.scrolled {
-            background: rgba(10,10,15,0.95); backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border); padding: 0.75rem 2rem;
+
+        /* ── nav ── */
+        nav {
+            flex: 0 0 auto; display: flex; justify-content: space-between; align-items: center;
+            padding: 0.85rem 1.5rem; border-bottom: 1px solid var(--border);
+            background: rgba(10,10,15,0.95);
         }
         .nav-logo {
-            font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; font-weight: 700;
             background: var(--gradient); -webkit-background-clip: text;
             -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none;
         }
-        .nav-links { display: flex; list-style: none; gap: 2rem; }
+        .nav-links { display: flex; list-style: none; gap: 1.75rem; align-items: center; }
         .nav-links a {
-            color: var(--text-muted); text-decoration: none; font-size: 0.9rem;
-            font-weight: 500; transition: color 0.3s; position: relative;
+            color: var(--text-muted); text-decoration: none; font-size: 0.88rem;
+            font-weight: 500; transition: color 0.25s;
         }
-        .nav-links a::after {
-            content: ''; position: absolute; bottom: -4px; left: 0;
-            width: 0; height: 2px; background: var(--gradient); transition: width 0.3s;
-        }
-        .nav-links a:hover { color: var(--primary); }
-        .nav-links a:hover::after { width: 100%; }
-        .hamburger {
-            display: none; flex-direction: column; gap: 5px;
-            cursor: pointer; background: none; border: none;
-        }
-        .hamburger span { width: 25px; height: 2px; background: var(--text); transition: all 0.3s; }
-        /* HERO */
-        #hero {
-            min-height: 100vh; display: flex; align-items: center;
-            position: relative; overflow: hidden; padding: 0 2rem;
-        }
-        #hero-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        .hero-content {
-            position: relative; z-index: 1; max-width: 1200px;
-            margin: 0 auto; width: 100%; padding: 6rem 0;
-            display: grid; grid-template-columns: 1fr auto; gap: 4rem; align-items: center;
-        }
-        .hero-text { display: flex; flex-direction: column; }
-        .hero-badge {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3);
-            border-radius: 50px; padding: 0.5rem 1rem; font-size: 0.85rem;
-            color: var(--primary); margin-bottom: 1.5rem;
-            animation: fadeInUp 0.6s ease forwards;
-        }
-        .hero-badge span {
-            width: 8px; height: 8px; background: var(--primary);
-            border-radius: 50%; animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0%,100% { opacity:1; transform:scale(1); }
-            50% { opacity:0.5; transform:scale(1.3); }
-        }
-        .hero-name {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(3rem, 8vw, 6rem); font-weight: 900;
-            line-height: 1.05; margin-bottom: 1rem;
-            animation: fadeInUp 0.7s ease 0.1s both;
-        }
-        .hero-name span {
-            background: var(--gradient); -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent; background-clip: text;
-        }
-        .hero-tagline {
-            font-size: clamp(1rem, 2.5vw, 1.4rem); color: var(--text-muted);
-            margin-bottom: 2rem; animation: fadeInUp 0.7s ease 0.2s both;
-            min-height: 2em;
-        }
-        #typed-text {
-            background: var(--gradient); -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent; background-clip: text; font-weight: 700;
-        }
-        .typing-cursor {
-            display: inline-block; color: var(--primary); font-weight: 300;
-            animation: blink 0.8s infinite; margin-left: 2px; -webkit-text-fill-color: var(--primary);
-        }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-        .hero-description {
-            font-size: 1rem; color: var(--text-muted); max-width: 600px;
-            line-height: 1.8; margin-bottom: 2.5rem; animation: fadeInUp 0.7s ease 0.3s both;
-        }
-        .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeInUp 0.7s ease 0.4s both; }
-        .btn-primary {
-            background: var(--gradient); color: white; padding: 0.9rem 2rem;
-            border-radius: 8px; text-decoration: none; font-weight: 600;
-            font-size: 0.95rem; transition: all 0.3s; border: none; cursor: pointer;
-            box-shadow: 0 0 30px rgba(0,212,255,0.3);
-        }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(0,212,255,0.5); }
-        .btn-secondary {
-            background: transparent; color: var(--text); padding: 0.9rem 2rem;
-            border-radius: 8px; text-decoration: none; font-weight: 600;
-            font-size: 0.95rem; transition: all 0.3s; border: 1px solid var(--border);
-        }
-        .btn-secondary:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-2px); }
-        .hero-stats { display: flex; gap: 3rem; margin-top: 4rem; flex-wrap: wrap; animation: fadeInUp 0.7s ease 0.5s both; }
-        .hero-stat h3 {
-            font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 800;
-            background: var(--gradient); -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent; background-clip: text;
-        }
-        .hero-stat p { color: var(--text-muted); font-size: 0.85rem; margin-top: 0.25rem; }
-        .scroll-indicator {
-            position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
-            display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-            color: var(--text-muted); font-size: 0.75rem; animation: bounce 2s infinite;
-        }
-        @keyframes bounce {
-            0%,100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(-10px); }
-        }
-        .hero-photo-container { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; }
-        .hero-photo-ring {
-            width: 320px; height: 320px; border-radius: 50%; padding: 4px;
-            background: var(--gradient); box-shadow: 0 0 60px rgba(0,212,255,0.3);
-            animation: fadeInUp 0.8s ease 0.3s both; flex-shrink: 0;
-        }
-        .hero-photo { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: center top; border: 4px solid var(--bg); }
-        /* SECTIONS */
-        section { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
-        .full-section { background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-        .full-section .inner { max-width: 1200px; margin: 0 auto; padding: 6rem 2rem; }
-        .section-tag {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            color: var(--primary); font-size: 0.8rem; font-weight: 600;
-            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem;
-        }
-        .section-tag::before { content: ''; width: 2rem; height: 2px; background: var(--gradient); }
-        .section-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; margin-bottom: 1rem; }
-        .section-subtitle { color: var(--text-muted); font-size: 1.05rem; max-width: 600px; line-height: 1.8; margin-bottom: 4rem; }
-        /* ABOUT */
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-        .about-image-container { position: relative; }
-        .about-image-box {
-            width: 100%; aspect-ratio: 1; border-radius: 20px; background: var(--bg-card2);
-            border: 1px solid var(--border); display: flex; flex-direction: column;
-            align-items: center; justify-content: center; position: relative; overflow: hidden;
-        }
-        .about-image-box::before { content: ''; position: absolute; inset: 0; background: var(--gradient); opacity: 0.05; }
-        .about-image-box .initials {
-            font-family: 'Space Grotesk', sans-serif; font-size: 5rem; font-weight: 800;
-            background: var(--gradient); -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent; background-clip: text; z-index: 1;
-        }
-        .about-image-box .subtitle-tag { font-size: 0.85rem; color: var(--text-muted); z-index: 1; margin-top: 0.5rem; }
-        .floating-badge {
-            position: absolute; background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: 12px; padding: 0.75rem 1rem; display: flex; align-items: center;
-            gap: 0.5rem; font-size: 0.8rem; font-weight: 600; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        .floating-badge.top-right { top: -1rem; right: -1rem; color: var(--primary); }
-        .floating-badge.bottom-left { bottom: -1rem; left: -1rem; color: #a78bfa; }
-        .about-info h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; color: var(--primary); }
-        .about-info p { color: var(--text-muted); line-height: 1.9; margin-bottom: 1.5rem; }
-        .about-highlights { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
-        .highlight-item {
-            display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem;
-            background: var(--bg-card); border-radius: 8px; border: 1px solid var(--border);
-            font-size: 0.85rem; color: var(--text-muted);
-        }
-        .highlight-item i { color: var(--primary); width: 16px; }
-        /* TIMELINE */
-        .timeline { position: relative; padding-left: 2rem; }
-        .timeline::before {
-            content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-            width: 2px; background: linear-gradient(to bottom, var(--primary), var(--secondary), transparent);
-        }
-        .timeline-item { position: relative; margin-bottom: 3rem; padding-left: 2rem; opacity: 0; transform: translateX(-20px); transition: all 0.6s ease; }
-        .timeline-item.visible { opacity: 1; transform: translateX(0); }
-        .timeline-dot {
-            position: absolute; left: -2.45rem; top: 0.5rem; width: 14px; height: 14px;
-            border-radius: 50%; background: var(--gradient); border: 3px solid var(--bg-card);
-            box-shadow: 0 0 15px rgba(0,212,255,0.5);
-        }
-        .timeline-card { background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem; transition: all 0.3s; }
-        .timeline-card:hover { border-color: rgba(0,212,255,0.3); box-shadow: 0 10px 40px rgba(0,0,0,0.3); transform: translateY(-3px); }
-        .timeline-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 1rem; }
-        .timeline-company { font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; font-weight: 700; }
-        .timeline-period { background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.2); border-radius: 50px; padding: 0.25rem 0.75rem; font-size: 0.75rem; color: var(--primary); white-space: nowrap; }
-        .timeline-role { color: var(--primary); font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem; }
-        .timeline-location { color: var(--text-muted); font-size: 0.8rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
-        .timeline-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-        .timeline-bullets li { color: var(--text-muted); font-size: 0.88rem; line-height: 1.6; display: flex; gap: 0.75rem; }
-        .timeline-bullets li::before { content: '►'; color: var(--primary); flex-shrink: 0; font-size: 0.6rem; margin-top: 0.25rem; }
-        .timeline-multi-role { background: rgba(0,212,255,0.04); border: 1px solid rgba(0,212,255,0.12); border-radius: 10px; padding: 1rem; margin-bottom: 1rem; }
-        .timeline-multi-role:last-child { margin-bottom: 0; }
-        .role-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem; }
-        /* SKILLS */
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
-        .skill-category { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; transition: all 0.3s; opacity: 0; transform: translateY(20px); }
-        .skill-category.visible { opacity: 1; transform: translateY(0); }
-        .skill-category:hover { border-color: rgba(0,212,255,0.3); }
-        .skill-cat-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; }
-        .skill-cat-icon { width: 42px; height: 42px; border-radius: 10px; background: rgba(0,212,255,0.1); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.1rem; }
-        .skill-cat-title { font-weight: 700; font-size: 1rem; }
-        .skill-item { margin-bottom: 1.2rem; }
-        .skill-item-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.85rem; }
-        .skill-item-header span:first-child { color: var(--text-muted); }
-        .skill-item-header span:last-child { color: var(--primary); font-weight: 600; }
-        .skill-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
-        .skill-fill { height: 100%; background: var(--gradient); border-radius: 3px; width: 0; transition: width 1.2s ease; }
-        .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-        .skill-tag { background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.15); border-radius: 6px; padding: 0.35rem 0.75rem; font-size: 0.78rem; color: var(--text-muted); transition: all 0.3s; }
-        .skill-tag:hover { background: rgba(0,212,255,0.15); color: var(--primary); border-color: rgba(0,212,255,0.4); }
-        /* EDUCATION */
-        .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-        .edu-card { background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; transition: all 0.3s; position: relative; overflow: hidden; }
-        .edu-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--gradient); }
-        .edu-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
-        .edu-icon { width: 50px; height: 50px; border-radius: 12px; background: rgba(0,212,255,0.1); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.3rem; margin-bottom: 1.25rem; }
-        .edu-degree { font-weight: 700; font-size: 1rem; margin-bottom: 0.5rem; }
-        .edu-institution { color: var(--primary); font-size: 0.85rem; font-weight: 500; margin-bottom: 0.25rem; }
-        .edu-location-date { color: var(--text-muted); font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
-        .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
-        .cert-badge { background: rgba(124,58,237,0.1); border: 1px solid rgba(124,58,237,0.2); border-radius: 10px; padding: 0.75rem 1rem; font-size: 0.82rem; color: #a78bfa; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s; }
-        .cert-badge:hover { background: rgba(124,58,237,0.2); transform: translateY(-2px); }
-        /* LEADERSHIP */
-        .leadership-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
-        .leadership-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; transition: all 0.3s; }
-        .leadership-card:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-3px); }
-        .leadership-icon { font-size: 2rem; margin-bottom: 0.75rem; }
-        .leadership-card h4 { font-weight: 700; font-size: 0.95rem; margin-bottom: 0.4rem; }
-        .leadership-card p { color: var(--text-muted); font-size: 0.82rem; line-height: 1.6; }
-        /* LANGUAGES */
-        .lang-grid { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
-        .lang-badge { background: var(--bg-card); border: 1px solid var(--border); border-radius: 50px; padding: 0.6rem 1.25rem; font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s; }
-        .lang-badge:hover { border-color: var(--primary); color: var(--primary); }
-        .lang-level { font-size: 0.7rem; background: rgba(0,212,255,0.1); color: var(--primary); padding: 0.15rem 0.5rem; border-radius: 50px; }
-        /* STORIES SECTION */
-        .stories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.75rem;
-            margin-top: 1rem;
-        }
-        .stories-grid > .story-card-link:only-child { max-width: 380px; }
-        .story-card-link {
-            text-decoration: none;
-            color: inherit;
-            display: block;
-            border-radius: 16px;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        .story-card-link.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .story-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
-            height: 100%;
-        }
-        .story-card-link:hover .story-card {
-            border-color: rgba(0,212,255,0.4);
-            box-shadow: 0 16px 48px rgba(0,0,0,0.45);
-            transform: translateY(-6px);
-        }
-        .story-thumb {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 4 / 3;
-            overflow: hidden;
-            background: var(--bg-card2);
-        }
-        .story-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            display: block;
-            transition: transform 0.4s ease;
-        }
-        .story-card-link:hover .story-thumb img {
-            transform: scale(1.07);
-        }
-        .story-thumb-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            background: linear-gradient(135deg, var(--bg-card2), #0d1b2a);
-        }
-        .story-thumb-placeholder i {
-            font-size: 2.5rem;
-            color: rgba(0,212,255,0.3);
-        }
-        .story-thumb-placeholder span {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            opacity: 0.6;
-        }
-        .story-thumb-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(
-                to bottom,
-                transparent 40%,
-                rgba(0,0,0,0.75) 100%
-            );
-            pointer-events: none;
-        }
-        .story-thumb-title {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 1rem;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: #fff;
-            line-height: 1.3;
-            z-index: 1;
-            pointer-events: none;
-        }
-        .story-ribbon {
-            position: absolute;
-            top: 1rem;
-            right: -0.5rem;
-            background: rgba(0,212,255,0.15);
-            border: 1px solid rgba(0,212,255,0.3);
-            color: var(--primary);
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            padding: 0.25rem 0.65rem;
-            border-radius: 4px;
-        }
-        .story-card-body {
-            padding: 1rem 1.25rem 1.25rem;
-        }
-        .story-card-caption {
-            color: var(--text-muted);
-            font-size: 0.82rem;
-            line-height: 1.65;
-            margin-bottom: 0.85rem;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        .story-card-meta {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-        .story-card-meta span { display: flex; align-items: center; gap: 0.4rem; }
-        .story-read-more {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            color: var(--primary);
-            font-size: 0.78rem;
-            font-weight: 600;
-            transition: gap 0.2s;
-        }
-        .story-card-link:hover .story-read-more { gap: 0.7rem; }
-        /* VIDEOS */
-        .videos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2rem; }
-        .video-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; transition: all 0.3s; opacity: 0; transform: translateY(20px); }
-        .video-card.visible { opacity: 1; transform: translateY(0); }
-        .video-card:hover { border-color: rgba(0,212,255,0.3); box-shadow: 0 20px 50px rgba(0,0,0,0.4); transform: translateY(-5px); }
-        .video-thumbnail { position: relative; height: 210px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-        .video-thumb-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
-        .video-card:hover .video-thumb-img { transform: scale(1.05); }
-        .video-thumb-esg { background: linear-gradient(135deg, #0a2a1a, #1a4a2e, #0d3320); }
-        .video-thumb-sixsigma { background: linear-gradient(135deg, #1a0a2e, #2e1a4a, #200d3a); }
-        .video-thumb-link { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-decoration: none; z-index: 2; }
-        .video-thumb-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; transition: background 0.3s; pointer-events: none; }
-        .video-card:hover .video-thumb-overlay { background: rgba(0,0,0,0.5); }
-        .video-play-btn { width: 68px; height: 68px; border-radius: 50%; background: var(--gradient); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.4rem; box-shadow: 0 0 30px rgba(0,212,255,0.5); transition: all 0.3s; padding-left: 5px; pointer-events: none; }
-        .video-card:hover .video-play-btn { transform: scale(1.12); box-shadow: 0 0 55px rgba(0,212,255,0.8); }
-        .video-thumb-content { position: absolute; bottom: 1rem; left: 1rem; display: flex; align-items: center; gap: 0.5rem; z-index: 1; pointer-events: none; }
-        .video-thumb-icon { font-size: 1.5rem; }
-        .video-thumb-label { background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); border-radius: 50px; padding: 0.25rem 0.75rem; font-size: 0.75rem; color: var(--text-muted); backdrop-filter: blur(5px); }
-        .video-linkedin-badge { position: absolute; top: 1rem; right: 1rem; background: rgba(10,102,194,0.85); border-radius: 8px; padding: 0.3rem 0.6rem; font-size: 0.75rem; color: white; display: flex; align-items: center; gap: 0.35rem; backdrop-filter: blur(5px); z-index: 1; pointer-events: none; }
-        .video-card-body { padding: 1.5rem; }
-        .video-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.85rem; }
-        .video-tag { background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.18); border-radius: 50px; padding: 0.2rem 0.65rem; font-size: 0.72rem; color: var(--primary); }
-        .video-title { font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; line-height: 1.45; }
-        .video-desc { color: var(--text-muted); font-size: 0.85rem; line-height: 1.75; margin-bottom: 1.25rem; }
-        .video-watch-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(10,102,194,0.12); border: 1px solid rgba(10,102,194,0.3); border-radius: 8px; padding: 0.65rem 1.25rem; color: #4d94e0; font-size: 0.85rem; font-weight: 600; text-decoration: none; transition: all 0.3s; }
-        .video-watch-btn:hover { background: rgba(10,102,194,0.25); border-color: rgba(10,102,194,0.55); transform: translateY(-2px); color: #70aaee; }
-        .video-watch-btn i { font-size: 1.1rem; }
-        .videos-more { text-align: center; margin-top: 3rem; }
-        .videos-more p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem; }
-        /* CONTACT */
-        .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: start; }
-        .contact-info-card { background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; }
-        .contact-info-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; }
-        .contact-item { display: flex; align-items: center; gap: 1rem; padding: 1rem; border-radius: 10px; transition: background 0.3s; text-decoration: none; color: inherit; margin-bottom: 0.5rem; }
-        .contact-item:hover { background: rgba(0,212,255,0.05); }
-        .contact-item-icon { width: 42px; height: 42px; border-radius: 10px; background: rgba(0,212,255,0.1); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1rem; flex-shrink: 0; }
-        .contact-item-text h4 { font-size: 0.85rem; font-weight: 600; }
-        .contact-item-text p { color: var(--text-muted); font-size: 0.8rem; }
-        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
-        .social-btn { width: 46px; height: 46px; border-radius: 10px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); text-decoration: none; transition: all 0.3s; font-size: 1.1rem; }
-        .social-btn:hover { border-color: var(--primary); color: var(--primary); background: rgba(0,212,255,0.05); transform: translateY(-3px); }
-        .contact-form-card { background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; }
-        .contact-form-card h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; }
-        .form-group { margin-bottom: 1.25rem; }
-        .form-group label { display: block; font-size: 0.85rem; font-weight: 500; color: var(--text-muted); margin-bottom: 0.5rem; }
-        .form-group input, .form-group textarea { width: 100%; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 0.9rem 1rem; color: var(--text); font-size: 0.9rem; font-family: 'Inter', sans-serif; transition: border-color 0.3s; outline: none; }
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); }
-        .form-group textarea { resize: vertical; min-height: 120px; }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-        /* FOOTER */
-        footer { text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border); }
-        footer span { color: var(--primary); }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        /* RESPONSIVE */
-        @media (max-width: 900px) {
-            .hero-content { grid-template-columns: 1fr !important; text-align: center; }
-            .hero-photo-container { order: -1; }
-            .hero-photo-ring { width: 200px; height: 200px; }
-            .hero-ctas { justify-content: center; }
-            .hero-stats { justify-content: center; }
-        }
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg); justify-content: center; align-items: center; gap: 2rem; font-size: 1.2rem; z-index: 999; }
-            .hamburger { display: flex; z-index: 1001; }
-            .about-grid { grid-template-columns: 1fr; }
-            .contact-grid { grid-template-columns: 1fr; }
-            .form-row { grid-template-columns: 1fr; }
-            .hero-stats { gap: 2rem; }
-            .about-highlights { grid-template-columns: 1fr; }
-            .floating-badge { display: none; }
-            .videos-grid { grid-template-columns: 1fr; }
-            .video-play-btn { width: 88px; height: 88px; font-size: 1.8rem; }
-            .stories-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 480px) {
-            .stories-grid { grid-template-columns: 1fr; }
-        }
-    </style>
-    <style>
-        /* standalone experience page */
-        .page-top { margin-top: 70px; }
-        .nav-links a.active { color: var(--primary); }
-        .page-back { text-align: center; padding: 0 2rem 5rem; }
-    </style>
-    <noscript><style>
-        .timeline-item { opacity: 1; transform: none; }
-    </style></noscript>
-    <style>
-        /* ── Articles ── */
-        .articles-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.75rem; margin-top: 1rem;
-        }
-        .articles-grid > .article-card-link:only-child { max-width: 560px; }
-        .article-card-link { text-decoration: none; color: inherit; display: block; }
-        .article-card {
-            background: var(--bg); border: 1px solid var(--border); border-radius: 16px;
-            padding: 1.75rem; height: 100%; display: flex; flex-direction: column;
-            transition: all 0.3s ease;
-        }
-        .article-card-link:hover .article-card {
-            border-color: rgba(0,212,255,0.35); transform: translateY(-4px);
-            box-shadow: 0 18px 45px rgba(0,0,0,0.35);
-        }
-        .article-card-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin-bottom: 1rem; }
-        .article-tag {
-            background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.25);
-            border-radius: 50px; padding: 0.2rem 0.7rem; font-size: 0.72rem;
-            color: var(--primary); font-weight: 600; letter-spacing: 0.03em;
-        }
-        .article-date { color: var(--text-muted); font-size: 0.75rem; }
-        .article-title {
-            font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem; font-weight: 700;
-            line-height: 1.4; margin-bottom: 0.75rem; color: var(--text);
-        }
-        .article-excerpt { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.25rem; }
-        .article-read-more {
-            margin-top: auto; color: var(--primary); font-size: 0.85rem; font-weight: 600;
-            display: inline-flex; align-items: center; gap: 0.45rem; transition: gap 0.3s;
-        }
-        .article-card-link:hover .article-read-more { gap: 0.75rem; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+        .hamburger span { width: 24px; height: 2px; background: var(--text); }
 
-        /* shown until the first article is published */
-        .articles-empty {
-            border: 1px dashed var(--border); border-radius: 16px;
-            padding: 3.5rem 2rem; text-align: center; background: var(--bg);
-        }
-        .articles-empty i { font-size: 2.2rem; color: rgba(0,212,255,0.35); margin-bottom: 1.25rem; display: block; }
-        .articles-empty h3 {
-            font-family: 'Space Grotesk', sans-serif; font-size: 1.15rem;
-            color: var(--text); margin-bottom: 0.75rem;
-        }
-        .articles-empty p {
-            color: var(--text-muted); font-size: 0.92rem; line-height: 1.8;
-            max-width: 620px; margin: 0 auto;
-        }
-    </style>
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Audit-Salahkaar &ndash; AI Audit Guide by Jakey">
-    <meta property="og:description" content="Ask a US accounting or auditing question. Get a straight answer with the governing standard cited, right on the page.">
-    <meta property="og:url" content="https://www.jakeyraj.com/audit-salahkaar.html">
-    <meta property="og:image" content="https://www.jakeyraj.com/audit-salahkaar-preview.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <style>
-        /* ── Audit-Salahkaar ── */
-        /* hero sits left, launch button pinned right and level with the app name */
-        .kh-hero-row {
-            display: flex; align-items: flex-start; justify-content: space-between;
-            gap: 2rem; flex-wrap: wrap;
-        }
-        .kh-hero { text-align: left; max-width: 760px; flex: 1 1 420px; }
-        .kh-hero-cta {
-            flex: 0 0 auto; display: inline-flex; align-items: center; gap: 0.5rem;
-            background: var(--gradient); color: #fff; text-decoration: none;
-            padding: 0.8rem 1.5rem; border-radius: 8px; white-space: nowrap;
-            font-size: 0.92rem; font-weight: 600;
-            box-shadow: 0 0 26px rgba(0,212,255,0.3); transition: all 0.3s;
-        }
-        .kh-hero-cta:hover { transform: translateY(-2px); box-shadow: 0 0 38px rgba(0,212,255,0.55); }
-        @media (max-width: 768px) {
-            .kh-hero-cta { width: 100%; justify-content: center; }
-        }
-        .kh-name {
-            font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.6rem, 6vw, 4rem);
-            font-weight: 900; line-height: 1.05; margin-bottom: 0.4rem;
-            background: var(--gradient); -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent; background-clip: text;
-        }
-        .kh-sub { color: var(--text-muted); font-size: 1rem; margin-bottom: 1.5rem; }
-        .kh-tagline {
-            font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.3rem, 3vw, 1.8rem);
-            font-weight: 700; color: var(--text); margin-bottom: 1.25rem;
-        }
-        .kh-lede { color: var(--text-muted); font-size: 1.05rem; line-height: 1.8; }
+        /* ── app shell ── */
+        .app { flex: 1 1 auto; display: flex; flex-direction: column; min-height: 0; }
 
-        .kh-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
-        .kh-card {
-            background: var(--bg); border: 1px solid var(--border); border-radius: 16px;
-            padding: 1.6rem; transition: all 0.3s;
+        .app-bar {
+            flex: 0 0 auto; display: flex; align-items: center; gap: 1rem;
+            flex-wrap: wrap; padding: 0.7rem 1.5rem; border-bottom: 1px solid var(--border);
         }
-        .kh-card:hover { border-color: rgba(0,212,255,0.3); transform: translateY(-3px); }
-        .kh-card h3 {
-            font-family: 'Space Grotesk', sans-serif; font-size: 1rem; color: var(--text);
-            margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.6rem;
+        .app-name {
+            font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem;
+            font-weight: 600; white-space: nowrap;
         }
-        .kh-card h3 i { color: var(--primary); font-size: 0.95rem; }
-        .kh-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.75; }
-
-        .kh-steps { list-style: none; counter-reset: kh; display: grid; gap: 1rem; margin-top: 1rem; }
-        .kh-steps li {
-            counter-increment: kh; position: relative; padding: 1.1rem 1.3rem 1.1rem 3.6rem;
-            background: var(--bg); border: 1px solid var(--border); border-radius: 12px;
-            color: var(--text-muted); font-size: 0.95rem; line-height: 1.7;
-        }
-        .kh-steps li::before {
-            content: counter(kh); position: absolute; left: 1.1rem; top: 1rem;
-            width: 28px; height: 28px; border-radius: 50%; background: var(--gradient);
-            color: #fff; font-weight: 700; font-size: 0.85rem;
-            display: flex; align-items: center; justify-content: center;
-        }
-
-        .kh-app { margin-top: 1rem; }
-        .kh-shot {
-            display: block; width: 100%; border: 1px solid var(--border);
-            border-radius: 16px; overflow: hidden; background: var(--bg-card2);
-        }
-        .kh-shot img { width: 100%; display: block; }
-        .kh-launch { text-align: center; margin-top: 1.5rem; }
-        .kh-note { color: var(--text-muted); font-size: 0.82rem; margin-top: 0.9rem; }
-
-        /* ── live ask widget (talks to the Cloudflare worker) ── */
-        .kh-ask {
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: 14px; padding: 1.75rem; margin-top: 1rem;
-        }
-        .kh-ask .btn-primary { font-family: 'Inter', sans-serif; }
-        .kh-field { margin-bottom: 1rem; }
-        .kh-field label {
-            display: block; font-size: 0.72rem; text-transform: uppercase;
-            letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 0.5rem;
-        }
-        .kh-ask select, .kh-ask textarea {
-            width: 100%; background: var(--bg-card2); color: var(--text);
-            border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem 0.9rem;
-            font-family: 'Inter', sans-serif; font-size: 0.95rem;
-        }
-        .kh-ask select { max-width: 320px; cursor: pointer; }
-        .kh-ask textarea { resize: vertical; min-height: 110px; line-height: 1.7; }
-        .kh-ask select:focus, .kh-ask textarea:focus {
-            outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,212,255,0.12);
-        }
-        .kh-examples { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.25rem; }
-        .kh-chip {
-            background: var(--bg-card2); border: 1px solid var(--border); color: var(--text-muted);
-            border-radius: 999px; padding: 0.42rem 0.9rem; font-size: 0.78rem;
+        .app-name span { color: var(--text-muted); font-size: 0.78rem; font-weight: 400; margin-left: 0.5rem; }
+        .app-tools { margin-left: auto; display: flex; align-items: center; gap: 0.6rem; }
+        .app-tools select, .ghost {
+            background: var(--bg-card2); color: var(--text); border: 1px solid var(--border);
+            border-radius: 7px; padding: 0.42rem 0.7rem; font-size: 0.8rem;
             font-family: 'Inter', sans-serif; cursor: pointer; transition: all 0.25s;
         }
-        .kh-chip:hover { border-color: var(--primary); color: var(--text); }
-        .kh-bar {
-            display: flex; flex-wrap: wrap; gap: 1rem;
-            align-items: center; justify-content: space-between;
+        .app-tools select:hover, .ghost:hover { border-color: var(--primary); color: var(--primary); }
+        .app-tools select:focus { outline: none; border-color: var(--primary); }
+
+        /* ── thread ── */
+        .thread { flex: 1 1 auto; overflow-y: auto; overflow-x: hidden; padding: 1.5rem 1.5rem 0; }
+        .thread-inner { max-width: 760px; margin: 0 auto; padding-bottom: 1.5rem; }
+
+        /* empty state, replaced by messages on first send */
+        .welcome { text-align: center; padding: 2.5rem 0 1rem; }
+        .welcome h1 {
+            font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.9rem, 5vw, 2.6rem);
+            font-weight: 800; background: var(--gradient); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.6rem;
         }
-        .kh-count { color: var(--text-muted); font-size: 0.78rem; }
-        .kh-answer { margin-top: 1.5rem; border-top: 1px solid var(--border); padding-top: 1.5rem; display: none; }
-        .kh-answer.show { display: block; }
-        .kh-answer p { color: var(--text); font-size: 0.98rem; line-height: 1.85; margin-bottom: 0.9rem; }
-        .kh-answer p:last-child { margin-bottom: 0; }
-        .kh-answer .kh-ref {
-            color: var(--primary); font-size: 0.9rem; line-height: 1.75;
+        .welcome .tag { font-size: 1.02rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .welcome .lede {
+            color: var(--text-muted); font-size: 0.93rem; line-height: 1.8;
+            max-width: 520px; margin: 0 auto 2rem;
+        }
+        .chips { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0.65rem; text-align: left; }
+        .chip {
+            background: var(--bg-card); border: 1px solid var(--border); color: var(--text-muted);
+            border-radius: 10px; padding: 0.8rem 1rem; font-size: 0.85rem; line-height: 1.5;
+            font-family: 'Inter', sans-serif; cursor: pointer; transition: all 0.25s; text-align: left;
+        }
+        .chip:hover { border-color: var(--primary); color: var(--text); transform: translateY(-2px); }
+
+        /* messages */
+        .msg { margin-bottom: 1.75rem; }
+        .msg.user { display: flex; justify-content: flex-end; }
+        .msg.user .bubble {
+            background: var(--bg-card2); border: 1px solid var(--border);
+            border-radius: 14px 14px 4px 14px; padding: 0.8rem 1.1rem;
+            max-width: 85%; font-size: 0.95rem; line-height: 1.7; white-space: pre-wrap;
+        }
+        .msg.bot .who {
+            display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem;
+            color: var(--primary); font-weight: 600; margin-bottom: 0.6rem;
+            text-transform: uppercase; letter-spacing: 0.07em;
+        }
+        .msg.bot p { color: var(--text); font-size: 0.97rem; line-height: 1.85; margin-bottom: 0.9rem; }
+        .msg.bot p:last-child { margin-bottom: 0; }
+        .msg.bot .kh-ref {
+            color: var(--primary); font-size: 0.89rem; line-height: 1.75;
             border-left: 2px solid var(--primary); padding-left: 0.9rem;
         }
-        .kh-answer ul { margin: 0 0 0.9rem 1.15rem; }
-        .kh-answer li {
-            color: var(--text); font-size: 0.95rem; line-height: 1.8;
-            margin-bottom: 0.5rem; padding-left: 0.3rem;
-        }
-        .kh-answer li::marker { color: var(--primary); }
-        .kh-answer em { color: var(--text-muted); }
+        .msg.bot ul, .msg.bot ol { margin: 0 0 0.9rem 1.15rem; }
+        .msg.bot li { color: var(--text); font-size: 0.94rem; line-height: 1.8; margin-bottom: 0.5rem; padding-left: 0.3rem; }
+        .msg.bot li::marker { color: var(--primary); }
+        .msg.bot em { color: var(--text-muted); }
         .kh-tablewrap { overflow-x: auto; margin: 0 0 1.1rem; }
-        .kh-answer table { border-collapse: collapse; width: 100%; min-width: 360px; font-size: 0.88rem; }
-        .kh-answer th, .kh-answer td {
-            border: 1px solid var(--border); padding: 0.6rem 0.85rem; text-align: left;
-        }
-        .kh-answer th { background: var(--bg-card2); color: var(--text); font-weight: 600; }
-        .kh-answer td { color: var(--text-muted); }
+        .msg.bot table { border-collapse: collapse; width: 100%; min-width: 340px; font-size: 0.86rem; }
+        .msg.bot th, .msg.bot td { border: 1px solid var(--border); padding: 0.55rem 0.8rem; text-align: left; }
+        .msg.bot th { background: var(--bg-card2); color: var(--text); font-weight: 600; }
+        .msg.bot td { color: var(--text-muted); }
         .kh-warn {
-            color: #fbbf24; font-size: 0.86rem; line-height: 1.75;
-            border-left: 2px solid #fbbf24; padding-left: 0.9rem; margin-top: 1.1rem;
+            color: #fbbf24; font-size: 0.85rem; line-height: 1.75;
+            border-left: 2px solid #fbbf24; padding-left: 0.9rem; margin-top: 1rem;
         }
         .kh-err { color: #f87171; font-size: 0.92rem; line-height: 1.8; }
-        .kh-spin {
-            display: inline-block; width: 0.85rem; height: 0.85rem;
-            border: 2px solid rgba(255,255,255,0.35); border-top-color: #fff;
-            border-radius: 50%; animation: khspin 0.7s linear infinite;
-            margin-right: 0.55rem; vertical-align: -1px;
-        }
-        @keyframes khspin { to { transform: rotate(360deg); } }
-        .kh-ask button[disabled] { opacity: 0.6; cursor: not-allowed; transform: none !important; }
 
-        .kh-feedback {
-            background: linear-gradient(135deg, rgba(0,212,255,0.07), rgba(124,58,237,0.07));
-            border: 1px solid rgba(0,212,255,0.2); border-radius: 16px;
-            padding: 2rem; margin-top: 1rem; text-align: center;
+        /* thinking indicator */
+        .dots { display: inline-flex; gap: 4px; align-items: center; height: 1.2rem; }
+        .dots i {
+            width: 6px; height: 6px; border-radius: 50%; background: var(--primary);
+            opacity: 0.4; animation: blink 1.3s infinite;
         }
-        .kh-feedback h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.25rem; margin-bottom: 0.75rem; }
-        .kh-feedback p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.8; max-width: 620px; margin: 0 auto 1.5rem; }
-        .kh-btns { display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
-        .kh-connect { display: block; margin-top: 1rem; font-size: 0.85rem; color: var(--primary); text-decoration: none; }
-        .kh-connect:hover { text-decoration: underline; }
+        .dots i:nth-child(2) { animation-delay: 0.18s; }
+        .dots i:nth-child(3) { animation-delay: 0.36s; }
+        @keyframes blink { 0%, 60%, 100% { opacity: 0.25; } 30% { opacity: 1; } }
 
-        .kh-disclaimer {
-            max-width: 1200px; margin: 0 auto; padding: 0 2rem 4rem;
-            color: var(--text-muted); font-size: 0.8rem; line-height: 1.7; opacity: 0.75;
+        /* ── composer ── */
+        .composer { flex: 0 0 auto; border-top: 1px solid var(--border); padding: 0.9rem 1.5rem 0.75rem; }
+        .composer-inner { max-width: 760px; margin: 0 auto; }
+        .box {
+            display: flex; align-items: flex-end; gap: 0.6rem;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 14px; padding: 0.6rem 0.6rem 0.6rem 1rem; transition: border-color 0.25s;
         }
-        .kh-disclaimer strong { color: var(--text-muted); font-weight: 600; }
+        .box:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,212,255,0.1); }
+        .box textarea {
+            flex: 1 1 auto; background: none; border: none; color: var(--text); resize: none;
+            font-family: 'Inter', sans-serif; font-size: 0.97rem; line-height: 1.65;
+            max-height: 180px; padding: 0.35rem 0;
+        }
+        .box textarea:focus { outline: none; }
+        .box textarea::placeholder { color: #5b6478; }
+        .send {
+            flex: 0 0 auto; width: 38px; height: 38px; border-radius: 10px; border: none;
+            background: var(--gradient); color: #fff; cursor: pointer; font-size: 0.9rem;
+            display: grid; place-items: center; transition: all 0.25s;
+        }
+        .send:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 0 20px rgba(0,212,255,0.45); }
+        .send:disabled { opacity: 0.45; cursor: not-allowed; }
+        .foot {
+            display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+            margin-top: 0.55rem; font-size: 0.72rem; color: #6b7488; line-height: 1.6;
+        }
+        .foot a { color: #6b7488; }
+
+        /* ── modal ── */
+        .modal {
+            position: fixed; inset: 0; z-index: 2000; display: none;
+            background: rgba(5,5,10,0.78); backdrop-filter: blur(6px);
+            padding: 1.5rem; overflow-y: auto;
+        }
+        .modal.open { display: block; }
+        .sheet {
+            max-width: 780px; margin: 2rem auto; background: var(--bg-card);
+            border: 1px solid var(--border); border-radius: 16px; padding: 2rem;
+        }
+        .sheet h2 {
+            font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem;
+            margin-bottom: 0.4rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+        }
+        .sheet h3 {
+            font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem;
+            margin: 1.75rem 0 0.75rem; color: var(--text);
+        }
+        .sheet h4 {
+            font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem;
+            margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem;
+        }
+        .sheet h4 i { color: var(--primary); font-size: 0.85rem; }
+        .sheet p, .sheet li { color: var(--text-muted); font-size: 0.9rem; line-height: 1.8; }
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+        .cards > div { background: var(--bg-card2); border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem; }
+        .steps { list-style: none; counter-reset: st; display: grid; gap: 0.7rem; }
+        .steps li { position: relative; padding-left: 2.2rem; }
+        .steps li::before {
+            counter-increment: st; content: counter(st);
+            position: absolute; left: 0; top: 0.1rem; width: 1.5rem; height: 1.5rem;
+            border-radius: 50%; background: var(--gradient); color: #fff;
+            font-size: 0.75rem; font-weight: 700; display: grid; place-items: center;
+        }
+        .btns { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1rem; }
+        .btn {
+            background: var(--gradient); color: #fff; padding: 0.7rem 1.4rem; border-radius: 8px;
+            text-decoration: none; font-weight: 600; font-size: 0.88rem; transition: all 0.25s;
+        }
+        .btn.alt { background: transparent; border: 1px solid var(--border); color: var(--text); }
+        .btn:hover { transform: translateY(-2px); }
+        .btn.alt:hover { border-color: var(--primary); color: var(--primary); }
+        .close { background: none; border: none; color: var(--text-muted); font-size: 1.3rem; cursor: pointer; line-height: 1; }
+        .close:hover { color: var(--primary); }
+        .disclaimer {
+            margin-top: 1.75rem; padding: 1rem 1.2rem; border: 1px solid var(--border);
+            border-left: 3px solid var(--primary); border-radius: 8px; background: var(--bg-card2);
+        }
+        .disclaimer strong { color: var(--text); }
+
+        @media (max-width: 820px) {
+            .nav-links {
+                display: none; position: absolute; top: 56px; left: 0; right: 0;
+                flex-direction: column; gap: 0; background: rgba(10,10,15,0.98);
+                border-bottom: 1px solid var(--border); padding: 1rem 1.5rem; z-index: 1500;
+            }
+            .nav-links.open { display: flex; }
+            .nav-links li { padding: 0.65rem 0; }
+            .hamburger { display: flex; }
+            nav { position: relative; }
+            .thread, .composer { padding-left: 1rem; padding-right: 1rem; }
+            .app-bar { padding: 0.6rem 1rem; gap: 0.6rem; }
+            .app-name span { display: none; }
+            .sheet { padding: 1.5rem; margin: 0 auto; }
+        }
     </style>
 </head>
 <body>
-<!-- NAVBAR -->
-<nav id="navbar">
+
+<nav>
     <a href="index.html" class="nav-logo" aria-label="JRR, Jakey Raj Rajpal - home">JRR</a>
     <ul class="nav-links" id="navLinks">
         <li><a href="index.html#hero" onclick="closeNav()">Home</a></li>
@@ -722,165 +271,185 @@
         <li><a href="index.html#stories" onclick="closeNav()">Stories</a></li>
         <li><a href="index.html#contact" onclick="closeNav()">Contact</a></li>
     </ul>
-    <button class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Menu">
+    <button class="hamburger" onclick="toggleNav()" aria-label="Menu">
         <span></span><span></span><span></span>
     </button>
 </nav>
-<!-- EXPERIENCE -->
-<div class="full-section page-top" id="audit-salahkaar">
-    <div class="inner">
 
-        <!-- 1. Hero -->
-        <div class="section-tag">AI Tool</div>
-        <div class="kh-hero-row">
-        <div class="kh-hero">
-            <h1 class="kh-name">Audit-Salahkaar</h1>
-            <p class="kh-sub">AI Audit Guide by Jakey</p>
-            <p class="kh-tagline">Here to help, with the reference.</p>
-            <p class="kh-lede">Ask a US accounting or auditing question. Get a straight answer with the
-            governing standard cited &mdash; without digging through the codification first.</p>
-        </div>
-            <a class="kh-hero-cta" href="#try">
-                <i class="fas fa-paper-plane"></i>Ask a question
-            </a>
-        </div>
+<main class="app">
 
-        <!-- 2. What it does -->
-        <h2 class="section-title" style="font-size:1.8rem;margin-top:4rem;margin-bottom:0.5rem">What Audit-Salahkaar does</h2>
-        <div class="kh-grid">
-            <div class="kh-card">
-                <h3><i class="fas fa-bolt"></i> Short answer first</h3>
-                <p>One or two sentences, then a &ldquo;Reference:&rdquo; line citing the standard &mdash;
-                AU-C, PCAOB AS, ASC, GASB, GAGAS, Uniform Guidance.</p>
+    <div class="app-bar">
+        <div class="app-name">Audit-Salahkaar <span>AI Audit Guide by Jakey</span></div>
+        <div class="app-tools">
+            <select id="khFramework" aria-label="Framework">
+                <option value="Auto">Auto-detect</option>
+                <option value="Private company">Private company</option>
+                <option value="Issuer">Issuer (PCAOB)</option>
+                <option value="Governmental">Governmental</option>
+                <option value="Nonprofit">Nonprofit</option>
+                <option value="Employee benefit plan">Employee benefit plan</option>
+                <option value="Single audit">Single audit</option>
+            </select>
+            <button class="ghost" id="khNewBtn" onclick="khNew()" title="Start a new conversation">
+                <i class="fas fa-rotate-left"></i> New
+            </button>
+            <button class="ghost" onclick="khSheet(true)">About</button>
+        </div>
+    </div>
+
+    <div class="thread" id="khThread">
+        <div class="thread-inner" id="khInner">
+            <div class="welcome" id="khWelcome">
+                <h1>Audit-Salahkaar</h1>
+                <p class="tag">Here to help, with the reference.</p>
+                <p class="lede">Ask a US accounting or auditing question. You get a straight answer
+                with the governing standard cited &mdash; without digging through the codification first.</p>
+                <div class="chips">
+                    <button class="chip" onclick="khFill(this.textContent)">What is the Single Audit threshold?</button>
+                    <button class="chip" onclick="khFill(this.textContent)">When is a going concern paragraph required?</button>
+                    <button class="chip" onclick="khFill(this.textContent)">How do I classify a Type A program?</button>
+                    <button class="chip" onclick="khFill(this.textContent)">What counts as a questioned cost?</button>
+                </div>
             </div>
-            <div class="kh-card">
-                <h3><i class="fas fa-angles-down"></i> As much as it takes</h3>
-                <p>The requirement, how it applies, the judgment areas and related references &mdash;
-                without padding it out.</p>
+        </div>
+    </div>
+
+    <div class="composer">
+        <div class="composer-inner">
+            <div class="box">
+                <textarea id="khQuestion" rows="1" maxlength="1000"
+                          placeholder="Ask a US accounting, auditing or attestation question&hellip;"></textarea>
+                <button class="send" id="khAsk" onclick="khSubmit()" aria-label="Send">
+                    <i class="fas fa-arrow-up"></i>
+                </button>
             </div>
-            <div class="kh-card">
-                <h3><i class="fas fa-scale-balanced"></i> Authority, in order</h3>
-                <p>Cites the highest authoritative source, labels nonauthoritative guidance as such, and
-                says plainly when only best practice exists.</p>
+            <div class="foot">
+                <span>Answers are AI-generated. Verify every citation at source before relying on it.
+                      <a href="#" onclick="khSheet(true);return false;">More</a></span>
+                <span id="khCount">Enter to send &bull; Shift + Enter for a new line</span>
             </div>
-            <div class="kh-card">
-                <h3><i class="fas fa-sitemap"></i> Knows the framework</h3>
-                <p>Pick private company, issuer, governmental, nonprofit, employee benefit plan, or single
+        </div>
+    </div>
+
+</main>
+
+<!-- About / feedback. Kept in the page so the detail stays crawlable. -->
+<div class="modal" id="khModal" onclick="if(event.target===this) khSheet(false)">
+    <div class="sheet">
+        <h2>About Audit-Salahkaar
+            <button class="close" onclick="khSheet(false)" aria-label="Close">&times;</button>
+        </h2>
+        <p>An AI audit guide built by Jakey Raj Rajpal, FCCA. It answers questions on US accounting,
+        auditing, attestation, ethics, quality management, and US tax as it affects financial reporting.</p>
+
+        <h3>What it does</h3>
+        <div class="cards">
+            <div>
+                <h4><i class="fas fa-bolt"></i> Short answer first</h4>
+                <p>One or two sentences, then a &ldquo;Reference:&rdquo; line citing the standard
+                &mdash; AU-C, PCAOB AS, ASC, GASB, GAGAS, Uniform Guidance.</p>
+            </div>
+            <div>
+                <h4><i class="fas fa-angles-down"></i> As much as it takes</h4>
+                <p>The requirement, how it applies, the judgment areas and related references
+                &mdash; without padding it out.</p>
+            </div>
+            <div>
+                <h4><i class="fas fa-scale-balanced"></i> Authority, in order</h4>
+                <p>Cites the highest authoritative source, labels nonauthoritative guidance as such,
+                and says plainly when only best practice exists.</p>
+            </div>
+            <div>
+                <h4><i class="fas fa-sitemap"></i> Knows the framework</h4>
+                <p>Private company, issuer, governmental, nonprofit, employee benefit plan or single
                 audit &mdash; or let it auto-detect.</p>
             </div>
-            <div class="kh-card">
-                <h3><i class="fas fa-shield-halved"></i> Stays in its lane</h3>
-                <p>US standards only. Anything else gets a clear &ldquo;out of scope&rdquo; message instead
-                of a guess.</p>
+            <div>
+                <h4><i class="fas fa-shield-halved"></i> Stays in its lane</h4>
+                <p>US standards only. Anything else gets a clear &ldquo;out of scope&rdquo; message
+                instead of a guess.</p>
+            </div>
+            <div>
+                <h4><i class="fas fa-comments"></i> Follows the thread</h4>
+                <p>Ask a follow-up and it keeps the last few exchanges in view. &ldquo;New&rdquo;
+                clears them and starts clean.</p>
             </div>
         </div>
 
-        <!-- 3. How to use it -->
-        <h2 class="section-title" style="font-size:1.8rem;margin-top:4rem;margin-bottom:0.5rem">How to use it</h2>
-        <ol class="kh-steps">
+        <h3>How to use it</h3>
+        <ol class="steps">
             <li>Choose your framework, or leave it on Auto-detect.</li>
             <li>Ask your question in plain English.</li>
             <li>Read the answer, then check the reference it cites before you rely on it.</li>
         </ol>
 
-        <!-- 4. The app -->
-        <h2 class="section-title" id="try" style="font-size:1.8rem;margin-top:4rem;margin-bottom:0.5rem">Try Audit-Salahkaar</h2>
-        <p class="kh-note" style="margin:0 0 1.25rem">Ask right here. Nothing to install, no sign-up.</p>
-        <div class="kh-ask">
-            <div class="kh-examples">
-                <button type="button" class="kh-chip" onclick="khFill(this.textContent)">What is the Single Audit threshold?</button>
-                <button type="button" class="kh-chip" onclick="khFill(this.textContent)">When is a going concern paragraph required?</button>
-                <button type="button" class="kh-chip" onclick="khFill(this.textContent)">How do I classify a Type A program?</button>
-                <button type="button" class="kh-chip" onclick="khFill(this.textContent)">What counts as a questioned cost?</button>
-            </div>
-
-            <div class="kh-field">
-                <label for="khFramework">Framework</label>
-                <select id="khFramework">
-                    <option value="Auto">Auto-detect</option>
-                    <option value="Private company">Private company</option>
-                    <option value="Issuer">Issuer (PCAOB)</option>
-                    <option value="Governmental">Governmental</option>
-                    <option value="Nonprofit">Nonprofit</option>
-                    <option value="Employee benefit plan">Employee benefit plan</option>
-                    <option value="Single audit">Single audit</option>
-                </select>
-            </div>
-
-            <div class="kh-field">
-                <label for="khQuestion">Your question</label>
-                <textarea id="khQuestion" maxlength="1000" placeholder="Ask a US accounting, auditing or attestation question in plain English."></textarea>
-            </div>
-
-            <div class="kh-bar">
-                <button type="button" class="btn-primary" id="khAsk" onclick="khSubmit()">
-                    <i class="fas fa-paper-plane" style="margin-right:0.5rem"></i>Ask Audit-Salahkaar
-                </button>
-                <span class="kh-count" id="khCount">0 / 1000 &bull; Ctrl + Enter to send</span>
-            </div>
-
-            <div class="kh-answer" id="khAnswer"></div>
+        <h3>Feedback</h3>
+        <p>Audit-Salahkaar is an early release. I&rsquo;d value your feedback &mdash; what worked,
+        what didn&rsquo;t, and which questions it got wrong.</p>
+        <div class="btns">
+            <a href="index.html#contact" class="btn"><i class="fas fa-envelope" style="margin-right:0.45rem"></i>Send me feedback</a>
+            <a href="https://www.linkedin.com/feed/?shareActive=true&text=Came%20across%20Audit-Salahkaar%2C%20an%20AI%20audit%20guide%20built%20by%20Jakey%20Raj%20Rajpal%2C%20FCCA.%0A%0AAsk%20a%20US%20accounting%20or%20auditing%20question%20and%20it%20answers%20in%20two%20lines%20with%20the%20governing%20standard%20cited.%20AU-C%2C%20PCAOB%20AS%2C%20ASC%2C%20GASB%2C%20GAGAS%2C%20Uniform%20Guidance.%20Choose%20your%20framework%20or%20let%20it%20auto%20detect.%0A%0AGenuinely%20useful%20if%20you%20work%20with%20audits%2C%20nonprofits%20or%20federal%20grants.%20Worth%20a%20look%3A%0A%0Ahttps%3A%2F%2Fwww.jakeyraj.com%2Faudit-salahkaar.html%0A%0A%23Audit%20%23Accounting%20%23SingleAudit%20%23CPA%20%23AI"
+               target="_blank" rel="noopener noreferrer" class="btn alt">
+                <i class="fab fa-linkedin" style="margin-right:0.45rem"></i>Share on LinkedIn</a>
+            <a href="index.html" class="btn alt"><i class="fas fa-arrow-left" style="margin-right:0.45rem"></i>Back to site</a>
         </div>
 
-        <!-- 5. Feedback -->
-        <h2 class="section-title" style="font-size:1.8rem;margin-top:4rem;margin-bottom:0.5rem">Feedback</h2>
-        <div class="kh-feedback">
-            <h3>Tried it? Tell me what you think.</h3>
-            <p>Audit-Salahkaar is an early release. I&rsquo;d value your feedback &mdash; what worked, what
-            didn&rsquo;t, and which questions it got wrong.</p>
-            <div class="kh-btns">
-                <a href="index.html#contact" class="btn-primary">
-                    <i class="fas fa-envelope" style="margin-right:0.5rem"></i>Send me feedback
-                </a>
-                <a href="https://www.linkedin.com/feed/?shareActive=true&text=Came%20across%20Audit-Salahkaar%2C%20an%20AI%20audit%20guide%20built%20by%20Jakey%20Raj%20Rajpal%2C%20FCCA.%0A%0AAsk%20a%20US%20accounting%20or%20auditing%20question%20and%20it%20answers%20in%20two%20lines%20with%20the%20governing%20standard%20cited.%20AU-C%2C%20PCAOB%20AS%2C%20ASC%2C%20GASB%2C%20GAGAS%2C%20Uniform%20Guidance.%20Choose%20your%20framework%20or%20let%20it%20auto%20detect.%0A%0AGenuinely%20useful%20if%20you%20work%20with%20audits%2C%20nonprofits%20or%20federal%20grants.%20Worth%20a%20look%3A%0A%0Ahttps%3A%2F%2Fwww.jakeyraj.com%2Faudit-salahkaar.html%0A%0A%23Audit%20%23Accounting%20%23SingleAudit%20%23CPA%20%23AI"
-                   target="_blank" rel="noopener noreferrer" class="btn-secondary">
-                    <i class="fab fa-linkedin" style="margin-right:0.5rem"></i>Share Audit-Salahkaar on LinkedIn
-                </a>
-            </div>
-            <a class="kh-connect" href="https://linkedin.com/in/jakeyraj" target="_blank" rel="noopener noreferrer">Connect with me on LinkedIn</a>
+        <div class="disclaimer">
+            <p><strong>Disclaimer.</strong> Audit-Salahkaar&rsquo;s answers are AI-generated. Verify every
+            citation in the primary source before relying on it. It is not a substitute for professional
+            judgment or your firm&rsquo;s quality review.</p>
         </div>
-
     </div>
 </div>
 
-<!-- 6. Disclaimer -->
-<div class="kh-disclaimer">
-    <p><strong>Disclaimer.</strong> Audit-Salahkaar&rsquo;s answers are AI-generated. Verify every citation in the
-    primary source before relying on it. It is not a substitute for professional judgment or your
-    firm&rsquo;s quality review.</p>
-</div>
-<div class="page-back">
-    <a href="index.html" class="btn-secondary"><i class="fas fa-arrow-left" style="margin-right:0.5rem"></i>Back to Home</a>
-</div>
-<footer>
-    <p>Designed & Built by <span>Jakey Raj Rajpal</span> &bull; Albuquerque, NM &bull; <span>jakeyraj.com</span></p>
-    <p style="margin-top:0.5rem;font-size:0.75rem">© 2026 All rights reserved.</p>
-</footer>
 <script>
-    // ── Audit-Salahkaar ask widget ──
+    // ── Audit-Salahkaar ──
     // The API key lives in a Cloudflare worker, so it never reaches this page.
     const KH_API = "https://audit-salahkaar.jakeyraj.workers.dev";
-    const khQ = document.getElementById('khQuestion');
-    const khBtn = document.getElementById('khAsk');
-    const khOut = document.getElementById('khAnswer');
-    const khCountEl = document.getElementById('khCount');
-    const KH_IDLE = '<i class="fas fa-paper-plane" style="margin-right:0.5rem"></i>Ask Audit-Salahkaar';
+    const KH_TURNS = 6;                 // messages of history sent back, 3 exchanges
 
-    function khTick() { khCountEl.innerHTML = khQ.value.length + ' / 1000 &bull; Ctrl + Enter to send'; }
-    khQ.addEventListener('input', khTick);
-    khQ.addEventListener('keydown', function (e) {
-        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); khSubmit(); }
+    const khQ      = document.getElementById('khQuestion');
+    const khBtn    = document.getElementById('khAsk');
+    const khThread = document.getElementById('khThread');
+    const khInner  = document.getElementById('khInner');
+    const khCount  = document.getElementById('khCount');
+    const HINT     = 'Enter to send • Shift + Enter for a new line';
+
+    let khHistory = [];                 // [{role, content}] for follow-ups
+    let khBusy = false;
+
+    function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
+    function closeNav()  { document.getElementById('navLinks').classList.remove('open'); }
+    function khSheet(open) { document.getElementById('khModal').classList.toggle('open', open); }
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') khSheet(false);
     });
 
-    function khFill(text) { khQ.value = text; khTick(); khQ.focus(); }
+    // ── composer ──
+    // Grow with the text instead of scrolling a one-line box.
+    function khGrow() {
+        khQ.style.height = 'auto';
+        khQ.style.height = Math.min(khQ.scrollHeight, 180) + 'px';
+    }
+    khQ.addEventListener('input', function () {
+        khGrow();
+        khCount.textContent = khQ.value.length > 850
+            ? khQ.value.length + ' / 1000'
+            : HINT;
+    });
+    khQ.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); khSubmit(); }
+    });
 
+    function khFill(text) { khQ.value = text; khGrow(); khQ.focus(); }
+
+    // ── rendering ──
     // The answer comes from a model, so escape it before it ever touches innerHTML.
     function khEsc(str) {
         return str.replace(/[&<>"]/g, function (c) {
             return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
         });
     }
-
     // Escape first, then re-allow only **bold** and *italic*. Bold runs first,
     // otherwise the italic pattern would eat half of each bold marker.
     function khInline(line) {
@@ -888,18 +457,12 @@
             .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
             .replace(/\*(.+?)\*/g, '<em>$1</em>');
     }
-
-    // ── markdown tables ──
-    var KH_BULLET = /^[-*\u2022]\s+/;
+    var KH_BULLET = /^[-*•]\s+/;
     function khIsRow(l) { return l.charAt(0) === '|' && l.charAt(l.length - 1) === '|' && l.length > 2; }
-    function khCells(l) {
-        return l.slice(1, -1).split('|').map(function (c) { return c.trim(); });
-    }
-    function khIsSep(l) {
-        return khCells(l).every(function (c) { return /^:?-{2,}:?$/.test(c); });
-    }
+    function khCells(l) { return l.slice(1, -1).split('|').map(function (c) { return c.trim(); }); }
+    function khIsSep(l) { return khCells(l).every(function (c) { return /^:?-{2,}:?$/.test(c); }); }
     function khTable(rows) {
-        var head = null, body = [];
+        var head = null, body;
         // A header exists only when row 1 is the |---|---| separator.
         if (rows.length > 1 && khIsSep(rows[1])) {
             head = khCells(rows[0]);
@@ -917,9 +480,7 @@
         }).join('') + '</tbody></table></div>';
         return html;
     }
-
-    // The model answers in light markdown: paragraphs, "- " bullets, pipe tables
-    // and a "Reference:" line. Walk the lines so each run becomes one block.
+    // Light markdown: paragraphs, "- " bullets, pipe tables, a "Reference:" line.
     function khRender(text) {
         var lines = text.split('\n').map(function (l) { return l.trim(); })
                         .filter(function (l) { return l; });
@@ -948,21 +509,65 @@
         return out;
     }
 
-    function khShow(html) { khOut.innerHTML = html; khOut.classList.add('show'); }
+    // ── thread ──
+    function khScroll() { khThread.scrollTop = khThread.scrollHeight; }
 
+    function khAdd(role, html) {
+        var w = document.getElementById('khWelcome');
+        if (w) w.remove();
+        var el = document.createElement('div');
+        el.className = 'msg ' + role;
+        el.innerHTML = role === 'user'
+            ? '<div class="bubble"></div>'
+            : '<div class="who"><i class="fas fa-shield-halved"></i>Audit-Salahkaar</div><div class="body">' + html + '</div>';
+        if (role === 'user') el.querySelector('.bubble').textContent = html;   // text, never markup
+        khInner.appendChild(el);
+        khScroll();
+        return el;
+    }
+
+    function khNew() {
+        if (khBusy) return;
+        khHistory = [];
+        khInner.innerHTML =
+            '<div class="welcome" id="khWelcome">' +
+            '<h1>Audit-Salahkaar</h1>' +
+            '<p class="tag">Here to help, with the reference.</p>' +
+            '<p class="lede">Ask a US accounting or auditing question. You get a straight answer ' +
+            'with the governing standard cited &mdash; without digging through the codification first.</p>' +
+            '<div class="chips">' +
+            ['What is the Single Audit threshold?',
+             'When is a going concern paragraph required?',
+             'How do I classify a Type A program?',
+             'What counts as a questioned cost?']
+                .map(function (q) { return '<button class="chip" onclick="khFill(this.textContent)">' + q + '</button>'; })
+                .join('') +
+            '</div></div>';
+        khQ.focus();
+    }
+
+    // ── send ──
     async function khSubmit() {
+        if (khBusy) return;
         const question = khQ.value.trim();
-        if (!question) { khShow('<p class="kh-err">Please type a question first.</p>'); return; }
+        if (!question) { khQ.focus(); return; }
 
-        khBtn.disabled = true;
-        khBtn.innerHTML = '<span class="kh-spin"></span>Thinking\u2026';
-        khShow('<p style="color:var(--text-muted)">Looking up the governing standard\u2026</p>');
+        khAdd('user', question);
+        khQ.value = ''; khGrow(); khCount.textContent = HINT;
+
+        khBusy = true; khBtn.disabled = true;
+        const pending = khAdd('bot', '<div class="dots"><i></i><i></i><i></i></div>');
+        const slot = pending.querySelector('.body');
 
         try {
             const res = await fetch(KH_API, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ question: question, framework: document.getElementById('khFramework').value })
+                body: JSON.stringify({
+                    question: question,
+                    framework: document.getElementById('khFramework').value,
+                    history: khHistory.slice(-KH_TURNS)
+                })
             });
             const data = await res.json().catch(function () { return {}; });
 
@@ -972,36 +577,26 @@
                     html += '<p class="kh-warn">This answer was cut off before it finished. ' +
                             'Ask a narrower question to get the rest.</p>';
                 }
+                slot.innerHTML = html;
+                khHistory.push({ role: 'user', content: question },
+                               { role: 'assistant', content: data.answer });
                 if (typeof data.remaining === 'number') {
-                    html += '<p class="kh-count" style="margin-top:1.25rem">' + data.remaining +
-                            ' question' + (data.remaining === 1 ? '' : 's') + ' left today.</p>';
+                    khCount.textContent = data.remaining + ' question' +
+                        (data.remaining === 1 ? '' : 's') + ' left today';
                 }
-                khShow(html);
             } else {
-                khShow('<p class="kh-err">' +
-                       khEsc(data.message || 'Something went wrong. Please try again.') + '</p>');
+                slot.innerHTML = '<p class="kh-err">' +
+                    khEsc(data.message || 'Something went wrong. Please try again.') + '</p>';
             }
         } catch (err) {
-            khShow('<p class="kh-err">Could not reach Audit-Salahkaar. Check your connection and try again.</p>');
+            slot.innerHTML = '<p class="kh-err">Could not reach Audit-Salahkaar. ' +
+                             'Check your connection and try again.</p>';
         } finally {
-            khBtn.disabled = false;
-            khBtn.innerHTML = KH_IDLE;
+            khBusy = false; khBtn.disabled = false; khScroll(); khQ.focus();
         }
     }
 
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
-    function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
-    function closeNav() { document.getElementById('navLinks').classList.remove('open'); }
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.timeline-item').forEach(el => observer.observe(el));
-    // the page is nothing but this timeline, so never leave it blank
-    setTimeout(() => {
-        if (!document.querySelector('.timeline-item.visible'))
-            document.querySelectorAll('.timeline-item').forEach(el => el.classList.add('visible'));
-    }, 1500);
+    khQ.focus();
 </script>
 </body>
 </html>
