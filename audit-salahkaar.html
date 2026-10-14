@@ -542,19 +542,34 @@
     document.getElementById('khShareLink').href = KH_SHARE_URL;
     document.getElementById('khShareLink2').href = KH_SHARE_URL;
 
+    // Whether the OS share sheet is worth using. navigator.share exists on
+    // Windows 11 desktop browsers too, where the sheet offers Nearby Sharing,
+    // Teams and Outlook but no LinkedIn, so its presence proves nothing.
+    // Only a real phone or tablet should bypass LinkedIn's own prefill URL.
+    function khIsMobile() {
+        const uad = navigator.userAgentData;
+        if (uad && typeof uad.mobile === 'boolean') return uad.mobile;   // Chromium
+        const ua = navigator.userAgent || '';
+        if (/Android|iPhone|iPod|IEMobile|Opera Mini/i.test(ua)) return true;
+        // iPadOS reports itself as a Mac, and is told apart by the touch points.
+        return /iPad/i.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+    }
+
     // Everything that needs the click's user activation must run before the
     // first await. An await ends the activation, after which the browser blocks
     // window.open and navigator.share rejects. That is why this is not async.
     function khShare(e) {
         // Started, deliberately not awaited: writeText is invoked synchronously
         // while the gesture is still live, and the toast catches up later.
+        const viaSheet = !!(navigator.share && khIsMobile());
         khCopy(KH_SHARE_TEXT).then(function (copied) {
-            khToast(copied
-                ? 'Post copied. If LinkedIn opens empty, just paste.'
-                : 'LinkedIn opened. Open About to copy the post text.');
+            if (!copied) { khToast('Open About to copy the post text.'); return; }
+            khToast(viaSheet
+                ? 'Post copied too, in case the share sheet drops it.'
+                : 'LinkedIn opened with the post written. It is on your clipboard as well.');
         });
 
-        if (navigator.share) {
+        if (navigator.share && khIsMobile()) {
             e.preventDefault();                 // use the OS sheet, not the link
             navigator.share({ title: 'Audit-Salahkaar', text: KH_SHARE_TEXT })
                 .catch(function (err) {
