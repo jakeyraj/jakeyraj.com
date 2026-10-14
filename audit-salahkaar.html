@@ -556,6 +556,22 @@
     <meta property="og:image" content="https://www.jakeyraj.com/audit-salahkaar-preview.jpg">
     <meta name="twitter:card" content="summary_large_image">
     <style>
+        /* persistent launch button in the navbar */
+        .nav-links { margin-left: auto; }          /* keep links right-aligned beside the CTA */
+        .nav-cta {
+            display: inline-flex; align-items: center; gap: 0.45rem; margin-left: 1.5rem;
+            background: var(--gradient); color: #fff; text-decoration: none;
+            padding: 0.55rem 1.1rem; border-radius: 8px; white-space: nowrap;
+            font-size: 0.85rem; font-weight: 600;
+            box-shadow: 0 0 22px rgba(0,212,255,0.28); transition: all 0.3s;
+        }
+        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 0 34px rgba(0,212,255,0.55); }
+        .nav-cta i { font-size: 0.8rem; }
+        @media (max-width: 768px) {
+            /* stays visible next to the hamburger rather than hiding inside the menu */
+            .nav-cta { margin-left: auto; margin-right: 0.9rem; padding: 0.45rem 0.85rem; font-size: 0.78rem; }
+        }
+
         /* ── Audit-Salahkaar ── */
         .kh-hero { text-align: left; max-width: 760px; }
         .kh-name {
@@ -637,6 +653,9 @@
         <li><a href="index.html#stories" onclick="closeNav()">Stories</a></li>
         <li><a href="index.html#contact" onclick="closeNav()">Contact</a></li>
     </ul>
+    <a class="nav-cta" href="https://audit-salahkaar.base44.app" target="_blank" rel="noopener noreferrer">
+        <i class="fas fa-arrow-up-right-from-square"></i>Open the app
+    </a>
     <button class="hamburger" id="hamburger" onclick="toggleNav()" aria-label="Menu">
         <span></span><span></span><span></span>
     </button>
@@ -718,7 +737,7 @@
                 <a href="index.html#contact" class="btn-primary">
                     <i class="fas fa-envelope" style="margin-right:0.5rem"></i>Send me feedback
                 </a>
-                <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fwww.jakeyraj.com%2Faudit-salahkaar.html"
+                <a href="https://www.linkedin.com/feed/?shareActive=true&text=Came%20across%20Audit-Salahkaar%2C%20an%20AI%20audit%20guide%20built%20by%20Jakey%20Raj%20Rajpal%2C%20FCCA.%0A%0AAsk%20a%20US%20accounting%20or%20auditing%20question%20and%20it%20answers%20in%20two%20lines%20with%20the%20governing%20standard%20cited.%20AU-C%2C%20PCAOB%20AS%2C%20ASC%2C%20GASB%2C%20GAGAS%2C%20Uniform%20Guidance.%20Choose%20your%20framework%20or%20let%20it%20auto%20detect.%0A%0AGenuinely%20useful%20if%20you%20work%20with%20audits%2C%20nonprofits%20or%20federal%20grants.%20Worth%20a%20look%3A%0A%0Ahttps%3A%2F%2Fwww.jakeyraj.com%2Faudit-salahkaar.html%0A%0A%23Audit%20%23Accounting%20%23SingleAudit%20%23CPA%20%23AI"
                    target="_blank" rel="noopener noreferrer" class="btn-secondary">
                     <i class="fab fa-linkedin" style="margin-right:0.5rem"></i>Share Audit-Salahkaar on LinkedIn
                 </a>
