@@ -248,6 +248,13 @@
         .btn.alt { background: transparent; border: 1px solid var(--border); color: var(--text); }
         .btn:hover { transform: translateY(-2px); }
         .btn.alt:hover { border-color: var(--primary); color: var(--primary); }
+        .sharebox {
+            width: 100%; min-height: 150px; margin-top: 0.75rem; resize: vertical;
+            background: var(--bg-card2); color: var(--text-muted);
+            border: 1px solid var(--border); border-radius: 8px; padding: 0.9rem 1rem;
+            font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.7;
+        }
+        .sharebox:focus { outline: none; border-color: var(--primary); }
         .close { background: none; border: none; color: var(--text-muted); font-size: 1.3rem; cursor: pointer; line-height: 1; }
         .close:hover { color: var(--primary); }
         .disclaimer {
@@ -420,6 +427,14 @@
             <a href="index.html" class="btn alt"><i class="fas fa-arrow-left" style="margin-right:0.45rem"></i>Back to site</a>
         </div>
 
+        <h3>The post text</h3>
+        <p>Share puts this on your clipboard. If your phone&rsquo;s share sheet drops it,
+        or LinkedIn opens an empty post, paste it from here.</p>
+        <textarea class="sharebox" id="khShareBox" readonly aria-label="LinkedIn post text"></textarea>
+        <div class="btns">
+            <button class="btn alt" onclick="khCopyBox(this)">Copy post text</button>
+        </div>
+
         <div class="disclaimer">
             <p><strong>Disclaimer.</strong> Audit-Salahkaar&rsquo;s answers are AI-generated. Verify every
             citation in the primary source before relying on it. It is not a substitute for professional
@@ -498,6 +513,24 @@
         } catch (e) { return false; }
     }
 
+    // Fill the About panel's copy of the post from the same constant, so the two
+    // can never drift apart.
+    document.getElementById('khShareBox').value = KH_SHARE_TEXT;
+
+    async function khCopyBox(btn) {
+        const ok = await khCopy(KH_SHARE_TEXT);
+        if (ok) {
+            const was = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check" style="margin-right:0.45rem"></i>Copied';
+            setTimeout(function () { btn.innerHTML = was; }, 2500);
+        } else {
+            // Nothing automatic worked, so select it and let them copy by hand.
+            const box = document.getElementById('khShareBox');
+            box.focus(); box.select();
+            khToast('Select all and copy manually \u2014 your browser blocked the automatic copy.');
+        }
+    }
+
     async function khShare() {
         // Copy first. Whichever route follows, the text is then recoverable by
         // pasting, which is the only thing that always works on a phone.
@@ -516,7 +549,7 @@
         window.open(KH_SHARE_URL, '_blank', 'noopener');
         khToast(copied
             ? 'LinkedIn opened. If the post is empty, paste \u2014 the text is on your clipboard.'
-            : 'LinkedIn opened. Copy the post text from the About panel if it does not appear.');
+            : 'LinkedIn opened. If the post is empty, open About and copy the post text from there.');
     }
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') khSheet(false);
