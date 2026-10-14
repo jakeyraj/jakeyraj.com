@@ -16,7 +16,7 @@
       gtag('config', 'G-XLZWK2V4Z0');
     </script>
     <title>Audit-Salahkaar &ndash; AI Audit Guide by Jakey</title>
-    <meta name="description" content="Ask a US accounting or auditing question. Get a two-line answer with the governing standard cited, then expand only if you need more.">
+    <meta name="description" content="Ask a US accounting or auditing question. Get a straight answer with the governing standard cited, right on the page.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
@@ -551,7 +551,7 @@
     </style>
     <meta property="og:type" content="website">
     <meta property="og:title" content="Audit-Salahkaar &ndash; AI Audit Guide by Jakey">
-    <meta property="og:description" content="Ask a US accounting or auditing question. Get a two-line answer with the governing standard cited, then expand only if you need more.">
+    <meta property="og:description" content="Ask a US accounting or auditing question. Get a straight answer with the governing standard cited, right on the page.">
     <meta property="og:url" content="https://www.jakeyraj.com/audit-salahkaar.html">
     <meta property="og:image" content="https://www.jakeyraj.com/audit-salahkaar-preview.jpg">
     <meta name="twitter:card" content="summary_large_image">
@@ -663,6 +663,13 @@
             color: var(--primary); font-size: 0.9rem; line-height: 1.75;
             border-left: 2px solid var(--primary); padding-left: 0.9rem;
         }
+        .kh-answer ul { margin: 0 0 0.9rem 1.15rem; }
+        .kh-answer li {
+            color: var(--text); font-size: 0.95rem; line-height: 1.8;
+            margin-bottom: 0.5rem; padding-left: 0.3rem;
+        }
+        .kh-answer li::marker { color: var(--primary); }
+        .kh-answer em { color: var(--text-muted); }
         .kh-err { color: #f87171; font-size: 0.92rem; line-height: 1.8; }
         .kh-spin {
             display: inline-block; width: 0.85rem; height: 0.85rem;
@@ -720,7 +727,7 @@
             <p class="kh-sub">AI Audit Guide by Jakey</p>
             <p class="kh-tagline">Here to help, with the reference.</p>
             <p class="kh-lede">Ask a US accounting or auditing question. Get a two-line answer with the
-            governing standard cited, then expand only if you need more.</p>
+            governing standard cited &mdash; without digging through the codification first.</p>
         </div>
             <a class="kh-hero-cta" href="#try">
                 <i class="fas fa-paper-plane"></i>Ask a question
@@ -736,9 +743,9 @@
                 AU-C, PCAOB AS, ASC, GASB, GAGAS, Uniform Guidance.</p>
             </div>
             <div class="kh-card">
-                <h3><i class="fas fa-angles-down"></i> Expand on demand</h3>
-                <p>Click &ldquo;Explain further&rdquo; for the requirement, how it applies, judgment areas
-                and related references.</p>
+                <h3><i class="fas fa-angles-down"></i> As much as it takes</h3>
+                <p>The requirement, how it applies, the judgment areas and related references &mdash;
+                without padding it out.</p>
             </div>
             <div class="kh-card">
                 <h3><i class="fas fa-scale-balanced"></i> Authority, in order</h3>
@@ -762,7 +769,7 @@
         <ol class="kh-steps">
             <li>Choose your framework, or leave it on Auto-detect.</li>
             <li>Ask your question in plain English.</li>
-            <li>Read the short answer and reference; click &ldquo;Explain further&rdquo; if you need the detail.</li>
+            <li>Read the answer, then check the reference it cites before you rely on it.</li>
         </ol>
 
         <!-- 4. The app -->
@@ -863,13 +870,34 @@
         });
     }
 
-    // Escape first, then re-allow only **bold**. Nothing else gets through.
+    // Escape first, then re-allow only **bold** and *italic*. Bold runs first,
+    // otherwise the italic pattern would eat half of each bold marker.
+    function khInline(line) {
+        return khEsc(line)
+            .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*(.+?)\*/g, '<em>$1</em>');
+    }
+
+    // The model answers in light markdown: paragraphs, "- " bullets, and a
+    // "Reference:" line. Walk the lines so consecutive bullets become one list.
     function khRender(text) {
-        return text.split('\n').filter(function (l) { return l.trim(); }).map(function (line) {
-            var html = khEsc(line).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-            var ref = /^\s*Reference\s*:/i.test(line);
-            return '<p' + (ref ? ' class="kh-ref"' : '') + '>' + html + '</p>';
-        }).join('');
+        var out = '', inList = false;
+        text.split('\n').forEach(function (raw) {
+            var line = raw.trim();
+            if (!line) return;
+            // "**Bold:**" is not a bullet, so the marker must be followed by a space.
+            var bullet = /^[-*\u2022]\s+/.test(line);
+            var body = khInline(bullet ? line.replace(/^[-*\u2022]\s+/, '') : line);
+            if (bullet) {
+                if (!inList) { out += '<ul>'; inList = true; }
+                out += '<li>' + body + '</li>';
+                return;
+            }
+            if (inList) { out += '</ul>'; inList = false; }
+            out += '<p' + (/^Reference\s*:/i.test(line) ? ' class="kh-ref"' : '') + '>' + body + '</p>';
+        });
+        if (inList) out += '</ul>';
+        return out;
     }
 
     function khShow(html) { khOut.innerHTML = html; khOut.classList.add('show'); }
