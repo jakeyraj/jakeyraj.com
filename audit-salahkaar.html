@@ -85,6 +85,7 @@
         }
         .app-name span { color: var(--text-muted); font-size: 0.78rem; font-weight: 400; margin-left: 0.5rem; }
         .app-tools { margin-left: auto; display: flex; align-items: center; gap: 0.6rem; }
+        .app-tools a.ghost { display: inline-flex; align-items: center; gap: 0.35rem; text-decoration: none; }
         .app-tools select, .ghost {
             background: var(--bg-card2); color: var(--text); border: 1px solid var(--border);
             border-radius: 7px; padding: 0.42rem 0.7rem; font-size: 0.8rem;
@@ -322,9 +323,13 @@
             <button class="ghost" id="khNewBtn" onclick="khNew()" title="Start a new conversation">
                 <i class="fas fa-rotate-left"></i> New
             </button>
-            <button class="ghost share" onclick="khShare()" title="Share Audit-Salahkaar on LinkedIn">
+            <!-- A real link, not a scripted window.open: anchors are never
+                 popup-blocked. href is filled in from KH_SHARE_URL on load. -->
+            <a class="ghost share" id="khShareLink" href="https://www.linkedin.com/feed/"
+               target="_blank" rel="noopener noreferrer" onclick="return khShare(event)"
+               title="Share Audit-Salahkaar on LinkedIn">
                 <i class="fab fa-linkedin"></i> Share
-            </button>
+            </a>
             <button class="ghost" onclick="khSheet(true)">About</button>
         </div>
     </div>
@@ -422,7 +427,8 @@
         what didn&rsquo;t, and which questions it got wrong.</p>
         <div class="btns">
             <a href="index.html#contact" class="btn"><i class="fas fa-envelope" style="margin-right:0.45rem"></i>Send me feedback</a>
-            <a href="#" onclick="khShare();return false;" class="btn alt">
+            <a class="btn alt" id="khShareLink2" href="https://www.linkedin.com/feed/"
+               target="_blank" rel="noopener noreferrer" onclick="return khShare(event)">
                 <i class="fab fa-linkedin" style="margin-right:0.45rem"></i>Share on LinkedIn</a>
             <a href="index.html" class="btn alt"><i class="fas fa-arrow-left" style="margin-right:0.45rem"></i>Back to site</a>
         </div>
@@ -531,25 +537,36 @@
         }
     }
 
-    async function khShare() {
-        // Copy first. Whichever route follows, the text is then recoverable by
-        // pasting, which is the only thing that always works on a phone.
-        const copied = await khCopy(KH_SHARE_TEXT);
+    // Point both share links at the prefill URL. Done here so the long encoded
+    // URL is never duplicated in the markup.
+    document.getElementById('khShareLink').href = KH_SHARE_URL;
+    document.getElementById('khShareLink2').href = KH_SHARE_URL;
+
+    // Everything that needs the click's user activation must run before the
+    // first await. An await ends the activation, after which the browser blocks
+    // window.open and navigator.share rejects. That is why this is not async.
+    function khShare(e) {
+        // Started, deliberately not awaited: writeText is invoked synchronously
+        // while the gesture is still live, and the toast catches up later.
+        khCopy(KH_SHARE_TEXT).then(function (copied) {
+            khToast(copied
+                ? 'Post copied. If LinkedIn opens empty, just paste.'
+                : 'LinkedIn opened. Open About to copy the post text.');
+        });
 
         if (navigator.share) {
-            try {
-                await navigator.share({ title: 'Audit-Salahkaar', text: KH_SHARE_TEXT });
-                return;                                   // the OS sheet took it from here
-            } catch (err) {
-                if (err && err.name === 'AbortError') return;   // user dismissed the sheet
-                // any other failure falls through to the link below
-            }
+            e.preventDefault();                 // use the OS sheet, not the link
+            navigator.share({ title: 'Audit-Salahkaar', text: KH_SHARE_TEXT })
+                .catch(function (err) {
+                    if (err && err.name === 'AbortError') return;   // dismissed, say nothing
+                    khToast('Could not open the share sheet. The post is on your clipboard ' +
+                            '\u2014 open LinkedIn and paste it.');
+                });
+            return false;
         }
 
-        window.open(KH_SHARE_URL, '_blank', 'noopener');
-        khToast(copied
-            ? 'LinkedIn opened. If the post is empty, paste \u2014 the text is on your clipboard.'
-            : 'LinkedIn opened. If the post is empty, open About and copy the post text from there.');
+        // No share sheet, so let the link do its own job. Nothing to block.
+        return true;
     }
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') khSheet(false);
