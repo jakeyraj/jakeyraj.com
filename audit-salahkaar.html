@@ -258,6 +258,12 @@
         .sharebox:focus { outline: none; border-color: var(--primary); }
         .close { background: none; border: none; color: var(--text-muted); font-size: 1.3rem; cursor: pointer; line-height: 1; }
         .close:hover { color: var(--primary); }
+        .build {
+            margin-top: 1.5rem; text-align: center;
+            font-size: 0.74rem; color: #6b7488; line-height: 1.7;
+        }
+        .build a { color: var(--primary); cursor: pointer; }
+
         .disclaimer {
             margin-top: 1.75rem; padding: 1rem 1.2rem; border: 1px solid var(--border);
             border-left: 3px solid var(--primary); border-radius: 8px; background: var(--bg-card2);
@@ -446,6 +452,12 @@
             citation in the primary source before relying on it. It is not a substitute for professional
             judgment or your firm&rsquo;s quality review.</p>
         </div>
+
+        <p class="build">
+            Build <span id="khBuild">2026-10-14 20:44 UTC</span><br>
+            Seeing something stale? <a onclick="khReloadFresh()">Reload the newest version</a>
+            &mdash; this page is cached for up to 10 minutes.
+        </p>
     </div>
 </div>
 
@@ -473,6 +485,12 @@
         document.getElementById('navLinks').classList.remove('open');
         document.querySelector('.hamburger').classList.remove('open');
     }
+    // Cache-busting reload. A plain refresh can still be served the cached
+    // copy; a URL the browser has never seen cannot be.
+    function khReloadFresh() {
+        location.href = location.pathname + '?v=' + Date.now();
+    }
+
     function khSheet(open) { document.getElementById('khModal').classList.toggle('open', open); }
 
     // ── sharing ──
@@ -483,7 +501,7 @@
         "let it auto detect.\n\n" +
         "Genuinely useful if you work with audits, nonprofits or federal grants. Worth a look:\n\n" +
         "https://www.jakeyraj.com/audit-salahkaar.html\n\n" +
-        "#Audit #Accounting #SingleAudit #CPA #AI";
+        "#AuditSalahkaar #AIAuditTool #AITool #Software #Audit #Accounting #JakeyRaj";
 
     // Prefills the composer on desktop web. The phone app ignores the parameter.
     const KH_SHARE_URL =
