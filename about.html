@@ -474,8 +474,29 @@
         }
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--bg); justify-content: center; align-items: center; gap: 2rem; font-size: 1.2rem; z-index: 999; }
+            /* Full-screen sheet. The links are rows, not centred words, so each
+               one is an obvious target. .nav-links a sets 0.9rem and a muted
+               colour, which is why these have to be stated again here. */
+            .nav-links.open {
+                display: flex; flex-direction: column; position: fixed;
+                top: 0; left: 0; right: 0; bottom: 0; background: var(--bg);
+                justify-content: center; align-items: stretch; gap: 0;
+                padding: 5rem 1.25rem 2rem; z-index: 999; overflow-y: auto;
+            }
+            .nav-links.open li { border-bottom: 1px solid var(--border); }
+            .nav-links.open li:first-child { border-top: 1px solid var(--border); }
+            .nav-links.open a {
+                display: block; padding: 1.15rem 0.75rem; text-align: center;
+                font-size: 1.12rem; font-weight: 600; color: var(--text);
+            }
+            .nav-links.open a:hover, .nav-links.open a:active { color: var(--primary); }
+            .nav-links.open a.active { color: var(--primary); }
+            .nav-links.open a::after { display: none; }
             .hamburger { display: flex; z-index: 1001; }
+            /* the bars become an X so it is clear how to close the sheet */
+            .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            .hamburger.open span:nth-child(2) { opacity: 0; }
+            .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
             .about-grid { grid-template-columns: 1fr; }
             .contact-grid { grid-template-columns: 1fr; }
             .form-row { grid-template-columns: 1fr; }
@@ -838,8 +859,16 @@
 <script>
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
-    function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
-    function closeNav() { document.getElementById('navLinks').classList.remove('open'); }
+    function toggleNav() {
+        const open = document.getElementById('navLinks').classList.toggle('open');
+        const burger = document.querySelector('.hamburger');
+        if (burger) burger.classList.toggle('open', open);
+    }
+    function closeNav() {
+        document.getElementById('navLinks').classList.remove('open');
+        const burger = document.querySelector('.hamburger');
+        if (burger) burger.classList.remove('open');
+    }
 
     const reveal = el => {
         el.classList.add('visible');

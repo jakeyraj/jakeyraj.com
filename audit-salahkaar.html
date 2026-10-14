@@ -70,7 +70,7 @@
         }
         .nav-links a:hover, .nav-links a.active { color: var(--primary); }
         .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
-        .hamburger span { width: 24px; height: 2px; background: var(--text); }
+        .hamburger span { width: 24px; height: 2px; background: var(--text); transition: all 0.3s; }
 
         /* ── app shell ── */
         .app { flex: 1 1 auto; display: flex; flex-direction: column; min-height: 0; }
@@ -190,6 +190,21 @@
         }
         .foot a { color: #6b7488; }
 
+        .app-tools .share i { color: #0a66c2; }
+        .app-tools .share:hover i { color: var(--primary); }
+
+        /* confirmation after a copy or share */
+        .toast {
+            position: fixed; left: 50%; bottom: 1.5rem; transform: translate(-50%, 1.5rem);
+            background: var(--bg-card2); border: 1px solid var(--primary);
+            color: var(--text); font-size: 0.85rem; line-height: 1.6;
+            padding: 0.7rem 1.1rem; border-radius: 10px; z-index: 3000;
+            max-width: min(440px, calc(100vw - 2rem)); text-align: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.25s, transform 0.25s;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.45);
+        }
+        .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
         /* ── modal ── */
         .modal {
             position: fixed; inset: 0; z-index: 2000; display: none;
@@ -248,7 +263,14 @@
                 border-bottom: 1px solid var(--border); padding: 1rem 1.5rem; z-index: 1500;
             }
             .nav-links.open { display: flex; }
-            .nav-links li { padding: 0.65rem 0; }
+            /* rows, not small grey words, so each link is an obvious target */
+            .nav-links li { border-bottom: 1px solid var(--border); }
+            .nav-links li:last-child { border-bottom: none; }
+            .nav-links a { display: block; padding: 0.95rem 0.25rem; font-size: 1.05rem; font-weight: 600; color: var(--text); }
+            .nav-links a.active { color: var(--primary); }
+            .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            .hamburger.open span:nth-child(2) { opacity: 0; }
+            .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
             .hamburger { display: flex; }
             nav { position: relative; }
             .thread, .composer { padding-left: 1rem; padding-right: 1rem; }
@@ -293,6 +315,9 @@
             <button class="ghost" id="khNewBtn" onclick="khNew()" title="Start a new conversation">
                 <i class="fas fa-rotate-left"></i> New
             </button>
+            <button class="ghost share" onclick="khShare()" title="Share Audit-Salahkaar on LinkedIn">
+                <i class="fab fa-linkedin"></i> Share
+            </button>
             <button class="ghost" onclick="khSheet(true)">About</button>
         </div>
     </div>
@@ -332,6 +357,8 @@
     </div>
 
 </main>
+
+<div class="toast" id="khToast" role="status" aria-live="polite"></div>
 
 <!-- About / feedback. Kept in the page so the detail stays crawlable. -->
 <div class="modal" id="khModal" onclick="if(event.target===this) khSheet(false)">
@@ -388,8 +415,7 @@
         what didn&rsquo;t, and which questions it got wrong.</p>
         <div class="btns">
             <a href="index.html#contact" class="btn"><i class="fas fa-envelope" style="margin-right:0.45rem"></i>Send me feedback</a>
-            <a href="https://www.linkedin.com/feed/?shareActive=true&text=Came%20across%20Audit-Salahkaar%2C%20an%20AI%20audit%20guide%20built%20by%20Jakey%20Raj%20Rajpal%2C%20FCCA.%0A%0AAsk%20a%20US%20accounting%20or%20auditing%20question%20and%20it%20answers%20in%20two%20lines%20with%20the%20governing%20standard%20cited.%20AU-C%2C%20PCAOB%20AS%2C%20ASC%2C%20GASB%2C%20GAGAS%2C%20Uniform%20Guidance.%20Choose%20your%20framework%20or%20let%20it%20auto%20detect.%0A%0AGenuinely%20useful%20if%20you%20work%20with%20audits%2C%20nonprofits%20or%20federal%20grants.%20Worth%20a%20look%3A%0A%0Ahttps%3A%2F%2Fwww.jakeyraj.com%2Faudit-salahkaar.html%0A%0A%23Audit%20%23Accounting%20%23SingleAudit%20%23CPA%20%23AI"
-               target="_blank" rel="noopener noreferrer" class="btn alt">
+            <a href="#" onclick="khShare();return false;" class="btn alt">
                 <i class="fab fa-linkedin" style="margin-right:0.45rem"></i>Share on LinkedIn</a>
             <a href="index.html" class="btn alt"><i class="fas fa-arrow-left" style="margin-right:0.45rem"></i>Back to site</a>
         </div>
@@ -418,9 +444,80 @@
     let khHistory = [];                 // [{role, content}] for follow-ups
     let khBusy = false;
 
-    function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
-    function closeNav()  { document.getElementById('navLinks').classList.remove('open'); }
+    function toggleNav() {
+        const open = document.getElementById('navLinks').classList.toggle('open');
+        document.querySelector('.hamburger').classList.toggle('open', open);
+    }
+    function closeNav() {
+        document.getElementById('navLinks').classList.remove('open');
+        document.querySelector('.hamburger').classList.remove('open');
+    }
     function khSheet(open) { document.getElementById('khModal').classList.toggle('open', open); }
+
+    // ── sharing ──
+    const KH_SHARE_TEXT =
+        "Came across Audit-Salahkaar, an AI audit guide built by Jakey Raj Rajpal, FCCA.\n\n" +
+        "Ask a US accounting or auditing question and it answers with the governing standard " +
+        "cited. AU-C, PCAOB AS, ASC, GASB, GAGAS, Uniform Guidance. Choose your framework or " +
+        "let it auto detect.\n\n" +
+        "Genuinely useful if you work with audits, nonprofits or federal grants. Worth a look:\n\n" +
+        "https://www.jakeyraj.com/audit-salahkaar.html\n\n" +
+        "#Audit #Accounting #SingleAudit #CPA #AI";
+
+    // Prefills the composer on desktop web. The phone app ignores the parameter.
+    const KH_SHARE_URL =
+        "https://www.linkedin.com/feed/?shareActive=true&text=" + encodeURIComponent(KH_SHARE_TEXT);
+
+    let khToastTimer;
+    function khToast(message) {
+        const t = document.getElementById('khToast');
+        t.textContent = message;
+        t.classList.add('show');
+        clearTimeout(khToastTimer);
+        khToastTimer = setTimeout(function () { t.classList.remove('show'); }, 5000);
+    }
+
+    // navigator.clipboard needs a secure context and can still be refused.
+    async function khCopy(text) {
+        try {
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(text);
+                return true;
+            }
+        } catch (e) { /* fall through to the old way */ }
+        try {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.setAttribute('readonly', '');
+            ta.style.cssText = 'position:fixed;top:-9999px;opacity:0';
+            document.body.appendChild(ta);
+            ta.select();
+            const ok = document.execCommand('copy');
+            document.body.removeChild(ta);
+            return ok;
+        } catch (e) { return false; }
+    }
+
+    async function khShare() {
+        // Copy first. Whichever route follows, the text is then recoverable by
+        // pasting, which is the only thing that always works on a phone.
+        const copied = await khCopy(KH_SHARE_TEXT);
+
+        if (navigator.share) {
+            try {
+                await navigator.share({ title: 'Audit-Salahkaar', text: KH_SHARE_TEXT });
+                return;                                   // the OS sheet took it from here
+            } catch (err) {
+                if (err && err.name === 'AbortError') return;   // user dismissed the sheet
+                // any other failure falls through to the link below
+            }
+        }
+
+        window.open(KH_SHARE_URL, '_blank', 'noopener');
+        khToast(copied
+            ? 'LinkedIn opened. If the post is empty, paste \u2014 the text is on your clipboard.'
+            : 'LinkedIn opened. Copy the post text from the About panel if it does not appear.');
+    }
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') khSheet(false);
     });
