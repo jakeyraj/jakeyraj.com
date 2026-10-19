@@ -146,6 +146,15 @@
         .msg.bot th, .msg.bot td { border: 1px solid var(--border); padding: 0.55rem 0.8rem; text-align: left; }
         .msg.bot th { background: var(--bg-card2); color: var(--text); font-weight: 600; }
         .msg.bot td { color: var(--text-muted); }
+        .msg.bot a.kh-src {
+            color: inherit; text-decoration: underline; text-decoration-style: dotted;
+            text-underline-offset: 3px; text-decoration-color: rgba(0,212,255,0.55);
+        }
+        .msg.bot a.kh-src:hover { color: var(--primary); text-decoration-style: solid; }
+        .msg.bot .kh-ref a.kh-src { color: var(--primary); }
+        .kh-srcnote { display: block; margin-top: 0.55rem; font-size: 0.74rem; color: #6b7488; }
+        .kh-srcnote i { font-size: 0.68rem; margin-right: 0.3rem; }
+
         .kh-warn {
             color: #fbbf24; font-size: 0.85rem; line-height: 1.75;
             border-left: 2px solid #fbbf24; padding-left: 0.9rem; margin-top: 1rem;
@@ -457,7 +466,7 @@
         </div>
 
         <p class="build">
-            Build <span id="khBuild">2026-10-16 22:30 UTC</span><br>
+            Build <span id="khBuild">2026-10-19 15:07 UTC</span><br>
             Seeing something stale? <a onclick="khReloadFresh()">Reload the newest version</a>
             &mdash; this page is cached for up to 10 minutes.
         </p>
@@ -692,6 +701,82 @@
         return out;
     }
 
+    // \u2500\u2500 source links \u2500\u2500
+    // Each entry maps a citation pattern to a URL that was opened and checked by
+    // hand. The model is never asked for a URL, because a plausible-looking dead
+    // link would read as corroboration. Anything unmatched stays plain text.
+    const KH_SOURCES = [
+        {   // 2 CFR 200.518 -> that exact section on eCFR
+            re: /\b2\s*CFR\s*(?:\u00a7\s*)?200\.(\d{3})\b/gi,
+            url: function (m) { return 'https://www.ecfr.gov/current/title-2/section-200.' + m[1]; },
+            site: 'ecfr.gov' },
+        {   // AS 2415 -> that standard's own page. No /i flag: lower-case "as"
+            // is an ordinary English word and must not become a link.
+            re: /\b(?:PCAOB\s+)?AS\s*(\d{3,4})\b/g,
+            url: function (m) { return 'https://pcaobus.org/oversight/standards/auditing-standards/details/AS' + m[1]; },
+            site: 'pcaobus.org' },
+        {   re: /\bAU-C\s*\d{3}\b/gi,
+            url: function () { return 'https://www.aicpa-cima.com/resources/landing/standards-and-statements'; },
+            site: 'aicpa-cima.com' },
+        {   re: /\bASC\s*\d{3}-\d{2}(?:-\d{2})?(?:-\d+)?\b/gi,
+            url: function () { return 'https://asc.fasb.org/'; },
+            site: 'asc.fasb.org' },
+        {   re: /\bGASB\s*(?:Statement\s*(?:No\.?)?\s*)?\d{1,3}\b/gi,
+            url: function () { return 'https://www.gasb.org/standards-guidance'; },
+            site: 'gasb.org' },
+        {   re: /\b(?:GAGAS|Yellow Book|Government Auditing Standards)\b/gi,
+            url: function () { return 'https://www.gao.gov/yellowbook'; },
+            site: 'gao.gov' }
+    ];
+
+    // Work on text nodes rather than the HTML string: a regex loose on markup
+    // could rewrite an attribute and corrupt the answer.
+    function khLinkSources(root) {
+        const used = [];
+        KH_SOURCES.forEach(function (src) {
+            const walk = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+            const nodes = [];
+            let n;
+            while ((n = walk.nextNode())) {
+                if (n.parentElement && !n.parentElement.closest('a')) nodes.push(n);
+            }
+            nodes.forEach(function (node) {
+                src.re.lastIndex = 0;
+                if (!src.re.test(node.nodeValue)) return;
+                src.re.lastIndex = 0;
+                const frag = document.createDocumentFragment();
+                let last = 0, m;
+                while ((m = src.re.exec(node.nodeValue))) {
+                    frag.appendChild(document.createTextNode(node.nodeValue.slice(last, m.index)));
+                    const a = document.createElement('a');
+                    a.className = 'kh-src';
+                    a.href = src.url(m);
+                    a.target = '_blank';
+                    a.rel = 'noopener noreferrer';
+                    a.title = 'Open on ' + src.site;
+                    a.textContent = m[0];
+                    frag.appendChild(a);
+                    last = m.index + m[0].length;
+                }
+                frag.appendChild(document.createTextNode(node.nodeValue.slice(last)));
+                node.parentNode.replaceChild(frag, node);
+                if (used.indexOf(src.site) === -1) used.push(src.site);
+            });
+        });
+
+        // Name the sites, so the reader can see where a link goes before clicking.
+        if (used.length) {
+            const ref = root.querySelector('.kh-ref') || root.lastElementChild;
+            if (ref) {
+                const note = document.createElement('span');
+                note.className = 'kh-srcnote';
+                note.innerHTML = '<i class="fas fa-arrow-up-right-from-square"></i>Opens on ' +
+                                 used.join(', ') + '. Verify the wording at source before relying on it.';
+                ref.appendChild(note);
+            }
+        }
+    }
+
     // ── thread ──
     function khScroll() { khThread.scrollTop = khThread.scrollHeight; }
 
@@ -761,6 +846,7 @@
                             'Ask a narrower question to get the rest.</p>';
                 }
                 slot.innerHTML = html;
+                khLinkSources(slot);
                 khHistory.push({ role: 'user', content: question },
                                { role: 'assistant', content: data.answer });
                 if (typeof data.remaining === 'number') {
