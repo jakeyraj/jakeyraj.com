@@ -153,7 +153,8 @@
         .msg.bot a.kh-src:hover { color: var(--primary); text-decoration-style: solid; }
         .msg.bot .kh-ref a.kh-src { color: var(--primary); }
         .kh-srcnote { display: block; margin-top: 0.55rem; font-size: 0.74rem; color: #6b7488; }
-        .kh-srcnote i { font-size: 0.68rem; margin-right: 0.3rem; }
+        .kh-srcnote a { color: var(--primary); text-decoration: none; }
+        .kh-srcnote a:hover { text-decoration: underline; }
 
         .kh-warn {
             color: #fbbf24; font-size: 0.85rem; line-height: 1.75;
@@ -466,7 +467,7 @@
         </div>
 
         <p class="build">
-            Build <span id="khBuild">2026-10-19 15:07 UTC</span><br>
+            Build <span id="khBuild">2026-10-19 15:25 UTC</span><br>
             Seeing something stale? <a onclick="khReloadFresh()">Reload the newest version</a>
             &mdash; this page is cached for up to 10 minutes.
         </p>
@@ -756,22 +757,32 @@
                     a.title = 'Open on ' + src.site;
                     a.textContent = m[0];
                     frag.appendChild(a);
+                    // first link for a site becomes that site's destination below
+                    if (!used.some(function (u) { return u.site === src.site; })) {
+                        used.push({ site: src.site, url: a.href });
+                    }
                     last = m.index + m[0].length;
                 }
                 frag.appendChild(document.createTextNode(node.nodeValue.slice(last)));
                 node.parentNode.replaceChild(frag, node);
-                if (used.indexOf(src.site) === -1) used.push(src.site);
             });
         });
 
-        // Name the sites, so the reader can see where a link goes before clicking.
+        // Just the sites, each one a direct link to the source it was built from.
         if (used.length) {
             const ref = root.querySelector('.kh-ref') || root.lastElementChild;
             if (ref) {
                 const note = document.createElement('span');
                 note.className = 'kh-srcnote';
-                note.innerHTML = '<i class="fas fa-arrow-up-right-from-square"></i>Opens on ' +
-                                 used.join(', ') + '. Verify the wording at source before relying on it.';
+                used.forEach(function (u, i) {
+                    if (i) note.appendChild(document.createTextNode(', '));
+                    const a = document.createElement('a');
+                    a.href = u.url;
+                    a.target = '_blank';
+                    a.rel = 'noopener noreferrer';
+                    a.textContent = u.site;
+                    note.appendChild(a);
+                });
                 ref.appendChild(note);
             }
         }
