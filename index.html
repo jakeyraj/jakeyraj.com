@@ -69,9 +69,15 @@
         }
         .hamburger span { width: 25px; height: 2px; background: var(--text); transition: all 0.3s; }
         /* HERO */
+        /* #hero is a <section>, and the section rule caps those at 1200px and
+           centres them. The old particle canvas was confined to that box too,
+           but sparse dots on black hid the boundary; any visible background
+           makes the box read as a floating tile. Full bleed here, with
+           .hero-content still holding the 1200px measure for the text. */
         #hero {
             min-height: 100vh; display: flex; align-items: center;
             position: relative; overflow: hidden; padding: 0 2rem;
+            max-width: none; width: 100%;
         }
         /* A still wash instead of the drifting particle field: the movement
            read as a games or developer site rather than an audit practice. */
