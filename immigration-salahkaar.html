@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XLZWK2V4Z0"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-XLZWK2V4Z0');
+    </script>
+    <title>Immigration-Salahkaar &ndash; US Immigration Law Source Guide by Jakey</title>
+    <meta name="description" content="Ask a US immigration law question. Get a plain answer with the official source cited, from USCIS, the INA, 8 CFR and the Federal Register. Legal information, not legal advice.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="canonical" href="https://www.jakeyraj.com/immigration-salahkaar.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Immigration-Salahkaar &ndash; US Immigration Law Source Guide by Jakey">
+    <meta property="og:description" content="Ask a US immigration law question. Get a plain answer with the official source cited. Legal information, not legal advice.">
+    <meta property="og:url" content="https://www.jakeyraj.com/immigration-salahkaar.html">
+    <meta name="twitter:card" content="summary">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #00d4ff;
+            --secondary: #7c3aed;
+            --bg: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-card2: #1a1a2e;
+            --text: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border: #2a2a3e;
+            --gradient: linear-gradient(135deg, #00d4ff, #7c3aed);
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3a3a52; }
+
+        /* The whole page is one screen. The thread scrolls inside itself,
+           the page never does, so the composer is always in reach. */
+        html { height: 100%; }
+        body {
+            height: 100dvh; display: flex; flex-direction: column; overflow: hidden;
+            background: var(--bg); color: var(--text);
+            font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── nav ── */
+        nav {
+            flex: 0 0 auto; display: flex; justify-content: space-between; align-items: center;
+            padding: 0.85rem 1.5rem; border-bottom: 1px solid var(--border);
+            background: rgba(10,10,15,0.95);
+        }
+        .nav-logo {
+            font-family: 'Space Grotesk', sans-serif; font-size: 1.35rem; font-weight: 700;
+            background: var(--gradient); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none;
+        }
+        .nav-links { display: flex; list-style: none; gap: 1.75rem; align-items: center; }
+        .nav-links a {
+            color: var(--text-muted); text-decoration: none; font-size: 0.88rem;
+            font-weight: 500; transition: color 0.25s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+        .hamburger span { width: 24px; height: 2px; background: var(--text); transition: all 0.3s; }
+
+        /* ── app shell ── */
+        .app { flex: 1 1 auto; display: flex; flex-direction: column; min-height: 0; }
+
+        .app-bar {
+            flex: 0 0 auto; display: flex; align-items: center; gap: 1rem;
+            flex-wrap: wrap; padding: 0.7rem 1.5rem; border-bottom: 1px solid var(--border);
+        }
+        .app-name {
+            font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem;
+            font-weight: 600; white-space: nowrap;
+        }
+        .app-name span { color: var(--text-muted); font-size: 0.78rem; font-weight: 400; margin-left: 0.5rem; }
+        .app-tools { margin-left: auto; display: flex; align-items: center; gap: 0.6rem; }
+        .app-tools a.ghost { display: inline-flex; align-items: center; gap: 0.35rem; text-decoration: none; }
+        .app-tools select, .ghost {
+            background: var(--bg-card2); color: var(--text); border: 1px solid var(--border);
+            border-radius: 7px; padding: 0.42rem 0.7rem; font-size: 0.8rem;
+            font-family: 'Inter', sans-serif; cursor: pointer; transition: all 0.25s;
+        }
+        .app-tools select:hover, .ghost:hover { border-color: var(--primary); color: var(--primary); }
+        .app-tools select:focus { outline: none; border-color: var(--primary); }
+
+        /* ── thread ── */
+        .thread { flex: 1 1 auto; overflow-y: auto; overflow-x: hidden; padding: 1.5rem 1.5rem 0; }
+        .thread-inner { max-width: 760px; margin: 0 auto; padding-bottom: 1.5rem; }
+
+        /* empty state, replaced by messages on first send */
+        .welcome { text-align: center; padding: 2.5rem 0 1rem; }
+        .welcome h1 {
+            font-family: 'Space Grotesk', sans-serif; font-size: clamp(1.9rem, 5vw, 2.6rem);
+            font-weight: 800; background: var(--gradient); -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.6rem;
+        }
+        .welcome .tag { font-size: 1.02rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .welcome .lede {
+            color: var(--text-muted); font-size: 0.93rem; line-height: 1.8;
+            max-width: 520px; margin: 0 auto 2rem;
+        }
+        .chips { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0.65rem; text-align: left; }
+        .chip {
+            background: var(--bg-card); border: 1px solid var(--border); color: var(--text-muted);
+            border-radius: 10px; padding: 0.8rem 1rem; font-size: 0.85rem; line-height: 1.5;
+            font-family: 'Inter', sans-serif; cursor: pointer; transition: all 0.25s; text-align: left;
+        }
+        .chip:hover { border-color: var(--primary); color: var(--text); transform: translateY(-2px); }
+
+        /* messages */
+        .msg { margin-bottom: 1.75rem; }
+        .msg.user { display: flex; justify-content: flex-end; }
+        .msg.user .bubble {
+            background: var(--bg-card2); border: 1px solid var(--border);
+            border-radius: 14px 14px 4px 14px; padding: 0.8rem 1.1rem;
+            max-width: 85%; font-size: 0.95rem; line-height: 1.7; white-space: pre-wrap;
+        }
+        .msg.bot .who {
+            display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem;
+            color: var(--primary); font-weight: 600; margin-bottom: 0.6rem;
+            text-transform: uppercase; letter-spacing: 0.07em;
+        }
+        .msg.bot p { color: var(--text); font-size: 0.97rem; line-height: 1.85; margin-bottom: 0.9rem; }
+        .msg.bot p:last-child { margin-bottom: 0; }
+        .msg.bot .kh-ref {
+            color: var(--primary); font-size: 0.89rem; line-height: 1.75;
+            border-left: 2px solid var(--primary); padding-left: 0.9rem;
+        }
+        .msg.bot ul, .msg.bot ol { margin: 0 0 0.9rem 1.15rem; }
+        .msg.bot li { color: var(--text); font-size: 0.94rem; line-height: 1.8; margin-bottom: 0.5rem; padding-left: 0.3rem; }
+        .msg.bot li::marker { color: var(--primary); }
+        .msg.bot em { color: var(--text-muted); }
+        .kh-tablewrap { overflow-x: auto; margin: 0 0 1.1rem; }
+        .msg.bot table { border-collapse: collapse; width: 100%; min-width: 340px; font-size: 0.86rem; }
+        .msg.bot th, .msg.bot td { border: 1px solid var(--border); padding: 0.55rem 0.8rem; text-align: left; }
+        .msg.bot th { background: var(--bg-card2); color: var(--text); font-weight: 600; }
+        .msg.bot td { color: var(--text-muted); }
+        .msg.bot a.kh-src {
+            color: inherit; text-decoration: underline; text-decoration-style: dotted;
+            text-underline-offset: 3px; text-decoration-color: rgba(0,212,255,0.55);
+        }
+        .msg.bot a.kh-src:hover { color: var(--primary); text-decoration-style: solid; }
+        .msg.bot .kh-ref a.kh-src { color: var(--primary); }
+        .kh-srcnote { display: block; margin-top: 0.55rem; font-size: 0.74rem; color: #6b7488; }
+        .kh-srcnote a { color: var(--primary); text-decoration: none; }
+        .kh-srcnote a:hover { text-decoration: underline; }
+
+        .kh-warn {
+            color: #fbbf24; font-size: 0.85rem; line-height: 1.75;
+            border-left: 2px solid #fbbf24; padding-left: 0.9rem; margin-top: 1rem;
+        }
+        .kh-err { color: #f87171; font-size: 0.92rem; line-height: 1.8; }
+
+        /* thinking indicator */
+        .dots { display: inline-flex; gap: 4px; align-items: center; height: 1.2rem; }
+        .dots i {
+            width: 6px; height: 6px; border-radius: 50%; background: var(--primary);
+            opacity: 0.4; animation: blink 1.3s infinite;
+        }
+        .dots i:nth-child(2) { animation-delay: 0.18s; }
+        .dots i:nth-child(3) { animation-delay: 0.36s; }
+        @keyframes blink { 0%, 60%, 100% { opacity: 0.25; } 30% { opacity: 1; } }
+
+        /* ── composer ── */
+        .composer { flex: 0 0 auto; border-top: 1px solid var(--border); padding: 0.9rem 1.5rem 0.75rem; }
+        .composer-inner { max-width: 760px; margin: 0 auto; }
+        .box {
+            display: flex; align-items: flex-end; gap: 0.6rem;
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 14px; padding: 0.6rem 0.6rem 0.6rem 1rem; transition: border-color 0.25s;
+        }
+        .box:focus-within { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,212,255,0.1); }
+        .box textarea {
+            flex: 1 1 auto; background: none; border: none; color: var(--text); resize: none;
+            font-family: 'Inter', sans-serif; font-size: 0.97rem; line-height: 1.65;
+            max-height: 180px; padding: 0.35rem 0;
+        }
+        .box textarea:focus { outline: none; }
+        .box textarea::placeholder { color: #5b6478; }
+        .send {
+            flex: 0 0 auto; width: 38px; height: 38px; border-radius: 10px; border: none;
+            background: var(--gradient); color: #fff; cursor: pointer; font-size: 0.9rem;
+            display: grid; place-items: center; transition: all 0.25s;
+        }
+        .send:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 0 20px rgba(0,212,255,0.45); }
+        .send:disabled { opacity: 0.45; cursor: not-allowed; }
+        .foot {
+            display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+            margin-top: 0.55rem; font-size: 0.72rem; color: #6b7488; line-height: 1.6;
+        }
+        .foot a { color: #6b7488; }
+
+        .app-tools .share i { color: #0a66c2; }
+        .app-tools .share:hover i { color: var(--primary); }
+
+        /* confirmation after a copy or share */
+        .toast {
+            position: fixed; left: 50%; bottom: 1.5rem; transform: translate(-50%, 1.5rem);
+            background: var(--bg-card2); border: 1px solid var(--primary);
+            color: var(--text); font-size: 0.85rem; line-height: 1.6;
+            padding: 0.7rem 1.1rem; border-radius: 10px; z-index: 3000;
+            max-width: min(440px, calc(100vw - 2rem)); text-align: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.25s, transform 0.25s;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.45);
+        }
+        .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+        /* ── modal ── */
+        .modal {
+            position: fixed; inset: 0; z-index: 2000; display: none;
+            background: rgba(5,5,10,0.78); backdrop-filter: blur(6px);
+            padding: 1.5rem; overflow-y: auto;
+        }
+        .modal.open { display: block; }
+        .sheet {
+            max-width: 780px; margin: 2rem auto; background: var(--bg-card);
+            border: 1px solid var(--border); border-radius: 16px; padding: 2rem;
+        }
+        .sheet h2 {
+            font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem;
+            margin-bottom: 0.4rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+        }
+        .sheet h3 {
+            font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem;
+            margin: 1.75rem 0 0.75rem; color: var(--text);
+        }
+        .sheet h4 {
+            font-family: 'Space Grotesk', sans-serif; font-size: 0.95rem;
+            margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem;
+        }
+        .sheet h4 i { color: var(--primary); font-size: 0.85rem; }
+        .sheet p, .sheet li { color: var(--text-muted); font-size: 0.9rem; line-height: 1.8; }
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+        .cards > div { background: var(--bg-card2); border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem; }
+        .steps { list-style: none; counter-reset: st; display: grid; gap: 0.7rem; }
+        .steps li { position: relative; padding-left: 2.2rem; }
+        .steps li::before {
+            counter-increment: st; content: counter(st);
+            position: absolute; left: 0; top: 0.1rem; width: 1.5rem; height: 1.5rem;
+            border-radius: 50%; background: var(--gradient); color: #fff;
+            font-size: 0.75rem; font-weight: 700; display: grid; place-items: center;
+        }
+        .btns { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1rem; }
+        .btn {
+            background: var(--gradient); color: #fff; padding: 0.7rem 1.4rem; border-radius: 8px;
+            text-decoration: none; font-weight: 600; font-size: 0.88rem; transition: all 0.25s;
+        }
+        .btn.alt { background: transparent; border: 1px solid var(--border); color: var(--text); }
+        .btn:hover { transform: translateY(-2px); }
+        .btn.alt:hover { border-color: var(--primary); color: var(--primary); }
+        .sharebox {
+            width: 100%; min-height: 150px; margin-top: 0.75rem; resize: vertical;
+            background: var(--bg-card2); color: var(--text-muted);
+            border: 1px solid var(--border); border-radius: 8px; padding: 0.9rem 1rem;
+            font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.7;
+        }
+        .sharebox:focus { outline: none; border-color: var(--primary); }
+        .close { background: none; border: none; color: var(--text-muted); font-size: 1.3rem; cursor: pointer; line-height: 1; }
+        .close:hover { color: var(--primary); }
+        .build {
+            margin-top: 1.5rem; text-align: center;
+            font-size: 0.74rem; color: #6b7488; line-height: 1.7;
+        }
+        .build a { color: var(--primary); cursor: pointer; }
+
+        .disclaimer {
+            margin-top: 1.75rem; padding: 1rem 1.2rem; border: 1px solid var(--border);
+            border-left: 3px solid var(--primary); border-radius: 8px; background: var(--bg-card2);
+        }
+        .disclaimer strong { color: var(--text); }
+
+        @media (max-width: 820px) {
+            .nav-links {
+                display: none; position: absolute; top: 56px; left: 0; right: 0;
+                flex-direction: column; gap: 0; background: rgba(10,10,15,0.98);
+                border-bottom: 1px solid var(--border); padding: 1rem 1.5rem; z-index: 1500;
+            }
+            .nav-links.open { display: flex; }
+            /* rows, not small grey words, so each link is an obvious target */
+            .nav-links li { border-bottom: 1px solid var(--border); }
+            .nav-links li:last-child { border-bottom: none; }
+            .nav-links a { display: block; padding: 0.95rem 0.25rem; font-size: 1.05rem; font-weight: 600; color: var(--text); }
+            .nav-links a.active { color: var(--primary); }
+            .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+            .hamburger.open span:nth-child(2) { opacity: 0; }
+            .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+            .hamburger { display: flex; }
+            nav { position: relative; }
+            .thread, .composer { padding-left: 1rem; padding-right: 1rem; }
+            .app-bar { padding: 0.6rem 1rem; gap: 0.6rem; }
+            .app-name span { display: none; }
+            .sheet { padding: 1.5rem; margin: 0 auto; }
+        }
+
+        /* ── Immigration-Salahkaar additions ── */
+        /* The name is longer than Audit-Salahkaar, so let it shrink further on a phone. */
+        .welcome h1 { font-size: clamp(1.5rem, 6.2vw, 2.6rem); overflow-wrap: anywhere; }
+        .welcome .notice {
+            max-width: 560px; margin: 0 auto 1.75rem; padding: 0.75rem 1rem; text-align: left;
+            border: 1px solid var(--border); border-left: 3px solid #fbbf24; border-radius: 8px;
+            background: var(--bg-card); color: var(--text-muted); font-size: 0.82rem; line-height: 1.7;
+        }
+        .welcome .notice strong { color: var(--text); }
+
+        /* "Status:" and "Under consideration:" lines in an answer */
+        .msg.bot .kh-status { color: var(--text-muted); font-size: 0.86rem; line-height: 1.7; }
+        .msg.bot .kh-pend {
+            color: #fbbf24; font-size: 0.9rem; line-height: 1.75;
+            border-left: 2px solid #fbbf24; padding-left: 0.9rem;
+        }
+        .msg.bot .kh-pend a.kh-src { color: #fbbf24; text-decoration-color: rgba(251,191,36,0.55); }
+
+        /* sources the answer was built from */
+        .kh-sources {
+            margin-top: 1.1rem; padding: 0.85rem 1rem; border: 1px solid var(--border);
+            border-radius: 10px; background: var(--bg-card);
+        }
+        .kh-sources h5 {
+            font-family: 'Space Grotesk', sans-serif; font-size: 0.74rem; font-weight: 600;
+            color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 0.5rem;
+        }
+        .msg.bot .kh-sources ol { margin: 0 0 0 1.15rem; }
+        .msg.bot .kh-sources li { font-size: 0.84rem; line-height: 1.6; margin-bottom: 0.35rem; }
+        .kh-sources a { color: var(--text); text-decoration: none; }
+        .kh-sources a:hover { color: var(--primary); text-decoration: underline; }
+        .kh-sources .site { color: #6b7488; font-size: 0.76rem; margin-left: 0.4rem; }
+
+        /* fixed note under every answer; written by the page, not the model */
+        .kh-note { margin-top: 0.9rem; font-size: 0.74rem; color: #6b7488; line-height: 1.65; }
+        .kh-note a { color: #6b7488; }
+        .kh-note a:hover { color: var(--primary); }
+
+        .sheet .links { list-style: none; display: grid; gap: 0.45rem; }
+        .sheet .links a { color: var(--primary); text-decoration: none; }
+        .sheet .links a:hover { text-decoration: underline; }
+        .disclaimer p + p { margin-top: 0.6rem; }
+
+        /* four chips as two even rows rather than three and an orphan */
+        .chips { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        .ghost { white-space: nowrap; }
+
+        @media (max-width: 820px) {
+            /* the focus-area labels are longer than the audit frameworks, so the
+               tools get their own full-width row and the select takes the slack */
+            .app-tools { margin-left: 0; width: 100%; }
+            .app-tools select { flex: 1 1 0; min-width: 0; }
+            .welcome { padding-top: 1rem; }
+            .welcome .lede { margin-bottom: 1.25rem; }
+            .welcome .notice { margin-bottom: 1.25rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="nav-logo" aria-label="JRR, Jakey Raj Rajpal - home">JRR</a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#hero" onclick="closeNav()">Home</a></li>
+        <li><a href="about.html" onclick="closeNav()">About</a></li>
+        <li><a href="audit-salahkaar.html" onclick="closeNav()">Audit-Salahkaar</a></li>
+        <li><a href="immigration-salahkaar.html" class="active" onclick="closeNav()">Immigration-Salahkaar</a></li>
+        <li><a href="articles.html" onclick="closeNav()">Articles</a></li>
+        <li><a href="index.html#videos" onclick="closeNav()">Videos</a></li>
+        <li><a href="index.html#stories" onclick="closeNav()">Stories</a></li>
+        <li><a href="index.html#contact" onclick="closeNav()">Contact</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleNav()" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<main class="app">
+
+    <div class="app-bar">
+        <div class="app-name">Immigration-Salahkaar <span>US Immigration Law Source Guide by Jakey</span></div>
+        <div class="app-tools">
+            <select id="khTopic" aria-label="Focus area">
+                <option value="Auto">Auto-detect</option>
+                <option value="Family">Family-based</option>
+                <option value="Employment">Employment &amp; work visas</option>
+                <option value="Students">Students &amp; exchange</option>
+                <option value="Humanitarian">Asylum &amp; humanitarian</option>
+                <option value="Citizenship">Naturalization &amp; citizenship</option>
+                <option value="Enforcement">Removal &amp; inadmissibility</option>
+                <option value="Pending">Pending bills &amp; rules</option>
+            </select>
+            <button class="ghost" id="khNewBtn" onclick="khNew()" title="Start a new conversation">
+                <i class="fas fa-rotate-left"></i> New
+            </button>
+            <!-- A real link, not a scripted window.open: anchors are never
+                 popup-blocked. href is filled in from KH_SHARE_URL on load. -->
+            <a class="ghost share" id="khShareLink" href="https://www.linkedin.com/feed/"
+               target="_blank" rel="noopener noreferrer" onclick="return khShare(event)"
+               title="Share Immigration-Salahkaar on LinkedIn">
+                <i class="fab fa-linkedin"></i> Share
+            </a>
+            <button class="ghost" onclick="khSheet(true)">About</button>
+        </div>
+    </div>
+
+    <div class="thread" id="khThread">
+        <div class="thread-inner" id="khInner"></div>
+    </div>
+
+    <div class="composer">
+        <div class="composer-inner">
+            <div class="box">
+                <textarea id="khQuestion" rows="1" maxlength="1000"
+                          placeholder="Ask a US immigration law question&hellip;"></textarea>
+                <button class="send" id="khAsk" onclick="khSubmit()" aria-label="Send">
+                    <i class="fas fa-arrow-up"></i>
+                </button>
+            </div>
+            <div class="foot">
+                <span>Legal information, not legal advice. AI-generated &mdash; verify at the official source.
+                      Do not enter personal or case details.
+                      <a href="#" onclick="khSheet(true);return false;">More</a></span>
+                <span id="khCount">Enter to send &bull; Shift + Enter for a new line</span>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<div class="toast" id="khToast" role="status" aria-live="polite"></div>
+
+<!-- About / feedback. Kept in the page so the detail stays crawlable. -->
+<div class="modal" id="khModal" onclick="if(event.target===this) khSheet(false)">
+    <div class="sheet">
+        <h2>About Immigration-Salahkaar
+            <button class="close" onclick="khSheet(false)" aria-label="Close">&times;</button>
+        </h2>
+        <p>An AI guide to the official sources of US immigration and nationality law, built by
+        Jakey Raj Rajpal, FCCA. It explains what the law and agency guidance say, and shows you
+        where to read it for yourself &mdash; the statute, the regulation, the USCIS page, the
+        Federal Register notice, or the bill in Congress.</p>
+        <p style="margin-top:0.8rem"><em>Salahkaar</em> (صلاح کار / सलाहकार) is Urdu and Hindi
+        for adviser, from the Arabic <em>salah</em>, meaning advice, joined to the Persian
+        <em>-kaar</em>, one who does. Here it advises you on where the law is written, not on
+        what to do about your case.</p>
+
+        <div class="disclaimer" style="margin-top:1.25rem">
+            <p><strong>This is not legal advice.</strong> Immigration-Salahkaar does not provide
+            legal advice, does not assess your eligibility, and does not create an attorney-client
+            relationship. It only helps you find the authentic sources for laws that are in force
+            or under consideration. Jakey Raj Rajpal is an accountant, not an attorney.</p>
+            <p>Answers are AI-generated and can be wrong or out of date. Immigration rules, fees and
+            forms change often. Read the linked official source before you rely on anything here,
+            and speak to a licensed immigration attorney or a DOJ-accredited representative about
+            your own situation.</p>
+        </div>
+
+        <h3>What it does</h3>
+        <div class="cards">
+            <div>
+                <h4><i class="fas fa-bolt"></i> Short answer first</h4>
+                <p>One or two sentences, then a &ldquo;Reference:&rdquo; line citing the authority
+                &mdash; INA, 8 U.S.C., 8 CFR, the USCIS Policy Manual, the form.</p>
+            </div>
+            <div>
+                <h4><i class="fas fa-landmark"></i> Official sources only</h4>
+                <p>It searches government sites &mdash; USCIS first, then eCFR, the Federal Register,
+                Congress.gov, State, Labor, EOIR &mdash; and lists the pages it used under each answer.</p>
+            </div>
+            <div>
+                <h4><i class="fas fa-scale-balanced"></i> In force or only proposed</h4>
+                <p>Law that applies today is kept apart from bills, proposed rules, executive actions
+                and litigation, each labelled with where it stands.</p>
+            </div>
+            <div>
+                <h4><i class="fas fa-newspaper"></i> Current, with dates</h4>
+                <p>Fees, form editions, policy alerts and USCIS news releases are looked up at the
+                time you ask, not recalled from memory.</p>
+            </div>
+            <div>
+                <h4><i class="fas fa-shield-halved"></i> Stays in its lane</h4>
+                <p>US immigration law only. Anything else gets a clear &ldquo;out of scope&rdquo;
+                message instead of a guess.</p>
+            </div>
+            <div>
+                <h4><i class="fas fa-user-shield"></i> No case assessments</h4>
+                <p>Describe a personal situation and it gives the general rule and the source,
+                then points you to qualified help. It will not tell you what to file.</p>
+            </div>
+        </div>
+
+        <h3>How to use it</h3>
+        <ol class="steps">
+            <li>Choose a focus area, or leave it on Auto-detect.</li>
+            <li>Ask your question in plain English. Leave out names, A-numbers and receipt numbers.</li>
+            <li>Read the answer, then open the sources listed under it and check them yourself.</li>
+            <li>For your own case, take what you found to a licensed attorney or accredited representative.</li>
+        </ol>
+
+        <h3>Find qualified help</h3>
+        <ul class="links">
+            <li><a href="https://www.uscis.gov/scams-fraud-and-misconduct/avoid-scams/find-legal-services" target="_blank" rel="noopener noreferrer">USCIS &mdash; Find legal services</a></li>
+            <li><a href="https://www.justice.gov/eoir/recognized-organizations-and-accredited-representatives-roster-state-and-city" target="_blank" rel="noopener noreferrer">DOJ EOIR &mdash; Recognized organizations and accredited representatives</a></li>
+            <li><a href="https://www.justice.gov/eoir/list-pro-bono-legal-service-providers" target="_blank" rel="noopener noreferrer">DOJ EOIR &mdash; Pro bono legal service providers</a></li>
+        </ul>
+
+        <h3>Where the answers come from</h3>
+        <ul class="links">
+            <li><a href="https://www.uscis.gov/laws-and-policy/legislation/immigration-and-nationality-act" target="_blank" rel="noopener noreferrer">Immigration and Nationality Act (USCIS)</a></li>
+            <li><a href="https://www.ecfr.gov/current/title-8" target="_blank" rel="noopener noreferrer">8 CFR &mdash; Aliens and Nationality (eCFR)</a></li>
+            <li><a href="https://www.uscis.gov/policy-manual" target="_blank" rel="noopener noreferrer">USCIS Policy Manual</a></li>
+            <li><a href="https://www.uscis.gov/newsroom/all-news" target="_blank" rel="noopener noreferrer">USCIS Newsroom</a></li>
+            <li><a href="https://www.federalregister.gov/agencies/u-s-citizenship-and-immigration-services" target="_blank" rel="noopener noreferrer">Federal Register &mdash; USCIS rules and notices</a></li>
+            <li><a href="https://www.congress.gov/" target="_blank" rel="noopener noreferrer">Congress.gov &mdash; bills and their status</a></li>
+            <li><a href="https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin.html" target="_blank" rel="noopener noreferrer">Department of State &mdash; Visa Bulletin</a></li>
+        </ul>
+
+        <h3>Feedback</h3>
+        <p>Immigration-Salahkaar is an early release. I&rsquo;d value your feedback &mdash; what worked,
+        what didn&rsquo;t, and which questions it got wrong.</p>
+        <div class="btns">
+            <a href="index.html#contact" class="btn"><i class="fas fa-envelope" style="margin-right:0.45rem"></i>Send me feedback</a>
+            <a class="btn alt" id="khShareLink2" href="https://www.linkedin.com/feed/"
+               target="_blank" rel="noopener noreferrer" onclick="return khShare(event)">
+                <i class="fab fa-linkedin" style="margin-right:0.45rem"></i>Share on LinkedIn</a>
+            <a href="index.html" class="btn alt"><i class="fas fa-arrow-left" style="margin-right:0.45rem"></i>Back to site</a>
+        </div>
+
+        <h3>The post text</h3>
+        <p>Share puts this on your clipboard. If your phone&rsquo;s share sheet drops it,
+        or LinkedIn opens an empty post, paste it from here.</p>
+        <textarea class="sharebox" id="khShareBox" readonly aria-label="LinkedIn post text"></textarea>
+        <div class="btns">
+            <button class="btn alt" onclick="khCopyBox(this)">Copy post text</button>
+        </div>
+
+        <p class="build">
+            Build <span id="khBuild">2026-11-12 17:54 UTC</span><br>
+            Seeing something stale? <a onclick="khReloadFresh()">Reload the newest version</a>
+            &mdash; this page is cached for up to 10 minutes.
+        </p>
+    </div>
+</div>
+
+<script>
+    // ── Immigration-Salahkaar ──
+    // The API key lives in a Cloudflare worker, so it never reaches this page.
+    // The worker also enforces the scope rule and the official-source allowlist;
+    // nothing on this page is trusted to do that alone.
+    const KH_API = "https://immigration-salahkaar.jakeyraj.workers.dev";
+    const KH_TURNS = 6;                 // messages of history sent back, 3 exchanges
+    const KH_NAME = 'Immigration-Salahkaar';
+
+    const khQ      = document.getElementById('khQuestion');
+    const khBtn    = document.getElementById('khAsk');
+    const khThread = document.getElementById('khThread');
+    const khInner  = document.getElementById('khInner');
+    const khCount  = document.getElementById('khCount');
+    const HINT     = 'Enter to send • Shift + Enter for a new line';
+
+    let khHistory = [];                 // [{role, content}] for follow-ups
+    let khBusy = false;
+
+    function toggleNav() {
+        const open = document.getElementById('navLinks').classList.toggle('open');
+        document.querySelector('.hamburger').classList.toggle('open', open);
+    }
+    function closeNav() {
+        document.getElementById('navLinks').classList.remove('open');
+        document.querySelector('.hamburger').classList.remove('open');
+    }
+    // Cache-busting reload. A plain refresh can still be served the cached
+    // copy; a URL the browser has never seen cannot be.
+    function khReloadFresh() {
+        location.href = location.pathname + '?v=' + Date.now();
+    }
+
+    function khSheet(open) { document.getElementById('khModal').classList.toggle('open', open); }
+
+    // ── sharing ──
+    const KH_SHARE_TEXT =
+        "Came across Immigration-Salahkaar, an AI guide to US immigration law sources built by " +
+        "Jakey Raj Rajpal, FCCA.\n\n" +
+        "Ask an immigration question and it answers in plain English with the official source " +
+        "cited. INA, 8 CFR, the USCIS Policy Manual, the Federal Register, bills in Congress. " +
+        "It keeps what is in force apart from what is only proposed.\n\n" +
+        "It is legal information, not legal advice. Useful for finding where the rule is " +
+        "actually written:\n\n" +
+        "https://www.jakeyraj.com/immigration-salahkaar.html\n\n" +
+        "#ImmigrationSalahkaar #Immigration #USCIS #ImmigrationLaw";
+
+    // Prefills the composer on desktop web. The phone app ignores the parameter.
+    const KH_SHARE_URL =
+        "https://www.linkedin.com/feed/?shareActive=true&text=" + encodeURIComponent(KH_SHARE_TEXT);
+
+    let khToastTimer;
+    function khToast(message) {
+        const t = document.getElementById('khToast');
+        t.textContent = message;
+        t.classList.add('show');
+        clearTimeout(khToastTimer);
+        khToastTimer = setTimeout(function () { t.classList.remove('show'); }, 5000);
+    }
+
+    // navigator.clipboard needs a secure context and can still be refused.
+    async function khCopy(text) {
+        try {
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(text);
+                return true;
+            }
+        } catch (e) { /* fall through to the old way */ }
+        try {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.setAttribute('readonly', '');
+            ta.style.cssText = 'position:fixed;top:-9999px;opacity:0';
+            document.body.appendChild(ta);
+            ta.select();
+            const ok = document.execCommand('copy');
+            document.body.removeChild(ta);
+            return ok;
+        } catch (e) { return false; }
+    }
+
+    // Fill the About panel's copy of the post from the same constant, so the two
+    // can never drift apart.
+    document.getElementById('khShareBox').value = KH_SHARE_TEXT;
+
+    async function khCopyBox(btn) {
+        const ok = await khCopy(KH_SHARE_TEXT);
+        if (ok) {
+            const was = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check" style="margin-right:0.45rem"></i>Copied';
+            setTimeout(function () { btn.innerHTML = was; }, 2500);
+        } else {
+            // Nothing automatic worked, so select it and let them copy by hand.
+            const box = document.getElementById('khShareBox');
+            box.focus(); box.select();
+            khToast('Select all and copy manually — your browser blocked the automatic copy.');
+        }
+    }
+
+    // Point both share links at the prefill URL. Done here so the long encoded
+    // URL is never duplicated in the markup.
+    document.getElementById('khShareLink').href = KH_SHARE_URL;
+    document.getElementById('khShareLink2').href = KH_SHARE_URL;
+
+    // Whether the OS share sheet is worth using. navigator.share exists on
+    // Windows 11 desktop browsers too, where the sheet offers Nearby Sharing,
+    // Teams and Outlook but no LinkedIn, so its presence proves nothing.
+    // Only a real phone or tablet should bypass LinkedIn's own prefill URL.
+    function khIsMobile() {
+        const uad = navigator.userAgentData;
+        if (uad && typeof uad.mobile === 'boolean') return uad.mobile;   // Chromium
+        const ua = navigator.userAgent || '';
+        if (/Android|iPhone|iPod|IEMobile|Opera Mini/i.test(ua)) return true;
+        // iPadOS reports itself as a Mac, and is told apart by the touch points.
+        return /iPad/i.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+    }
+
+    // Everything that needs the click's user activation must run before the
+    // first await. An await ends the activation, after which the browser blocks
+    // window.open and navigator.share rejects. That is why this is not async.
+    function khShare(e) {
+        // Started, deliberately not awaited: writeText is invoked synchronously
+        // while the gesture is still live, and the toast catches up later.
+        const viaSheet = !!(navigator.share && khIsMobile());
+        khCopy(KH_SHARE_TEXT).then(function (copied) {
+            if (!copied) { khToast('Open About to copy the post text.'); return; }
+            khToast(viaSheet
+                ? 'Post copied too, in case the share sheet drops it.'
+                : 'LinkedIn opened with the post written. It is on your clipboard as well.');
+        });
+
+        if (viaSheet) {
+            e.preventDefault();                 // use the OS sheet, not the link
+            navigator.share({ title: KH_NAME, text: KH_SHARE_TEXT })
+                .catch(function (err) {
+                    if (err && err.name === 'AbortError') return;   // dismissed, say nothing
+                    khToast('Could not open the share sheet. The post is on your clipboard ' +
+                            '— open LinkedIn and paste it.');
+                });
+            return false;
+        }
+
+        // No share sheet, so let the link do its own job. Nothing to block.
+        return true;
+    }
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') khSheet(false);
+    });
+
+    // ── composer ──
+    // Grow with the text instead of scrolling a one-line box.
+    function khGrow() {
+        khQ.style.height = 'auto';
+        khQ.style.height = Math.min(khQ.scrollHeight, 180) + 'px';
+    }
+    khQ.addEventListener('input', function () {
+        khGrow();
+        khCount.textContent = khQ.value.length > 850
+            ? khQ.value.length + ' / 1000'
+            : HINT;
+    });
+    khQ.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); khSubmit(); }
+    });
+
+    function khFill(text) { khQ.value = text; khGrow(); khQ.focus(); }
+
+    // ── rendering ──
+    // The answer comes from a model, so escape it before it ever touches innerHTML.
+    function khEsc(str) {
+        return String(str).replace(/[&<>"]/g, function (c) {
+            return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+        });
+    }
+    // Escape first, then re-allow only **bold** and *italic*. Bold runs first,
+    // otherwise the italic pattern would eat half of each bold marker.
+    function khInline(line) {
+        return khEsc(line)
+            .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*(.+?)\*/g, '<em>$1</em>');
+    }
+    var KH_BULLET = /^[-*•]\s+/;
+    function khIsRow(l) { return l.charAt(0) === '|' && l.charAt(l.length - 1) === '|' && l.length > 2; }
+    function khCells(l) { return l.slice(1, -1).split('|').map(function (c) { return c.trim(); }); }
+    function khIsSep(l) { return khCells(l).every(function (c) { return /^:?-{2,}:?$/.test(c); }); }
+    function khTable(rows) {
+        var head = null, body;
+        // A header exists only when row 1 is the |---|---| separator.
+        if (rows.length > 1 && khIsSep(rows[1])) {
+            head = khCells(rows[0]);
+            body = rows.slice(2).filter(function (r) { return !khIsSep(r); }).map(khCells);
+        } else {
+            body = rows.filter(function (r) { return !khIsSep(r); }).map(khCells);
+        }
+        var cell = function (tag) {
+            return function (c) { return '<' + tag + '>' + khInline(c) + '</' + tag + '>'; };
+        };
+        var html = '<div class="kh-tablewrap"><table>';
+        if (head) html += '<thead><tr>' + head.map(cell('th')).join('') + '</tr></thead>';
+        html += '<tbody>' + body.map(function (r) {
+            return '<tr>' + r.map(cell('td')).join('') + '</tr>';
+        }).join('') + '</tbody></table></div>';
+        return html;
+    }
+    // The three labelled lines the worker asks the model for. The label may
+    // arrive bold, so allow for the asterisks.
+    function khLineClass(line) {
+        var l = line.replace(/^\*+/, '');
+        if (/^References?\s*:/i.test(l)) return ' class="kh-ref"';
+        if (/^Status\s*:/i.test(l)) return ' class="kh-status"';
+        if (/^Under consideration\s*:/i.test(l)) return ' class="kh-pend"';
+        return '';
+    }
+    // Light markdown: paragraphs, "- " bullets, pipe tables, labelled lines.
+    function khRender(text) {
+        var lines = text.split('\n').map(function (l) { return l.trim().replace(/^#{1,6}\s+/, ''); })
+                        .filter(function (l) { return l; });
+        var out = '', i = 0;
+        while (i < lines.length) {
+            if (khIsRow(lines[i])) {
+                var rows = [];
+                while (i < lines.length && khIsRow(lines[i])) { rows.push(lines[i]); i++; }
+                out += khTable(rows);
+                continue;
+            }
+            // "**Bold:**" is not a bullet, so the marker must be followed by a space.
+            if (KH_BULLET.test(lines[i])) {
+                out += '<ul>';
+                while (i < lines.length && KH_BULLET.test(lines[i])) {
+                    out += '<li>' + khInline(lines[i].replace(KH_BULLET, '')) + '</li>';
+                    i++;
+                }
+                out += '</ul>';
+                continue;
+            }
+            out += '<p' + khLineClass(lines[i]) + '>' + khInline(lines[i]) + '</p>';
+            i++;
+        }
+        return out;
+    }
+
+    // ── source links ──
+    // Two kinds of link reach the reader, and neither is a URL typed by the model.
+    //
+    // 1. Citation patterns below. Each maps a citation written in the answer to
+    //    a URL pattern that was checked by hand. Anything unmatched stays plain
+    //    text, because a plausible-looking dead link would read as corroboration.
+    // 2. The "Sources consulted" list, which is the set of pages the search
+    //    actually returned and the answer cited. The worker filters those to
+    //    official domains; khOfficial() below checks them a second time.
+    const KH_SOURCES = [
+        {   // 8 CFR 214.2(h), 20 CFR 655.731, 22 CFR 41.31 -> that section on eCFR;
+            // "8 CFR part 214" -> that part
+            re: /\b(8|20|22)\s*C\.?F\.?R\.?\s*(?:§+\s*|parts?\s+)?(\d{1,4})(?:\.(\d+[a-z]?))?/gi,
+            url: function (m) {
+                return 'https://www.ecfr.gov/current/title-' + m[1] +
+                       (m[3] ? '/section-' + m[2] + '.' + m[3] : '/part-' + m[2]);
+            },
+            site: 'ecfr.gov' },
+        {   // 8 U.S.C. § 1255 -> that section via the govinfo link service
+            re: /\b8\s*U\.?\s?S\.?\s?C\.?\s*(?:§+\s*)?(\d{3,4}[a-z]?)\b/gi,
+            url: function (m) {
+                return 'https://www.govinfo.gov/link/uscode/8/' + m[1].toLowerCase() +
+                       '?type=usc&year=mostrecent&link-type=html';
+            },
+            site: 'govinfo.gov' },
+        {   // INA § 245(a) -> the USCIS page for the Act. No /i flag: "ina" in
+            // lower case is not a citation.
+            re: /\bINA\s*(?:§+\s*|[Ss]ec(?:tion|\.)\s*)?\d{3}[A-Z]?(?:\([A-Za-z0-9]+\))*/g,
+            url: function () { return 'https://www.uscis.gov/laws-and-policy/legislation/immigration-and-nationality-act'; },
+            site: 'uscis.gov' },
+        {   // 90 FR 12345 -> that Federal Register page
+            re: /\b(\d{2,3})\s*F\.?R\.?\s*(\d{3,6})\b/g,
+            url: function (m) { return 'https://www.federalregister.gov/citation/' + m[1] + '-FR-' + m[2]; },
+            site: 'federalregister.gov' },
+        {   // Form I-485, N-400, G-28 -> the USCIS form page. I-94 belongs to CBP;
+            // I-20 and DS forms are not USCIS forms and are left as plain text.
+            re: /\b(?:Form\s+)?((?:I|N|G|AR)-\d{1,4}[A-Z]{0,3})\b/g,
+            url: function (m) {
+                var id = m[1].toLowerCase();
+                if (id === 'i-94') return 'https://i94.cbp.dhs.gov/';
+                if (id === 'i-20') return null;
+                return 'https://www.uscis.gov/' + id;
+            },
+            site: 'uscis.gov' },
+        {   re: /\bUSCIS Policy Manual\b/gi,
+            url: function () { return 'https://www.uscis.gov/policy-manual'; },
+            site: 'uscis.gov' },
+        {   re: /\bVisa Bulletin\b/gi,
+            url: function () { return 'https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin.html'; },
+            site: 'travel.state.gov' },
+        {   re: /\b9\s*FAM\b(?:\s*\d+(?:\.\d+)*(?:-\d+)?)?/g,
+            url: function () { return 'https://fam.state.gov/'; },
+            site: 'fam.state.gov' }
+    ];
+
+    // Mirror of SOURCE_DOMAINS in the worker. Keep the two lists the same.
+    const KH_ALLOWED_SITES = [
+        'uscis.gov', 'dhs.gov', 'cbp.gov', 'ice.gov', 'state.gov', 'justice.gov', 'dol.gov',
+        'e-verify.gov', 'ecfr.gov', 'federalregister.gov', 'regulations.gov', 'congress.gov',
+        'govinfo.gov', 'uscourts.gov', 'supremecourt.gov', 'whitehouse.gov'
+    ];
+    function khOfficial(url) {
+        try {
+            const u = new URL(url);
+            if (u.protocol !== 'https:') return null;
+            const host = u.hostname.toLowerCase();
+            for (let i = 0; i < KH_ALLOWED_SITES.length; i++) {
+                const d = KH_ALLOWED_SITES[i];
+                if (host === d || host.endsWith('.' + d)) return host.replace(/^www\./, '');
+            }
+        } catch (e) { /* not a URL */ }
+        return null;
+    }
+
+    // Work on text nodes rather than the HTML string: a regex loose on markup
+    // could rewrite an attribute and corrupt the answer.
+    function khLinkSources(root) {
+        const used = [];
+        KH_SOURCES.forEach(function (src) {
+            const walk = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+            const nodes = [];
+            let n;
+            while ((n = walk.nextNode())) {
+                if (n.parentElement && !n.parentElement.closest('a')) nodes.push(n);
+            }
+            nodes.forEach(function (node) {
+                src.re.lastIndex = 0;
+                if (!src.re.test(node.nodeValue)) return;
+                src.re.lastIndex = 0;
+                const frag = document.createDocumentFragment();
+                let last = 0, m;
+                while ((m = src.re.exec(node.nodeValue))) {
+                    const href = src.url(m);
+                    if (!href) continue;            // recognised, but no checked destination
+                    frag.appendChild(document.createTextNode(node.nodeValue.slice(last, m.index)));
+                    const a = document.createElement('a');
+                    const site = khOfficial(href) || src.site;
+                    a.className = 'kh-src';
+                    a.href = href;
+                    a.target = '_blank';
+                    a.rel = 'noopener noreferrer';
+                    a.title = 'Open on ' + site;
+                    a.textContent = m[0];
+                    frag.appendChild(a);
+                    // first link for a site becomes that site's destination below
+                    if (!used.some(function (u) { return u.site === site; })) {
+                        used.push({ site: site, url: a.href });
+                    }
+                    last = m.index + m[0].length;
+                }
+                frag.appendChild(document.createTextNode(node.nodeValue.slice(last)));
+                node.parentNode.replaceChild(frag, node);
+            });
+        });
+
+        // Just the sites, each one a direct link to the source it was built from.
+        if (used.length) {
+            const ref = root.querySelector('.kh-ref') || root.lastElementChild;
+            if (ref) {
+                const note = document.createElement('span');
+                note.className = 'kh-srcnote';
+                used.forEach(function (u, i) {
+                    if (i) note.appendChild(document.createTextNode(', '));
+                    const a = document.createElement('a');
+                    a.href = u.url;
+                    a.target = '_blank';
+                    a.rel = 'noopener noreferrer';
+                    a.textContent = u.site;
+                    note.appendChild(a);
+                });
+                ref.appendChild(note);
+            }
+        }
+    }
+
+    // The pages the search returned and the answer cited. Built with DOM calls,
+    // never innerHTML, since titles come from the open web.
+    function khSourceList(sources) {
+        const good = (Array.isArray(sources) ? sources : []).filter(function (s) {
+            return s && typeof s.url === 'string' && khOfficial(s.url);
+        });
+        if (!good.length) return null;
+        const box = document.createElement('div');
+        box.className = 'kh-sources';
+        const h = document.createElement('h5');
+        h.textContent = 'Sources consulted';
+        box.appendChild(h);
+        const ol = document.createElement('ol');
+        good.forEach(function (s) {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = s.url;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.textContent = (typeof s.title === 'string' && s.title.trim()) || khOfficial(s.url);
+            const site = document.createElement('span');
+            site.className = 'site';
+            site.textContent = khOfficial(s.url);
+            li.appendChild(a);
+            li.appendChild(site);
+            ol.appendChild(li);
+        });
+        box.appendChild(ol);
+        return box;
+    }
+
+    // Shown under every in-scope answer. It is written here, not by the model,
+    // so it cannot be dropped or reworded.
+    function khNote() {
+        const p = document.createElement('p');
+        p.className = 'kh-note';
+        p.innerHTML = 'Legal information, not legal advice. AI-generated and may be wrong or out of date ' +
+            '&mdash; confirm it in the official source. For your own case, see a licensed immigration ' +
+            'attorney or a <a href="https://www.justice.gov/eoir/recognized-organizations-and-accredited-representatives-roster-state-and-city" ' +
+            'target="_blank" rel="noopener noreferrer">DOJ-accredited representative</a>.';
+        return p;
+    }
+
+    // ── thread ──
+    function khScroll() { khThread.scrollTop = khThread.scrollHeight; }
+
+    const KH_CHIPS = [
+        'What are the eligibility requirements for naturalization?',
+        'How does the H-1B cap and registration process work?',
+        'What are the latest USCIS policy updates and news releases?',
+        'Which immigration bills and proposed rules are under consideration?'
+    ];
+    // One builder for the empty state, used on load and by "New", so the two
+    // can never drift apart.
+    function khWelcome() {
+        khInner.innerHTML =
+            '<div class="welcome" id="khWelcome">' +
+            '<h1>' + KH_NAME + '</h1>' +
+            '<p class="tag">Here to help you find the source.</p>' +
+            '<p class="lede">Ask a US immigration law question. You get a plain answer with the official ' +
+            'source cited &mdash; USCIS, the INA, 8 CFR, the Federal Register, and what is pending in Congress.</p>' +
+            '<p class="notice"><strong>Not legal advice.</strong> This guide does not provide legal advice ' +
+            'or assess your case. It only helps you find the authentic sources for laws that are in force ' +
+            'or under consideration. For your own situation, speak to a licensed immigration attorney.</p>' +
+            '<div class="chips">' +
+            KH_CHIPS.map(function (q) {
+                return '<button class="chip" onclick="khFill(this.textContent)">' + khEsc(q) + '</button>';
+            }).join('') +
+            '</div></div>';
+    }
+
+    function khAdd(role, html) {
+        var w = document.getElementById('khWelcome');
+        if (w) w.remove();
+        var el = document.createElement('div');
+        el.className = 'msg ' + role;
+        el.innerHTML = role === 'user'
+            ? '<div class="bubble"></div>'
+            : '<div class="who"><i class="fas fa-scale-balanced"></i>' + KH_NAME + '</div><div class="body">' + html + '</div>';
+        if (role === 'user') el.querySelector('.bubble').textContent = html;   // text, never markup
+        khInner.appendChild(el);
+        khScroll();
+        return el;
+    }
+
+    function khNew() {
+        if (khBusy) return;
+        khHistory = [];
+        khWelcome();
+        khCount.textContent = HINT;
+        khQ.focus();
+    }
+
+    // ── send ──
+    async function khSubmit() {
+        if (khBusy) return;
+        const question = khQ.value.trim();
+        if (!question) { khQ.focus(); return; }
+
+        khAdd('user', question);
+        khQ.value = ''; khGrow(); khCount.textContent = HINT;
+
+        khBusy = true; khBtn.disabled = true;
+        const pending = khAdd('bot', '<div class="dots"><i></i><i></i><i></i></div>');
+        const slot = pending.querySelector('.body');
+
+        try {
+            const res = await fetch(KH_API, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    question: question,
+                    topic: document.getElementById('khTopic').value,
+                    history: khHistory.slice(-KH_TURNS)
+                })
+            });
+            const data = await res.json().catch(function () { return {}; });
+
+            if (data.answer) {
+                var html = khRender(data.answer);
+                if (data.truncated) {
+                    html += '<p class="kh-warn">This answer was cut off before it finished. ' +
+                            'Ask a narrower question to get the rest.</p>';
+                }
+                slot.innerHTML = html;
+                if (!data.outOfScope) {
+                    khLinkSources(slot);
+                    const list = khSourceList(data.sources);
+                    if (list) slot.appendChild(list);
+                    slot.appendChild(khNote());
+                    // Out-of-scope turns are not kept, so they cannot steer a follow-up.
+                    khHistory.push({ role: 'user', content: question },
+                                   { role: 'assistant', content: data.answer });
+                }
+            } else {
+                slot.innerHTML = '<p class="kh-err">' +
+                    khEsc(data.message || 'Something went wrong. Please try again.') + '</p>';
+            }
+            if (typeof data.remaining === 'number') {
+                khCount.textContent = data.remaining + ' question' +
+                    (data.remaining === 1 ? '' : 's') + ' left today';
+            }
+        } catch (err) {
+            slot.innerHTML = '<p class="kh-err">Could not reach ' + KH_NAME + '. ' +
+                             'Check your connection and try again.</p>';
+        } finally {
+            khBusy = false; khBtn.disabled = false; khScroll(); khQ.focus();
+        }
+    }
+
+    khWelcome();
+    khQ.focus();
+</script>
+</body>
+</html>
