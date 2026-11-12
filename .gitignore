@@ -1,3 +1,7 @@
 # Local only, never published to GitHub
 backup/
 .claude/
+# Worker source and unpublished drafts live in D:\Personal, outside this
+# repo, so they can never be served. This is a guard in case a copy ever
+# lands back in here.
+Immigration Salahkaar/
