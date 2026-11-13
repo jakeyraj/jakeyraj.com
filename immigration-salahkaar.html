@@ -267,13 +267,6 @@
         .btn.alt { background: transparent; border: 1px solid var(--border); color: var(--text); }
         .btn:hover { transform: translateY(-2px); }
         .btn.alt:hover { border-color: var(--primary); color: var(--primary); }
-        .sharebox {
-            width: 100%; min-height: 150px; margin-top: 0.75rem; resize: vertical;
-            background: var(--bg-card2); color: var(--text-muted);
-            border: 1px solid var(--border); border-radius: 8px; padding: 0.9rem 1rem;
-            font-family: 'Inter', sans-serif; font-size: 0.85rem; line-height: 1.7;
-        }
-        .sharebox:focus { outline: none; border-color: var(--primary); }
         .close { background: none; border: none; color: var(--text-muted); font-size: 1.3rem; cursor: pointer; line-height: 1; }
         .close:hover { color: var(--primary); }
         .build {
@@ -406,13 +399,9 @@
             <button class="ghost" id="khNewBtn" onclick="khNew()" title="Start a new conversation">
                 <i class="fas fa-rotate-left"></i> New
             </button>
-            <!-- A real link, not a scripted window.open: anchors are never
-                 popup-blocked. href is filled in from KH_SHARE_URL on load. -->
-            <a class="ghost share" id="khShareLink" href="https://www.linkedin.com/feed/"
-               target="_blank" rel="noopener noreferrer" onclick="return khShare(event)"
-               title="Share Immigration-Salahkaar on LinkedIn">
-                <i class="fab fa-linkedin"></i> Share
-            </a>
+            <button class="ghost" onclick="khCopyLink(this)" title="Copy the link to this page">
+                <i class="fas fa-link"></i> Copy link
+            </button>
             <button class="ghost" onclick="khSheet(true)">About</button>
         </div>
     </div>
@@ -534,22 +523,11 @@
         what didn&rsquo;t, and which questions it got wrong.</p>
         <div class="btns">
             <a href="index.html#contact" class="btn"><i class="fas fa-envelope" style="margin-right:0.45rem"></i>Send me feedback</a>
-            <a class="btn alt" id="khShareLink2" href="https://www.linkedin.com/feed/"
-               target="_blank" rel="noopener noreferrer" onclick="return khShare(event)">
-                <i class="fab fa-linkedin" style="margin-right:0.45rem"></i>Share on LinkedIn</a>
             <a href="index.html" class="btn alt"><i class="fas fa-arrow-left" style="margin-right:0.45rem"></i>Back to site</a>
         </div>
 
-        <h3>The post text</h3>
-        <p>Share puts this on your clipboard. If your phone&rsquo;s share sheet drops it,
-        or LinkedIn opens an empty post, paste it from here.</p>
-        <textarea class="sharebox" id="khShareBox" readonly aria-label="LinkedIn post text"></textarea>
-        <div class="btns">
-            <button class="btn alt" onclick="khCopyBox(this)">Copy post text</button>
-        </div>
-
         <p class="build">
-            Build <span id="khBuild">2026-11-12 17:54 UTC</span><br>
+            Build <span id="khBuild">2026-11-13 17:44 UTC</span><br>
             Seeing something stale? <a onclick="khReloadFresh()">Reload the newest version</a>
             &mdash; this page is cached for up to 10 minutes.
         </p>
@@ -592,21 +570,6 @@
     function khSheet(open) { document.getElementById('khModal').classList.toggle('open', open); }
 
     // ── sharing ──
-    const KH_SHARE_TEXT =
-        "Came across Immigration-Salahkaar, an AI guide to US immigration law sources built by " +
-        "Jakey Raj Rajpal, FCCA.\n\n" +
-        "Ask an immigration question and it answers in plain English with the official source " +
-        "cited. INA, 8 CFR, the USCIS Policy Manual, the Federal Register, bills in Congress. " +
-        "It keeps what is in force apart from what is only proposed.\n\n" +
-        "It is legal information, not legal advice. Useful for finding where the rule is " +
-        "actually written:\n\n" +
-        "https://www.jakeyraj.com/immigration-salahkaar.html\n\n" +
-        "#ImmigrationSalahkaar #Immigration #USCIS #ImmigrationLaw";
-
-    // Prefills the composer on desktop web. The phone app ignores the parameter.
-    const KH_SHARE_URL =
-        "https://www.linkedin.com/feed/?shareActive=true&text=" + encodeURIComponent(KH_SHARE_TEXT);
-
     let khToastTimer;
     function khToast(message) {
         const t = document.getElementById('khToast');
@@ -637,69 +600,18 @@
         } catch (e) { return false; }
     }
 
-    // Fill the About panel's copy of the post from the same constant, so the two
-    // can never drift apart.
-    document.getElementById('khShareBox').value = KH_SHARE_TEXT;
-
-    async function khCopyBox(btn) {
-        const ok = await khCopy(KH_SHARE_TEXT);
+    // Copy link, deliberately not a social share. This tool is kept quiet:
+    // it is passed to one person who needs it, not broadcast.
+    async function khCopyLink(btn) {
+        const url = location.origin + location.pathname;
+        const ok = await khCopy(url);
         if (ok) {
             const was = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-check" style="margin-right:0.45rem"></i>Copied';
-            setTimeout(function () { btn.innerHTML = was; }, 2500);
+            btn.innerHTML = '<i class="fas fa-check"></i> Copied';
+            setTimeout(function () { btn.innerHTML = was; }, 2200);
         } else {
-            // Nothing automatic worked, so select it and let them copy by hand.
-            const box = document.getElementById('khShareBox');
-            box.focus(); box.select();
-            khToast('Select all and copy manually — your browser blocked the automatic copy.');
+            khToast('Could not copy automatically. The link is ' + url);
         }
-    }
-
-    // Point both share links at the prefill URL. Done here so the long encoded
-    // URL is never duplicated in the markup.
-    document.getElementById('khShareLink').href = KH_SHARE_URL;
-    document.getElementById('khShareLink2').href = KH_SHARE_URL;
-
-    // Whether the OS share sheet is worth using. navigator.share exists on
-    // Windows 11 desktop browsers too, where the sheet offers Nearby Sharing,
-    // Teams and Outlook but no LinkedIn, so its presence proves nothing.
-    // Only a real phone or tablet should bypass LinkedIn's own prefill URL.
-    function khIsMobile() {
-        const uad = navigator.userAgentData;
-        if (uad && typeof uad.mobile === 'boolean') return uad.mobile;   // Chromium
-        const ua = navigator.userAgent || '';
-        if (/Android|iPhone|iPod|IEMobile|Opera Mini/i.test(ua)) return true;
-        // iPadOS reports itself as a Mac, and is told apart by the touch points.
-        return /iPad/i.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
-    }
-
-    // Everything that needs the click's user activation must run before the
-    // first await. An await ends the activation, after which the browser blocks
-    // window.open and navigator.share rejects. That is why this is not async.
-    function khShare(e) {
-        // Started, deliberately not awaited: writeText is invoked synchronously
-        // while the gesture is still live, and the toast catches up later.
-        const viaSheet = !!(navigator.share && khIsMobile());
-        khCopy(KH_SHARE_TEXT).then(function (copied) {
-            if (!copied) { khToast('Open About to copy the post text.'); return; }
-            khToast(viaSheet
-                ? 'Post copied too, in case the share sheet drops it.'
-                : 'LinkedIn opened with the post written. It is on your clipboard as well.');
-        });
-
-        if (viaSheet) {
-            e.preventDefault();                 // use the OS sheet, not the link
-            navigator.share({ title: KH_NAME, text: KH_SHARE_TEXT })
-                .catch(function (err) {
-                    if (err && err.name === 'AbortError') return;   // dismissed, say nothing
-                    khToast('Could not open the share sheet. The post is on your clipboard ' +
-                            '— open LinkedIn and paste it.');
-                });
-            return false;
-        }
-
-        // No share sheet, so let the link do its own job. Nothing to block.
-        return true;
     }
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') khSheet(false);
