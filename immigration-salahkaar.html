@@ -1021,6 +1021,21 @@
     }
 
     // ── send ──
+    // \u2500\u2500 analytics \u2500\u2500
+    // Counts only. The question text is NEVER sent: people type personal
+    // detail whatever a page asks of them, and Analytics forbids personal
+    // data regardless. Topic, a length band and the outcome are enough to
+    // show what to improve.
+    const KH_TOOL = 'immigration-salahkaar';
+    function khBand(n) { return n < 60 ? 'short' : n < 160 ? 'medium' : 'long'; }
+    function khTrack(name, params) {
+        try {
+            if (typeof gtag === 'function') {
+                gtag('event', name, Object.assign({ tool: KH_TOOL }, params || {}));
+            }
+        } catch (e) { /* analytics must never break the tool */ }
+    }
+
     async function khSubmit() {
         if (khBusy) return;
         const question = khQ.value.trim();
@@ -1028,6 +1043,13 @@
 
         khAdd('user', question);
         khQ.value = ''; khGrow(); khCount.textContent = HINT;
+
+        const khMeta = {
+            topic: document.getElementById('khTopic').value,
+            length: khBand(question.length),
+            follow_up: khHistory.length > 0
+        };
+        khTrack('ask_submitted', khMeta);
 
         khBusy = true; khBtn.disabled = true;
         const pending = khAdd('bot', '<div class="dots"><i></i><i></i><i></i></div>');
@@ -1061,9 +1083,17 @@
                     khHistory.push({ role: 'user', content: question },
                                    { role: 'assistant', content: data.answer });
                 }
+                khTrack(data.outOfScope ? 'ask_out_of_scope' : 'ask_answered',
+                        Object.assign({}, khMeta, {
+                            truncated: !!data.truncated,
+                            sources: (data.sources || []).length
+                        }));
             } else {
                 slot.innerHTML = '<p class="kh-err">' +
                     khEsc(data.message || 'Something went wrong. Please try again.') + '</p>';
+                khTrack('ask_failed', Object.assign({}, khMeta, {
+                    reason: data.error || 'no_answer'
+                }));
             }
             if (typeof data.remaining === 'number') {
                 khCount.textContent = data.remaining + ' question' +
@@ -1072,6 +1102,7 @@
         } catch (err) {
             slot.innerHTML = '<p class="kh-err">Could not reach ' + KH_NAME + '. ' +
                              'Check your connection and try again.</p>';
+            khTrack('ask_failed', Object.assign({}, khMeta, { reason: 'network' }));
         } finally {
             khBusy = false; khBtn.disabled = false; khScroll(); khQ.focus();
         }

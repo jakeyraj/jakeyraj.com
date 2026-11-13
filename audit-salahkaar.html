@@ -468,7 +468,7 @@
         </div>
 
         <p class="build">
-            Build <span id="khBuild">2026-10-19 15:25 UTC</span><br>
+            Build <span id="khBuild">2026-11-13 17:04 UTC</span><br>
             Seeing something stale? <a onclick="khReloadFresh()">Reload the newest version</a>
             &mdash; this page is cached for up to 10 minutes.
         </p>
@@ -827,6 +827,21 @@
     }
 
     // ── send ──
+    // \u2500\u2500 analytics \u2500\u2500
+    // Counts only. The question text is NEVER sent: people type personal
+    // detail whatever a page asks of them, and Analytics forbids personal
+    // data regardless. Topic, a length band and the outcome are enough to
+    // show what to improve.
+    const KH_TOOL = 'audit-salahkaar';
+    function khBand(n) { return n < 60 ? 'short' : n < 160 ? 'medium' : 'long'; }
+    function khTrack(name, params) {
+        try {
+            if (typeof gtag === 'function') {
+                gtag('event', name, Object.assign({ tool: KH_TOOL }, params || {}));
+            }
+        } catch (e) { /* analytics must never break the tool */ }
+    }
+
     async function khSubmit() {
         if (khBusy) return;
         const question = khQ.value.trim();
@@ -834,6 +849,13 @@
 
         khAdd('user', question);
         khQ.value = ''; khGrow(); khCount.textContent = HINT;
+
+        const khMeta = {
+            framework: document.getElementById('khFramework').value,
+            length: khBand(question.length),
+            follow_up: khHistory.length > 0
+        };
+        khTrack('ask_submitted', khMeta);
 
         khBusy = true; khBtn.disabled = true;
         const pending = khAdd('bot', '<div class="dots"><i></i><i></i><i></i></div>');
@@ -865,13 +887,20 @@
                     khCount.textContent = data.remaining + ' question' +
                         (data.remaining === 1 ? '' : 's') + ' left today';
                 }
+                khTrack('ask_answered', Object.assign({}, khMeta, {
+                    truncated: !!data.truncated
+                }));
             } else {
                 slot.innerHTML = '<p class="kh-err">' +
                     khEsc(data.message || 'Something went wrong. Please try again.') + '</p>';
+                khTrack('ask_failed', Object.assign({}, khMeta, {
+                    reason: data.error || 'no_answer'
+                }));
             }
         } catch (err) {
             slot.innerHTML = '<p class="kh-err">Could not reach Audit-Salahkaar. ' +
                              'Check your connection and try again.</p>';
+            khTrack('ask_failed', Object.assign({}, khMeta, { reason: 'network' }));
         } finally {
             khBusy = false; khBtn.disabled = false; khScroll(); khQ.focus();
         }
