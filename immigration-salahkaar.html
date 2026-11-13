@@ -242,7 +242,10 @@
         }
         .gate-lede { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.25rem; }
         .gate-terms { max-height: 46vh; overflow-y: auto; padding-right: 0.5rem; margin-bottom: 1.25rem; }
-        .gate-terms ol { margin: 0; padding-left: 1.25rem; }
+        /* 2.3rem, not 1.25: at eleven clauses the markers are two digits, and
+           the scrolling container clips anything hanging outside, so "10." and
+           "11." lost their leading 1. */
+        .gate-terms ol { margin: 0; padding-left: 2.3rem; }
         .gate-terms li { color: var(--text-muted); font-size: 0.88rem; line-height: 1.75; margin-bottom: 0.85rem; }
         .gate-terms li strong { color: var(--text); }
         .gate-urgent {
@@ -629,7 +632,7 @@
         <a href="#" onclick="khShowTerms();return false;" style="color:var(--primary)">Read them again</a>.</p>
 
         <p class="build">
-            Build <span id="khBuild">2026-11-13 17:52 UTC</span><br>
+            Build <span id="khBuild">2026-11-13 17:54 UTC</span><br>
             Seeing something stale? <a onclick="khReloadFresh()">Reload the newest version</a>
             &mdash; this page is cached for up to 10 minutes.
         </p>
