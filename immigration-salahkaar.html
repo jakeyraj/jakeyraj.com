@@ -159,6 +159,11 @@
         .kh-srcnote a { color: var(--primary); text-decoration: none; }
         .kh-srcnote a:hover { text-decoration: underline; }
 
+        .kh-stage {
+            color: var(--text-muted); font-size: 0.85rem; margin-left: 0.6rem;
+            vertical-align: 2px;
+        }
+
         .kh-warn {
             color: #fbbf24; font-size: 0.85rem; line-height: 1.75;
             border-left: 2px solid #fbbf24; padding-left: 0.9rem; margin-top: 1rem;
@@ -1036,6 +1041,24 @@
         } catch (e) { /* analytics must never break the tool */ }
     }
 
+    // Timings come from measured runs: the scope check returns in about a
+    // second, the searches take most of the middle, and the writing lands
+    // between 14 and 20 seconds. Each line is what is genuinely happening,
+    // so the wait reads as work rather than a hang.
+    const KH_STAGES = [
+        [2200,  'Searching official sources'],
+        [8000,  'Reading what it found'],
+        [16000, 'Writing the answer']
+    ];
+    function khProgress(slot) {
+        const label = slot.querySelector('.kh-stage');
+        if (!label) return function () {};
+        const timers = KH_STAGES.map(function (st) {
+            return setTimeout(function () { label.textContent = st[1] + '\u2026'; }, st[0]);
+        });
+        return function () { timers.forEach(clearTimeout); };
+    }
+
     async function khSubmit() {
         if (khBusy) return;
         const question = khQ.value.trim();
@@ -1052,8 +1075,10 @@
         khTrack('ask_submitted', khMeta);
 
         khBusy = true; khBtn.disabled = true;
-        const pending = khAdd('bot', '<div class="dots"><i></i><i></i><i></i></div>');
+        const pending = khAdd('bot', '<div class="dots"><i></i><i></i><i></i></div>' +
+                                     '<span class="kh-stage">Checking the question\u2026</span>');
         const slot = pending.querySelector('.body');
+        const khStopProgress = khProgress(slot);
 
         try {
             const res = await fetch(KH_API, {
@@ -1104,6 +1129,7 @@
                              'Check your connection and try again.</p>';
             khTrack('ask_failed', Object.assign({}, khMeta, { reason: 'network' }));
         } finally {
+            khStopProgress();
             khBusy = false; khBtn.disabled = false; khScroll(); khQ.focus();
         }
     }
